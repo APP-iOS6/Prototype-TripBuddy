@@ -19,7 +19,7 @@ struct HomeView: View {
                     }
                     
                     Text("가르마 님, 이런 여행지는 어때요?")
-                        .font(.custom("Pretendard-Bold", size: 18))
+                        .font(.custom("Pretendard-Bold", size: 20))
                         .padding(.top, 16)
                     
                     ScrollView(.horizontal) {
@@ -102,11 +102,11 @@ struct HomeView: View {
                     .padding(.bottom, 16)
                     
                     Text("발길을 사로잡는 곳")
-                        .font(.custom("Pretendard-Bold", size: 18))
+                        .font(.custom("Pretendard-Bold", size: 20))
                         .padding(.bottom, 1)
                     
                     Text("지금 가장 인기 있는 여행지만 모았어요")
-                        .font(.custom("Pretendard-Medium", size: 13))
+                        .font(.custom("Pretendard-Medium", size: 14))
                         .foregroundStyle(.gray)
                     
                     ScrollView(.horizontal) {
@@ -124,7 +124,7 @@ struct HomeView: View {
                                             
                                             HStack {
                                                 Text("제주")
-                                                    .font(.custom("Pretendard-Bold", size: 16))
+                                                    .font(.custom("Pretendard-Bold", size: 18))
                                                     .foregroundStyle(.white)
                                                 
                                                 Spacer()
@@ -149,7 +149,7 @@ struct HomeView: View {
                                             
                                             HStack {
                                                 Text("양양")
-                                                    .font(.custom("Pretendard-Bold", size: 16))
+                                                    .font(.custom("Pretendard-Bold", size: 18))
                                                     .foregroundStyle(.white)
                                                 
                                                 Spacer()
@@ -174,7 +174,7 @@ struct HomeView: View {
                                             
                                             HStack {
                                                 Text("대전")
-                                                    .font(.custom("Pretendard-Bold", size: 16))
+                                                    .font(.custom("Pretendard-Bold", size: 18))
                                                     .foregroundStyle(.white)
                                                 
                                                 Spacer()
@@ -190,11 +190,11 @@ struct HomeView: View {
                     .padding(.bottom, 16)
                     
                     Text("함께하는 여정")
-                        .font(.custom("Pretendard-Bold", size: 18))
+                        .font(.custom("Pretendard-Bold", size: 20))
                         .padding(.bottom, 1)
                     
                     Text("여행을 함께할 동행자를 찾고 있어요")
-                        .font(.custom("Pretendard-Medium", size: 13))
+                        .font(.custom("Pretendard-Medium", size: 14))
                         .foregroundStyle(.gray)
                     
                     VStack(spacing: 16) {

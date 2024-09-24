@@ -25,27 +25,27 @@ struct HomeFeaturedListView: View {
                         .overlay {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("제주")
-                                    .font(.custom("Pretendard-Bold", size: 40))
+                                    .font(.custom("Pretendard-Bold", size: 32))
                                     .foregroundStyle(.white)
                                 
                                 Spacer()
                             }
                             .padding(.leading, -170) // 글자들 왼쪽으로 붙게
-                            .padding(.top, 40)
+                            .padding(.top, 30)
                         }
                                             
                     ScrollView {
                         VStack(spacing: 16) {
                             HStack() {
-                                TagButton(text: "안동", size: 14) {
+                                TagButton(text: "안동", size: 15) {
                                     
                                 }
                                 
-                                TagButton(text: "경주", size: 14) {
+                                TagButton(text: "경주", size: 15) {
                                     
                                 }
                                 
-                                TagButton(text: "서울", size: 14) {
+                                TagButton(text: "서울", size: 15) {
                                     
                                 }
                                 

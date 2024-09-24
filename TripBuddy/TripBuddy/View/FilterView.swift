@@ -57,7 +57,7 @@ struct FilterView: View {
                         .font(.custom("Pretendard-SemiBold", size: 20))
                         .padding(.top, 16)
                         .padding(.horizontal, 8)
-                        .padding(.bottom, -3)
+                        .padding(.bottom, -1)
                     
                     FlowLayout {
                         ForEach(cities, id: \.self) { city in
@@ -70,7 +70,7 @@ struct FilterView: View {
                             }
                         }
                     }
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 30)
                     
                     Text("날짜")
                         .font(.custom("Pretendard-SemiBold", size: 20))
@@ -84,11 +84,12 @@ struct FilterView: View {
                     )
                     .tint(.basic)
                     .datePickerStyle(.graphical)
+                    .padding(.bottom, 15)
                     
                     Text("연령")
                         .font(.custom("Pretendard-SemiBold", size: 20))
                         .padding(.horizontal, 8)
-                        .padding(.bottom, -3)
+                        .padding(.bottom, -1)
                     
                     FlowLayout {
                         ForEach(ages, id: \.self) { age in
@@ -101,13 +102,13 @@ struct FilterView: View {
                             }
                         }
                     }
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 30)
                     
                     
                     Text("성별")
                         .font(.custom("Pretendard-SemiBold", size: 20))
                         .padding(.horizontal, 8)
-                        .padding(.bottom, -3)
+                        .padding(.bottom, -1)
                     
                     FlowLayout {
                         ForEach(Person.allCases, id:\.self) { person in

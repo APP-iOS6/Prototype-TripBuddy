@@ -38,21 +38,21 @@ struct HomeThemeListView: View {
                                 Spacer()
                             }
                             .padding(.leading, -100) // 글자들 왼쪽으로 붙게
-                            .padding(.top, 40)
+                            .padding(.top, 30)
                         }
                                             
                     ScrollView {
                         VStack(spacing: 16) {
                             HStack() {
-                                TagButton(text: "안동", size: 14) {
+                                TagButton(text: "안동", size: 15) {
                                     selectedTag = "안동"
                                 }
                                 
-                                TagButton(text: "경주", size: 14) {
+                                TagButton(text: "경주", size: 15) {
                                     selectedTag = "경주"
                                 }
                                 
-                                TagButton(text: "서울", size: 14) {
+                                TagButton(text: "서울", size: 15) {
                                     selectedTag = "서울"
                                 }
                                 
