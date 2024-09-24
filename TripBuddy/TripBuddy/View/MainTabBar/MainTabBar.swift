@@ -37,6 +37,7 @@ struct MainTabBar: View {
                             Image(systemName: "bubble.fill")
                         }
                     }
+
             }
         }
     }
