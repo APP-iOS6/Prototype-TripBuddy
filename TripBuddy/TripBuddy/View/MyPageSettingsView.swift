@@ -143,67 +143,7 @@ struct TagToggle: View {
     }
 }
 
-// 태그 간격 배치
-struct FlowLayout: Layout {
-    
-    let horizontalSpacing: CGFloat = 10  // 태그 간의 가로 간격
-    let verticalSpacing: CGFloat = 10    // 태그 간의 세로 간격
-    
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        
-        let sizes = subviews.map { $0.sizeThatFits(.unspecified) }
-        
-        var totalHeight: CGFloat = 0
-        var totalWidth: CGFloat = 0
-        
-        var lineHeight: CGFloat = 0
-        var lineWidth: CGFloat = 0
-        
-        for size in sizes {
-            if lineWidth + size.width + horizontalSpacing > proposal.width ?? 0 {  // 가로 간격 추가
-                totalHeight += lineHeight + verticalSpacing  // 세로 간격 추가
-                lineWidth = size.width
-                lineHeight = size.height
-            } else {
-                lineWidth += size.width + horizontalSpacing  // 가로 간격 추가
-                lineHeight = max(lineHeight, size.height)
-            }
-            totalWidth = max(totalWidth, lineWidth)
-        }
-        totalHeight += lineHeight
-        
-        return .init(width: totalWidth, height: totalHeight)
-    }
-    
-    
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        let sizes = subviews.map { $0.sizeThatFits(.unspecified) }
-        
-        var lineX = bounds.minX
-        var lineY = bounds.minY
-        var lineHeight: CGFloat = 0
-        
-        for index in subviews.indices {
-            if lineX + sizes[index].width + horizontalSpacing > (proposal.width ?? 0) {  // 가로 간격 추가
-                lineY += lineHeight + verticalSpacing  // 세로 간격 추가
-                lineHeight = 0
-                lineX = bounds.minX
-            }
-            
-            subviews[index].place(
-                at: .init(
-                    x: lineX + sizes[index].width / 2,
-                    y: lineY + sizes[index].height / 2
-                ),
-                anchor: .center,
-                proposal: ProposedViewSize(sizes[index])
-            )
-            
-            lineHeight = max(lineHeight, sizes[index].height)
-            lineX += sizes[index].width + horizontalSpacing  // 가로 간격 추가
-        }
-    }
-}
+
 
 
 #Preview {
