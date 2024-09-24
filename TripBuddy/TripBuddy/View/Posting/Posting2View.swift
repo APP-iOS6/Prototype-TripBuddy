@@ -58,7 +58,7 @@ struct Posting2View: View {
                     viewModel.step = .option
                 } label: {
                     Text("다음")
-                        .modifier(ButtomModifier(color: .basic, disabled: viewModel.title.isEmpty || viewModel.text.isEmpty))
+                        .modifier(ButtonModifier(color: .basic, disabled: viewModel.title.isEmpty || viewModel.text.isEmpty))
                 }
                 
             }

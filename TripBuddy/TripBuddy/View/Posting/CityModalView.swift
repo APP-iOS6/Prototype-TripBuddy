@@ -31,6 +31,7 @@ struct CityModalView: View {
         VStack {
             //TODO: 검색바 넣어야 됨
             SearchBar(text: $query)
+                .animation(.easeInOut, value: query) 
                 .padding()
             
             List {
@@ -64,24 +65,24 @@ struct SearchBar: View {
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
                 .padding(.horizontal, 10)
-            
-        }.overlay {
-            HStack {
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.gray)
-                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 16)
-                
-                if !isEditing {
-                    Button(action: {
-                        self.text = ""
-                    }) {
-                        Image(systemName: "multiply.circle.fill")
-                            .foregroundColor(.gray)
-                            .padding(.trailing, 8)
+                .overlay {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.gray)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 16)
+                }
+            if !text.isEmpty {
+                if !text.isEmpty {
+                    Button {
+                        withAnimation {
+                            text = ""
+                        }
+                    } label: {
+                        Text("Cancel")
                     }
                 }
             }
+            
         }
     }
 }

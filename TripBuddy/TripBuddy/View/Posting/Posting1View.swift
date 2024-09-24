@@ -55,7 +55,7 @@ struct Posting1View: View {
                     viewModel.step = .text
                 } label: {
                     Text("다음")
-                        .modifier(ButtomModifier(color: .basic, disabled: viewModel.selectedCity.isEmpty))
+                        .modifier(ButtonModifier(color: .basic, disabled: viewModel.selectedCity.isEmpty))
                 }
                 .disabled(viewModel.selectedCity.isEmpty)
                 
@@ -71,7 +71,7 @@ struct Posting1View: View {
     }
 }
 
-struct ButtomModifier: ViewModifier {
+struct ButtonModifier: ViewModifier {
     let color: Color
     let disabled: Bool
     func body(content: Content) -> some View {

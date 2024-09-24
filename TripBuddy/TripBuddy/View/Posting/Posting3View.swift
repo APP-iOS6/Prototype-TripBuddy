@@ -9,8 +9,8 @@ import SwiftUI
 
 
 enum Person: String, CaseIterable {
-    case man = "남성"
     case woman = "여성"
+    case man = "남성"
     case none = "무관"
 }
 
@@ -115,7 +115,7 @@ struct Posting3View: View {
                     //TODO: 글 포스팅 완료 action
                 } label: {
                     Text("다음")
-                        .modifier(ButtomModifier(color: .basic, disabled: viewModel.moneyText.isEmpty || viewModel.selectedTag.isEmpty || viewModel.selectedAge.isEmpty))
+                        .modifier(ButtonModifier(color: .basic, disabled: viewModel.moneyText.isEmpty || viewModel.selectedTag.isEmpty || viewModel.selectedAge.isEmpty))
                 }
                 
                 Spacer()
@@ -125,7 +125,7 @@ struct Posting3View: View {
                     //TODO: 글 포스팅 완료 action
                 } label: {
                     Text("생략")
-                        .modifier(ButtomModifier(color: .secondary, disabled: true))
+                        .modifier(ButtonModifier(color: .secondary, disabled: true))
                 }
             }
             .padding(.horizontal, proxy.size.width * 0.07)
