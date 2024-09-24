@@ -10,6 +10,7 @@ import SwiftUI
 struct MainTabBar: View {
     var body: some View {
         TabView {
+            
             Text("HomeView")
                 .tabItem {
                     Label {
@@ -36,6 +37,8 @@ struct MainTabBar: View {
                         Image(systemName: "bubble.fill")
                     }
                 }
+            
+            
         }
     }
 }
