@@ -44,7 +44,7 @@ struct MainTabBar: View {
                 })
                 .tag(MainTabType.post)
             
-            Text("Chat")
+            ChatView()
                 .tabItem {
                     Label {
                         Text("Chat")
