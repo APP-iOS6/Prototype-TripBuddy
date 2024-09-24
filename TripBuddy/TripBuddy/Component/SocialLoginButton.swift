@@ -47,9 +47,10 @@ struct SocialLoginButton: View {
                 // 텍스트는 중앙에 배치
                 Text(loginText)
                     .foregroundStyle(textColor)
-                    .font(.title2)
+                    .font(.custom("Pretendard-Regular", size: 20))
                     .frame(maxWidth: maxWidth, maxHeight: maxHeight, alignment: .center)
                     .padding()
+                
                 HStack {
                     loginLogo
                         .resizable()

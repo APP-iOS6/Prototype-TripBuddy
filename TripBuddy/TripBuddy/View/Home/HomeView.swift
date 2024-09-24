@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var searchText: String = "" // 검색어를 저장하는 State 변수
+    @State private var searchText: String = "" // 검색어 저장
+    @State private var isShowingFilterView: Bool = false // 필터뷰 띄우기
+    @FocusState private var isSearchFieldFocused: Bool // 검색창 포커스 감지
     
     var body: some View {
         
@@ -243,7 +245,7 @@ struct HomeView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Text("Trip Buddy")
-                            .font(.custom("Pretendard-Bold", size: 20))
+                            .font(.custom("YClover-Bold", size: 20))
                     }
                     
                     ToolbarItem(placement: .topBarTrailing) {
@@ -256,9 +258,18 @@ struct HomeView: View {
                 }
                 .tint(.gray) // 네비게이션 아이템 색상 회색 설정
                 .searchable(text: $searchText, prompt: "원하는 도시를 검색해 보세요.")
+                .focused($isSearchFieldFocused) // 검색 창에 포커스가 맞춰지는지 감지
+                .onChange(of: isSearchFieldFocused) { oldValue, NewValue in
+                    if NewValue {
+                        isShowingFilterView = true // 검색 창이 클릭되면 필터뷰로 이동
+                    }
+                }
+            }
+            // 'isPresented'를 사용한 네비게이션으로 변경
+            .navigationDestination(isPresented: $isShowingFilterView) {
+                FilterView()
             }
         }
-        
     }
 }
 

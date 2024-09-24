@@ -35,9 +35,10 @@ struct FilterView: View {
         VStack {
             HStack {
                 Text("Trip Buddy")
-                    .bold()
-                    .font(.title)
+                    .font(.custom("YClover-Bold", size: 20))
+                
                 Spacer()
+                
                 Button {
                     //TODO: 마이페이지로 넘기기
                 } label: {
@@ -45,16 +46,22 @@ struct FilterView: View {
                         .font(.title)
                         .tint(.secondary)
                 }
-                
             }
+            .padding(.horizontal, 8)
+            
             SearchBar(text: $query)
                 .animation(.easeInOut, value: query) // SearchBar의 애니메이션 적용
+            
             Spacer()
                 .frame(height: 10)
+            
             ScrollView() {
                 VStack(alignment: .leading) {
                     Text("도시")
-                        .font(.title2)
+                        .font(.custom("Pretendard-SemiBold", size: 20))
+                        .padding(.top, 16)
+                        .padding(.horizontal, 8)
+                        .padding(.bottom, -3)
                     
                     FlowLayout {
                         ForEach(cities, id: \.self) { city in
@@ -67,12 +74,12 @@ struct FilterView: View {
                             }
                         }
                     }
-                    
-                    Spacer()
-                        .frame(height: 30)
+                    .padding(.bottom, 20)
                     
                     Text("날짜")
-                        .font(.title2)
+                        .font(.custom("Pretendard-SemiBold", size: 20))
+                        .padding(.bottom, -25)
+                        .padding(.horizontal, 8)
                     
                     DatePicker(
                         "날짜",
@@ -82,10 +89,10 @@ struct FilterView: View {
                     .tint(.basic)
                     .datePickerStyle(.graphical)
                     
-                    
-                    
                     Text("연령")
-                        .font(.title2)
+                        .font(.custom("Pretendard-SemiBold", size: 20))
+                        .padding(.horizontal, 8)
+                        .padding(.bottom, -3)
                     
                     FlowLayout {
                         ForEach(ages, id: \.self) { age in
@@ -98,12 +105,13 @@ struct FilterView: View {
                             }
                         }
                     }
+                    .padding(.bottom, 20)
                     
-                    Spacer()
-                        .frame(height: 30)
                     
                     Text("성별")
-                        .font(.title2)
+                        .font(.custom("Pretendard-SemiBold", size: 20))
+                        .padding(.horizontal, 8)
+                        .padding(.bottom, -3)
                     
                     FlowLayout {
                         ForEach(Person.allCases, id:\.self) { person in
@@ -116,10 +124,10 @@ struct FilterView: View {
                             }
                         }
                     }
+                    .padding(.bottom, 16)
                     
                     
                 }//VStack 끝
-                
                 
             }//스크롤뷰 끝
             
@@ -129,15 +137,9 @@ struct FilterView: View {
                 Text("적용하기")
                     .modifier(ButtonModifier(color: .basic, disabled: false))
             }
-            
         }
         .padding(.horizontal)
     }
-    
-    
-    
-    
-    
     
     private func cityTapped(_ city: String) {
         if selcetedCities.contains(where: { $0 == city }) {
@@ -156,11 +158,11 @@ struct FilterView: View {
     }
 }
 
-
 struct FilterTagModifier: ViewModifier {
     let selected: Bool
     func body(content: Content) -> some View {
         content
+            .font(.custom("Pretendard-Light", size: 16))
             .padding(.horizontal, 14)
             .padding(.vertical, 6)
             .background(
@@ -168,7 +170,7 @@ struct FilterTagModifier: ViewModifier {
                     .fill(selected ? Color.basic : Color.white)
                     .overlay(
                         RoundedRectangle(cornerRadius: 18)
-                            .stroke(selected ? Color.clear : Color.gray, lineWidth: 1)
+                            .stroke(selected ? Color.clear : Color(.systemGray4), lineWidth: 1)
                     )
             )
             .foregroundColor(selected ? Color.white : Color.black)
