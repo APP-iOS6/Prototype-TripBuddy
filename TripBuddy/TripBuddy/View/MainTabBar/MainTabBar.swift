@@ -9,37 +9,36 @@ import SwiftUI
 
 struct MainTabBar: View {
     var body: some View {
-        NavigationStack {
-            TabView {
-                HomeView()
-                    .tabItem {
-                        Label {
-                            Text("Home")
-                        } icon: {
-                            Image(systemName: "house")
-                        }
+        TabView {
+            HomeView()
+                .tabItem {
+                    Label {
+                        Text("Home")
+                    } icon: {
+                        Image(systemName: "house")
                     }
-                
-                Text("Post")
-                    .tabItem {
-                        Label {
-                            Text("Post")
-                        } icon: {
-                            Image(systemName: "plus.app")
-                        }
+                }
+            
+            PostingContainerView()
+                .tabItem {
+                    Label {
+                        Text("Post")
+                    } icon: {
+                        Image(systemName: "plus.app")
                     }
-                
-                Text("Chat")
-                    .tabItem {
-                        Label {
-                            Text("Chat")
-                        } icon: {
-                            Image(systemName: "bubble.fill")
-                        }
+                }
+            
+            Text("Chat")
+                .tabItem {
+                    Label {
+                        Text("Chat")
+                    } icon: {
+                        Image(systemName: "bubble.fill")
                     }
-
-            }
+                }
+            
         }
+        
     }
 }
 
