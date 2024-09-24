@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var searchText: String = "" // 검색어를 저장하는 State 변수
+    @State private var isShowingFilterView: Bool = false // 필터뷰 띄우기
     
     var body: some View {
-        
-        
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading) {
+                    NavigationLink(destination: FilterView()) {
+                        CustomButton()
+                    }
+                    
                     Text("가르마 님, 이런 여행지는 어때요?")
                         .font(.custom("Pretendard-Bold", size: 18))
                         .padding(.top, 16)
@@ -243,7 +245,7 @@ struct HomeView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Text("Trip Buddy")
-                            .font(.custom("Pretendard-Bold", size: 20))
+                            .font(.custom("YClover-Bold", size: 20))
                     }
                     
                     ToolbarItem(placement: .topBarTrailing) {
@@ -251,14 +253,13 @@ struct HomeView: View {
                             // 마이페이지뷰 이동
                         } label: {
                             Image(systemName: "person.circle")
+                                .font(.title2)
                         }
                     }
                 }
                 .tint(.gray) // 네비게이션 아이템 색상 회색 설정
-                .searchable(text: $searchText, prompt: "원하는 도시를 검색해 보세요.")
             }
         }
-        
     }
 }
 

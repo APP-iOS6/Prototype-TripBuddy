@@ -92,3 +92,22 @@ struct TagButton: View {
         }
     }
 }
+
+struct CustomButton: View {
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.gray)
+            
+            Text("Search ...")
+                .foregroundColor(.gray)
+            Spacer() // 텍스트와 아이콘이 왼쪽에 붙도록 오른쪽에 여백을 추가
+        }
+        .padding(7)
+        .background(Color(.systemGray6))
+        .cornerRadius(8)
+        .frame(maxWidth: .infinity) // 버튼의 가로를 화면 전체로 설정
+        
+    }
+}
