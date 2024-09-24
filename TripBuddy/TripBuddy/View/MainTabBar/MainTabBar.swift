@@ -28,7 +28,7 @@ struct MainTabBar: View {
                     }
                 }
             
-            Text("Chat")
+            ChatView()
                 .tabItem {
                     Label {
                         Text("Chat")

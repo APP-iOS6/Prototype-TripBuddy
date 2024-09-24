@@ -16,14 +16,24 @@ struct ChatView: View {
     @State private var selectedSide: SideOfTheForce = .join
     @State private var searchText = ""
     
+    // 세그먼트 2개로 나눌려고 일단 2개로 선언;
+    
     var filteredChatRooms: [ChatRoom] {
         if searchText.isEmpty {
             return chatRooms
         } else {
-            return chatRooms.filter { $0.name.contains(searchText) }
+            return chatRooms.filter { $0.tripName.contains(searchText) }
         }
     }
-
+    
+    var filteredChatRooms2: [ChatRoom] {
+        if searchText.isEmpty {
+            return chatRooms2
+        } else {
+            return chatRooms2.filter { $0.tripName.contains(searchText) }
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -33,9 +43,15 @@ struct ChatView: View {
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
-
+                
                 SearchFieldView(query: $searchText)
-                ChatRoomListView(filteredChatRooms: filteredChatRooms)
+                
+                switch selectedSide {
+                    case .join:
+                        ChatRoomListView(filteredChatRooms: filteredChatRooms)
+                    case .recruit:
+                        ChatRoomListView(filteredChatRooms: filteredChatRooms2)
+                }
             }
             .navigationTitle("채팅")
         }
@@ -45,3 +61,5 @@ struct ChatView: View {
 #Preview {
     ChatView()
 }
+
+
