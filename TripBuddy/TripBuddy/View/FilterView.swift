@@ -30,27 +30,23 @@ struct FilterView: View {
     @State private var direction: SwipeDirection = .none
     @State private var shiftOffset: CGFloat = 0
     
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack {
             HStack {
-                Text("Trip Buddy")
-                    .font(.custom("YClover-Bold", size: 20))
-                
-                Spacer()
-                
                 Button {
-                    //TODO: 마이페이지로 넘기기
+                    dismiss() // 뒤로 가기 동작
                 } label: {
-                    Image(systemName: "person.crop.circle")
-                        .font(.title)
-                        .tint(.secondary)
+                    Image(systemName: "chevron.backward")
+                        .font(.title2)
+                        .tint(.gray)
                 }
+                
+                SearchBar(text: $query)
+                    .animation(.easeInOut, value: query) // SearchBar의 애니메이션 적용
             }
-            .padding(.horizontal, 8)
-            
-            SearchBar(text: $query)
-                .animation(.easeInOut, value: query) // SearchBar의 애니메이션 적용
+            .padding(.leading, 8)
             
             Spacer()
                 .frame(height: 10)
@@ -139,7 +135,9 @@ struct FilterView: View {
             }
         }
         .padding(.horizontal)
+        .navigationBarBackButtonHidden(true)
     }
+    
     
     private func cityTapped(_ city: String) {
         if selcetedCities.contains(where: { $0 == city }) {

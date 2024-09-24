@@ -138,6 +138,7 @@ struct HomeThemeListView: View {
                     dismiss() // 버튼을 누르면 이전 화면으로 이동
                 } label: {
                     Image(systemName: "chevron.left") // 화살표 모양 아이콘
+                        .font(.title2)
                 }
             }
             
@@ -145,7 +146,8 @@ struct HomeThemeListView: View {
                 Button {
                     // 마이페이지뷰 이동
                 } label: {
-                    Label("MyPage", systemImage: "person.circle")
+                    Image(systemName: "person.circle")
+                        .font(.title2)
                 }
             }
         }
