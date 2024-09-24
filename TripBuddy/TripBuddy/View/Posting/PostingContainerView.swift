@@ -7,12 +7,78 @@
 
 import SwiftUI
 
+enum PostingStep: Int {
+    case date = 1
+    case text = 2
+    case option = 3
+}
+
 struct PostingContainerView: View {
+    
+    
+    @StateObject private var viewModel: PostingViewModel = .init()
+    
+    
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            
+            HStack(alignment: .center) {
+                if viewModel.step != .date {
+                    Button {
+                        handleback()
+                    } label: {
+                        Image(systemName: "arrow.backward")
+                            .tint(.primary)
+                    }
+                }
+                
+                Spacer()
+                
+                Text("동행 작성")
+                    .font(.title2)
+                
+                Spacer()
+                
+            }
+            .padding()
+            
+            ProgressView(value: viewModel.progress, total: 1.0)
+                .progressViewStyle(.linear)
+                .padding(.horizontal, 24)
+                .padding(.bottom, 12)
+                .tint(.basic)
+                .animation(.easeInOut, value: viewModel.progress)
+            
+            VStack {
+                switch viewModel.step {
+                case .date:
+                    Posting1View()
+                        .transition(.opacity)
+                case .text:
+                    Posting2View()
+                        .transition(.opacity)
+                case .option:
+                    Posting3View()
+                }
+            }.environmentObject(viewModel)
+        }
+        .animation(.smooth, value: viewModel.step)
+    }
+    
+    func handleback() {
+        switch viewModel.step {
+        case .date:
+            return
+        case .text:
+            viewModel.step = .date
+        case .option:
+            viewModel.step = .text
+        }
     }
 }
 
 #Preview {
     PostingContainerView()
+        .environmentObject(PostingViewModel())
 }
