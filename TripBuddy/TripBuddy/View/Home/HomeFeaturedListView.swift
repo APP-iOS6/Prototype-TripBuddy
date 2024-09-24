@@ -25,32 +25,17 @@ struct HomeFeaturedListView: View {
                         .overlay {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("제주")
-                                    .font(.custom("Pretendard-Bold", size: 32))
+                                    .font(.custom("Pretendard-Bold", size: 40))
                                     .foregroundStyle(.white)
                                 
                                 Spacer()
                             }
                             .padding(.leading, -170) // 글자들 왼쪽으로 붙게
-                            .padding(.top, 30)
+                            .padding(.top, 40)
                         }
                                             
                     ScrollView {
                         VStack(spacing: 16) {
-                            HStack() {
-                                TagButton(text: "안동", size: 15) {
-                                    
-                                }
-                                
-                                TagButton(text: "경주", size: 15) {
-                                    
-                                }
-                                
-                                TagButton(text: "서울", size: 15) {
-                                    
-                                }
-                                
-                                Spacer()
-                            }
                             
                             travelPostButton(
                                 title: "스노클링 명소 다 찍어보실 분",
@@ -134,9 +119,7 @@ struct HomeFeaturedListView: View {
             }
             
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    // 마이페이지뷰 이동
-                } label: {
+                NavigationLink(destination: MyPageView(viewModel: UserProfileViewModel())) {
                     Image(systemName: "person.circle")
                         .font(.title2)
                 }

@@ -17,6 +17,7 @@ struct HomeView: View {
                     NavigationLink(destination: FilterView()) {
                         CustomButton()
                     }
+                    .padding(.top, 5)
                     
                     Text("가르마 님, 이런 여행지는 어때요?")
                         .font(.custom("Pretendard-Bold", size: 20))
@@ -249,9 +250,7 @@ struct HomeView: View {
                     }
                     
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            // 마이페이지뷰 이동
-                        } label: {
+                        NavigationLink(destination: MyPageView(viewModel: UserProfileViewModel())) {
                             Image(systemName: "person.circle")
                                 .font(.title2)
                         }

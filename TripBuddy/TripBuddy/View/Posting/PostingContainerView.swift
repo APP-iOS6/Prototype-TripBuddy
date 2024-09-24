@@ -22,33 +22,34 @@ struct PostingContainerView: View {
     
     var body: some View {
         VStack {
-            
-            HStack(alignment: .center) {
-                if viewModel.step != .date {
-                    Button {
-                        handleback()
-                    } label: {
-                        Image(systemName: "arrow.backward")
-                            .tint(.primary)
-                    }
-                } else {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark")
-                            .tint(.primary)
-                    }
-                }
-                
-                Spacer()
-                
+            ZStack {
+                // 중앙에 배치될 텍스트
                 Text("동행 작성")
-                    .font(.title2)
-                
-                Spacer()
-                
+                    .font(.custom("Pretendard-medium", size: 18))
+                    .frame(maxWidth: .infinity, alignment: .center) // 텍스트를 중앙에 정렬
+
+                // 왼쪽 버튼
+                HStack {
+                    if viewModel.step != .date {
+                        Button {
+                            handleback()
+                        } label: {
+                            Image(systemName: "chevron.backward")
+                                .tint(.primary)
+                        }
+                    } else {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "xmark")
+                                .tint(.primary)
+                        }
+                    }
+                    Spacer() // 오른쪽에 Spacer를 두어 버튼은 왼쪽에, 텍스트는 중앙에 유지
+                }
             }
-            .padding()
+            .padding(.vertical, 5)
+            .padding(.horizontal, 22)
             
             ProgressView(value: viewModel.progress, total: 1.0)
                 .progressViewStyle(.linear)

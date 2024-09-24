@@ -14,31 +14,41 @@ struct Posting1View: View {
     var body: some View {
         GeometryReader { proxy in
             VStack(alignment: .leading) {
-                Text("여행 일정을 입력해 주세요")
-                    .font(.title)
+                Text("여행 일정을 선택해 주세요")
+                    .font(.custom("Pretendard-semiBold", size: 22))
                 
                 Spacer()
                     .frame(maxHeight: proxy.size.height * 0.05)
                 
-                Text("도시")
-                    .foregroundStyle(.secondary)
-                    .padding(.bottom, 12)
+                HStack(alignment: .top) {
+                    Text("도시")
+                        .font(.custom("Pretendard-medium", size: 17))
+                        .padding(.bottom, 12)
+                    
+                    Text("*")
+                        .foregroundStyle(.red)
+                }
                 
                 Button {
                     isShowCityModal.toggle()
                 } label: {
                     Text(viewModel.selectedCity.isEmpty ? "도시를 선택해 주세요" : viewModel.selectedCity)
                         .modifier(ModalButtonModifier(selected: !viewModel.selectedCity.isEmpty))
+                        .font(.custom("Pretendard-regular", size: 18))
                         
                 }
                 
                 Spacer()
                     .frame(maxHeight: proxy.size.height * 0.08)
                 
-                
+                HStack(alignment: .top) {
                 Text("날짜")
-                    .foregroundStyle(.secondary)
+                    .font(.custom("Pretendard-medium", size: 17))
+                    .padding(.bottom, -12)
                 
+                    Text("*")
+                        .foregroundStyle(.red)
+                }
                 
                 DatePicker(
                     "날짜",
@@ -56,6 +66,7 @@ struct Posting1View: View {
                 } label: {
                     Text("다음")
                         .modifier(ButtonModifier(color: .basic, disabled: viewModel.selectedCity.isEmpty))
+                        .font(.custom("Pretendard-regular", size: 18))
                 }
                 .disabled(viewModel.selectedCity.isEmpty)
                 
@@ -80,23 +91,21 @@ struct ButtonModifier: ViewModifier {
             .bold()
             .foregroundStyle(.white)
             .frame(maxWidth: .infinity)
-            .background(disabled ? .secondary : color)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .background(disabled ? Color(.systemGray5) : color)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
     }
 }
-
-
 
 struct ModalButtonModifier: ViewModifier {
     let selected: Bool
     func body(content: Content) -> some View {
         content
             .padding()
-            .foregroundStyle(selected ? .basic : .secondary)
+            .foregroundStyle(selected ? .basic : Color(.systemGray2))
             .frame(maxWidth: .infinity)
             .overlay {
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(.gray, lineWidth: 1)
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(selected ? .basic : Color(.systemGray3), lineWidth: 1)
                     .foregroundStyle(.clear)
                 
             }
