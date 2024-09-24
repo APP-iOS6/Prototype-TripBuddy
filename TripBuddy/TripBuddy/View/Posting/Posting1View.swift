@@ -49,7 +49,7 @@ struct Posting1View: View {
                 .datePickerStyle(.graphical)
                 
                 Spacer()
-                    .frame(maxHeight: proxy.size.height * 0.05)
+                    .frame(maxHeight: proxy.size.height * 0.03)
                 
                 Button {
                     viewModel.step = .text
