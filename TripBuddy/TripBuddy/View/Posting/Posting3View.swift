@@ -16,6 +16,7 @@ enum Person: String, CaseIterable {
 
 struct Posting3View: View {
     
+    @Environment(\.dismiss) private var dismiss
     
     @State private var tag: [String] = ["액티비티", "계획", "무계획", "관광","핫플", "자연", "FLEX", "도시", "시골", "바다", "산", "조용", "휴양", "힐링", "운전가능", "술", "수다"]
     @State private var age: [String] = ["무관", "10대"," 20대", "30대", "40대", "50대", "60대", "70대"]
@@ -112,7 +113,7 @@ struct Posting3View: View {
                     .frame(maxHeight: proxy.size.height * 0.05)
                 
                 Button {
-                    //TODO: 글 포스팅 완료 action
+                    dismiss()
                 } label: {
                     Text("다음")
                         .modifier(ButtonModifier(color: .basic, disabled: viewModel.moneyText.isEmpty || viewModel.selectedTag.isEmpty || viewModel.selectedAge.isEmpty))
@@ -122,10 +123,10 @@ struct Posting3View: View {
                     .frame(maxHeight: proxy.size.height * 0.02)
                 
                 Button {
-                    //TODO: 글 포스팅 완료 action
+                    dismiss()
                 } label: {
                     Text("생략")
-                        .modifier(ButtonModifier(color: .secondary, disabled: true))
+                        .modifier(ButtonModifier(color: .basic, disabled: false))
                 }
             }
             .padding(.horizontal, proxy.size.width * 0.07)
