@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChatRoomListView: View {
-    @State var filteredChatRooms: [ChatRoom]
+    @Binding var filteredChatRooms: [ChatRoom]
 
     var body: some View {
         List {
@@ -60,7 +60,7 @@ struct ChatRoomListView: View {
                     .padding(.vertical, 5)
                 }
             }
-            .onDelete(perform: deleteChatRoom) // Add this line
+            .onDelete(perform: deleteChatRoom)
         }
         .listStyle(.plain)
         .background(Color.white)
@@ -71,25 +71,20 @@ struct ChatRoomListView: View {
     }
 }
 
+#Preview {
+    ChatRoomListView(filteredChatRooms: .constant(chatRooms))
+}
+
+struct TagsView: View {
+    let text: String
+    let isBool: Bool
     
-    
-    #Preview {
-        ChatRoomListView(filteredChatRooms: chatRooms)
+    var body: some View {
+        Text(text)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 5)
+            .background(isBool ? Color.gray.opacity(0.1) : Color.red)
+            .foregroundColor(isBool ? .black : .white)
+            .cornerRadius(15)
     }
-    
-    
-    
-    struct TagsView: View {
-        let text: String
-        let isBool: Bool
-        
-        var body: some View {
-            Text(text)
-                .padding(.horizontal, 10)
-                .padding(.vertical, 5)
-                .background(isBool ? Color.gray.opacity(0.1) : Color.red)
-                .foregroundColor(isBool ? .black : .white)
-                .cornerRadius(15)
-        }
-    }
-    
+}
