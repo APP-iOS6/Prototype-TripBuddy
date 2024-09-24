@@ -9,60 +9,65 @@ import SwiftUI
 
 struct ChatRoomDetailView: View {
     let chatRoom: ChatRoom
+    
     @State private var newMessage: String = ""
     @State private var messages: [String] = []
+    @State private var isMenuOpen: Bool = false // 사이드 메뉴 상태
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                TripNavigationView()
-                
-                ScrollView {
-                    HStack {
-                        profileView(profileImg: chatRoom.image, name: chatRoom.name, messages: chatRoom.lastMessage)
-                            .padding(.leading, 20)
-                        Spacer()
-                    }
-                    HStack {
-                        Spacer()
-                        meView(profileImg: chatRoom.image, name: chatRoom.name, messages: messages)
-                            .padding(.trailing, 10)
-                    }
-                }
-                
-                Spacer()
-                
-                HStack {
-                    TextField("메시지를 입력하세요...", text: $newMessage)
-                        .padding(10)
-                        .background(Color.gray.opacity(0.1))
-                        .cornerRadius(0)
-                        .font(.system(size: 18))
-                        .frame(height: 50)
+        ZStack {
+            NavigationStack {
+                VStack {
+                    TripNavigationView()
                     
-                    Button(action: sendMessage) {
-                        Text("전송")
-                            .frame(width: 45, height: 45)
-                            .background(Color.orange)
-                            .foregroundStyle(.white)
-                            .cornerRadius(10)
-                            .padding(.horizontal)
+                    ScrollView {
+                        HStack {
+                            profileView(profileImg: chatRoom.image, name: chatRoom.name, messages: chatRoom.lastMessage)
+                                .padding(.leading, 20)
+                            Spacer()
+                        }
+                        HStack {
+                            Spacer()
+                            meView(profileImg: chatRoom.image, name: chatRoom.name, messages: messages)
+                                .padding(.trailing, 10)
+                        }
                     }
-                    .disabled(newMessage.isEmpty) // 입력이 없으면 버튼 비활성화
+                    
+                    Spacer()
+                    
+                    HStack {
+                        TextField("메시지를 입력하세요...", text: $newMessage)
+                            .padding(10)
+                            .background(Color.gray.opacity(0.1))
+                            .cornerRadius(0)
+                            .font(.system(size: 18))
+                            .frame(height: 50)
+                        
+                        Button(action: sendMessage) {
+                            Text("전송")
+                                .frame(width: 45, height: 45)
+                                .background(Color.orange)
+                                .foregroundStyle(.white)
+                                .cornerRadius(10)
+                                .padding(.horizontal)
+                        }
+                        .disabled(newMessage.isEmpty) // 입력이 없으면 버튼 비활성화
+                    }
+                    .padding(.horizontal)
+                    
                 }
-                .padding(.horizontal)
-                
+                .navigationTitle(chatRoom.tripName)
+                .navigationBarTitleDisplayMode(.inline)
+               
             }
-            .navigationTitle(chatRoom.tripName)
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
     
-    // 메시지 전송 함수
+    // 메시지 전송
     private func sendMessage() {
         if !newMessage.isEmpty {
-            messages.append(newMessage) // 새로운 메시지를 추가
-            newMessage = "" // 입력 필드 초기화
+            messages.append(newMessage)
+            newMessage = ""
         }
     }
 }
@@ -152,8 +157,7 @@ struct messageView: View {
     }
 }
 
-
-
+// 상단바 여행지 상세 정보 이동
 struct TripNavigationView: View {
     var body: some View {
         NavigationLink(destination: TripDetailView()) {
@@ -198,9 +202,6 @@ struct TripNavigationView: View {
         .shadow(radius: 5)
     }
 }
-
-
-
 
 // 여행지 임시 뷰
 struct TripDetailView: View {
