@@ -11,7 +11,7 @@ import SwiftUI
 struct TripBuddyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainTabBar()
         }
     }
 }
