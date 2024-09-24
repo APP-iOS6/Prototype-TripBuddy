@@ -27,7 +27,7 @@ struct DetailView: View {
                                 .frame(height: 0)
                                 .id("contentStart")
                             
-                            // 스크롤 뷰 내용
+                            // 스크롤 뷰 내용 시작
                             VStack(alignment: .leading, spacing: 15) {
                                 HStack {
                                     Image(systemName: "person.circle") // 프로필 이미지
