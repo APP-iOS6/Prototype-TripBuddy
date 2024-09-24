@@ -20,8 +20,13 @@ struct LoginView: View {
                 
                 // 다른 UI 요소들
                 VStack(spacing: 16) {
+                    
+                    Text("Trip Buddy")
+                        .foregroundStyle(.white)
+                        .font(.custom("YClover-Bold", size: 44))
+                    
                     Spacer()
-                        .frame(maxHeight: proxy.size.height * 0.4)
+                        .frame(maxHeight: proxy.size.height * 0.2)
                     
                     SocialLoginButton(
                         loginText: "구글 로그인",
@@ -57,11 +62,11 @@ struct LoginView: View {
                         authviewModel.authState = .auth
                     } label: {
                         Text("로그인 없이 둘러보기")
+                            .font(.custom("Pretendard-Regular", size: 16))
                             .foregroundColor(.white)
                             .underline()
                             .padding(.top, 10)
                     }
-                    
                 }
             }
             .navigationDestination(isPresented: $navigateToHome, destination: {
