@@ -15,7 +15,7 @@ struct DetailView:View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                 //여행정보
-                VStack(alignment: .leading, spacing: 15) {
+                VStack(alignment: .leading, spacing: 10) {
                     HStack {
                         Image(systemName: "person.circle") //프로필 이미지
                             .resizable()
@@ -28,7 +28,9 @@ struct DetailView:View {
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }
+                        Spacer()
                     }
+                    .padding(.horizontal)
                     
                     Text("게시글명")
                         .font(.title2)
@@ -40,29 +42,54 @@ struct DetailView:View {
                     
                     //여행일정
                     HStack {
-                        Image(systemName: "calendar")
                         Text("여행일정")
+                            .font(.headline)
+                            .padding(4)
                     }
-                    .padding(.vertical, 5)
+                    
+                    VStack(spacing: 10) {
+                        HStack (alignment: .center) {
+                            Image(systemName: "calendar") // 아이콘 추후변경
+                            Text("24.09.24 ~ 24.09.27")
+                                .padding(2)
+                            Spacer()
+                        }
+                        
+                        HStack (alignment: .center) {
+                            Image(systemName: "location")
+                            Text("부산 해운대")
+                                .padding(2)
+                            Spacer()
+                        }
+                        
+                    }
+                    .frame(width:340, height:60)
+                    .padding()
+                    .background(Color(red: 211/255, green: 211/255, blue: 211/255)) //연한회색
+                    .cornerRadius(10)
                     
                     //여행조건
                     VStack(alignment: .leading) {
                         Text("여행 조건")
                             .font(.headline)
+                            .padding(4)
                         
                         HStack {
-                            Image(systemName: "person.2")
+                            Image(systemName: "person.2") // 아이콘 추후변경
                             Text("성별,연령")
+                                .padding(2)
                         }
                         
                         HStack {
-                            Image(systemName: "map")
+                            Image(systemName: "map") // 아이콘 추후변경
                             Text("여행지")
+                                .padding(2)
                         }
                         
                         HStack {
-                            Image(systemName: "creditcard")
+                            Image(systemName: "creditcard") // 아이콘 추후변경
                             Text("예산")
+                                .padding(2)
                         }
                     }
                     .padding(.top, 10)
@@ -74,12 +101,21 @@ struct DetailView:View {
                         
                         //동행중인 참여자 목록 예시
                         HStack {
+                            Spacer().frame(width: 15)
                             ForEach(0..<3) { index in
-                                Image(systemName: "person.circle.fill")
+                                Image(systemName: "person.circle.fill") // 아이콘 추후변경
                                     .resizable()
                                     .frame(width: 40, height: 40)
+                                    .padding(.trailing, 2)
+                                    
                             }
+                            Spacer()
                         }
+                        .frame(width: 380, height: 60)
+                        .background(Color(red: 211/255, green: 211/255, blue: 211/255)) //연한회색
+                        .cornerRadius(10)
+                        Spacer()
+                        
                     }
                     .padding(.top, 10)
                     
@@ -95,8 +131,8 @@ struct DetailView:View {
                     Text("동행 신청")
                         .font(.headline)
                         .foregroundColor(.white)
-                        .frame(width: 300, height: 50)
-                        .background(Color.green)
+                        .frame(width: 360, height: 40)
+                        .background(Color(red: 25/255, green: 191/255, blue: 132/255))
                         .cornerRadius(10)
                 }
                 .padding(.bottom, 30)
