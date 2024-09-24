@@ -9,17 +9,15 @@ import SwiftUI
 struct DetailView: View {
     
     @State private var isTripScheduleActive = false
-    @State private var scrollOffset: CGFloat = 250 // 초기 오프셋 설정 (이미지 높이와 동일)
 
     var body: some View {
         NavigationStack {
             ZStack(alignment: .top) {
-                // 상단 고정 이미지
                 Image("Busan1")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(height: 300) // 고정된 이미지 높이 설정
-                    .ignoresSafeArea(edges: .top) // 이미지가 상단에 고정되도록 설정
+                    .frame(height: 300)
+                    .ignoresSafeArea(edges: .top)
                 
                     ScrollView {
                         VStack {
@@ -29,7 +27,7 @@ struct DetailView: View {
                                 .frame(height: 0)
                                 .id("contentStart")
                             
-                            // 스크롤 뷰 내용 시작
+                            // 스크롤 뷰 내용
                             VStack(alignment: .leading, spacing: 15) {
                                 HStack {
                                     Image(systemName: "person.circle") // 프로필 이미지
@@ -174,11 +172,8 @@ struct DetailView: View {
                             .padding(.bottom, 30)
                         }
                         .navigationTitle("") // 제목을 없앰
-                        .navigationBarTitleDisplayMode(.inline) // 여전히 inline 모드 유지
-                        .background(
-                            Color.white
-                                .cornerRadius(30) // 상단 모서리를 둥글게 설정
-                        )
+                        .navigationBarTitleDisplayMode(.inline)
+                        .background(Color.white.cornerRadius(30))
                         .padding(.horizontal)
                     }
                     }
