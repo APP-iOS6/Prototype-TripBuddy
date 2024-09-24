@@ -8,11 +8,36 @@
 import SwiftUI
 
 struct AuthCheckView: View {
+    
+    @EnvironmentObject private var authViewModel: AuthViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            switch authViewModel.authState {
+            case .unauth:
+                LoginView()
+                    .transition(.opacity)
+            case .auth:
+                MainTabBar()
+                    .transition(.opacity)
+            }
+        }
+        .animation(.smooth, value: authViewModel.authState)
     }
 }
 
 #Preview {
     AuthCheckView()
+        .environmentObject(AuthViewModel())
+}
+
+
+
+enum AuthState {
+    case unauth
+    case auth
+}
+
+class AuthViewModel: ObservableObject {
+    @Published var authState: AuthState = .unauth
 }
