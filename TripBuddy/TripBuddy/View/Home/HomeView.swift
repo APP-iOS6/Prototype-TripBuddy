@@ -12,7 +12,7 @@ struct HomeView: View {
     @State private var isShowingFilterView: Bool = false // 필터뷰 띄우기
     
     var body: some View {
-        NavigationStack {
+
             ScrollView {
                 VStack(alignment: .leading) {
                     NavigationLink(destination: FilterView()) {
@@ -264,7 +264,7 @@ struct HomeView: View {
             }
         }
     }
-}
+
 
 #Preview {
     NavigationStack {
