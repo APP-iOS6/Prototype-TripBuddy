@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct TripBuddyApp: App {
+    
+    @State private var authviewModel: AuthViewModel = .init()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AuthCheckView()
+                .environmentObject(authviewModel)
         }
     }
 }
