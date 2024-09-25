@@ -24,6 +24,12 @@ struct Posting3View: View {
     
     @State private var showAllTags = false  // 더보기/접기 상태 관리
     
+    private var action: () -> Void
+    
+    init(action: @escaping () -> Void ) {
+        self.action = action
+    }
+    
     var body: some View {
         GeometryReader { proxy in
             VStack(alignment: .leading) {
@@ -139,7 +145,7 @@ struct Posting3View: View {
                     .frame(maxHeight: proxy.size.height * 0.06)
                 
                 Button {
-                    dismiss()
+                    action()
                 } label: {
                     Text("다음")
                         .modifier(ButtonModifier(color: .basic, disabled: viewModel.moneyText.isEmpty || viewModel.selectedTag.isEmpty || viewModel.selectedAge.isEmpty))
@@ -149,7 +155,7 @@ struct Posting3View: View {
                     .frame(maxHeight: proxy.size.height * 0.02)
                 
                 Button {
-                    dismiss()
+                    action()
                 } label: {
                     Text("생략")
                         .modifier(ButtonModifier(color: .basic, disabled: false))
@@ -166,7 +172,9 @@ struct Posting3View: View {
 
 
 #Preview {
-    Posting3View()
-        .environmentObject(PostingViewModel())
+    Posting3View() {
+        
+    }
+    .environmentObject(PostingViewModel())
     
 }

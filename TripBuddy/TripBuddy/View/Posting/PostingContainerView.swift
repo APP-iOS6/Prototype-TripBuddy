@@ -19,7 +19,12 @@ struct PostingContainerView: View {
     @StateObject private var viewModel: PostingViewModel = .init()
     @Environment(\.dismiss) private var dismiss
     
+    @State private var navigateToDetail: Bool = false
+    private var action: () -> Void
     
+    init(action: @escaping () -> Void) {
+        self.action = action
+    }
     var body: some View {
         VStack {
             HStack(alignment: .center) {
@@ -66,14 +71,20 @@ struct PostingContainerView: View {
                     Posting2View()
                         .transition(.opacity)
                 case .option:
-                    Posting3View()
+                    Posting3View() {
+                        
+                        action()
+                    }
                 }
             }.environmentObject(viewModel)
         }
+        .navigationDestination(isPresented: $navigateToDetail, destination: {
+            DetailView()
+        })
         .alert("작성 중인 내용은 모두 사라집니다", isPresented: $viewModel.isVisibleAlert) {
             Button("취소", role: .cancel) {}
             Button("삭제", role: .destructive) {
-                dismiss()
+                
             }
         }
         .animation(.smooth, value: viewModel.step)
@@ -96,6 +107,10 @@ struct PostingContainerView: View {
 }
         
 #Preview {
-    PostingContainerView()
-        .environmentObject(PostingViewModel())
+    NavigationStack {
+        PostingContainerView() {
+        }
+            .environmentObject(PostingViewModel())
+        
+    }
 }

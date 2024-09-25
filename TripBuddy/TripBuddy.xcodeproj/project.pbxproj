@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FB47AB7F2CA4252700699CC5 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = FB47AB7E2CA4252700699CC5 /* JTAppleCalendar */; };
+		FB47AB822CA4272F00699CC5 /* HorizonCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = FB47AB812CA4272F00699CC5 /* HorizonCalendar */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		FB712C482CA23E0400880AF5 /* TripBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB47AB822CA4272F00699CC5 /* HorizonCalendar in Frameworks */,
+				FB47AB7F2CA4252700699CC5 /* JTAppleCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = TripBuddy;
 			packageProductDependencies = (
+				FB47AB7E2CA4252700699CC5 /* JTAppleCalendar */,
+				FB47AB812CA4272F00699CC5 /* HorizonCalendar */,
 			);
 			productName = TripBuddy;
 			productReference = FB712C482CA23E0400880AF5 /* TripBuddy.app */;
@@ -107,6 +116,10 @@
 			);
 			mainGroup = FB712C3F2CA23E0400880AF5;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FB47AB7D2CA4252700699CC5 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */,
+				FB47AB802CA4272F00699CC5 /* XCRemoteSwiftPackageReference "HorizonCalendar" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FB712C492CA23E0400880AF5 /* Products */;
 			projectDirPath = "";
@@ -339,6 +352,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FB47AB7D2CA4252700699CC5 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/patchthecode/JTAppleCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.5;
+			};
+		};
+		FB47AB802CA4272F00699CC5 /* XCRemoteSwiftPackageReference "HorizonCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/HorizonCalendar";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FB47AB7E2CA4252700699CC5 /* JTAppleCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB47AB7D2CA4252700699CC5 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */;
+			productName = JTAppleCalendar;
+		};
+		FB47AB812CA4272F00699CC5 /* HorizonCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB47AB802CA4272F00699CC5 /* XCRemoteSwiftPackageReference "HorizonCalendar" */;
+			productName = HorizonCalendar;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FB712C402CA23E0400880AF5 /* Project object */;
 }

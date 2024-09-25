@@ -1,0 +1,24 @@
+{
+  "originHash" : "09e009eafd7f2184dbbacb88d2c167504e3aa1b5d6103c4c609a5909cfa70d5d",
+  "pins" : [
+    {
+      "identity" : "horizoncalendar",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/airbnb/HorizonCalendar",
+      "state" : {
+        "branch" : "master",
+        "revision" : "7ad26c07e995c185630954016055ab4453c3ea49"
+      }
+    },
+    {
+      "identity" : "jtapplecalendar",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/patchthecode/JTAppleCalendar",
+      "state" : {
+        "revision" : "718f0ab68ba0fcd2bc134f6e9d30edc1b9b038e1",
+        "version" : "8.0.5"
+      }
+    }
+  ],
+  "version" : 3
+}
