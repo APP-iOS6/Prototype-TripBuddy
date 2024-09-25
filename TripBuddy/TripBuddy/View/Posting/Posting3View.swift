@@ -172,6 +172,41 @@ struct Posting3View: View {
                         Text("생략")
                             .modifier(ButtonModifier(color: .basic, disabled: false))
                     }
+
+                } label: {
+                    Label(showAllTags ? "접기" : "더보기", systemImage: showAllTags ? "chevron.up" : "chevron.down")
+                        .font(.custom("Pretendard-regular", size: 14))
+                        .foregroundStyle(.basic)
+                }
+                .padding(.leading, 1)
+                
+                Spacer()
+                    .frame(maxHeight: proxy.size.height * 0.06)
+                
+                Button {
+                    action()
+                } label: {
+                    Text("다음")
+                        .modifier(ButtonModifier(color: .basic, disabled: viewModel.moneyText.isEmpty || viewModel.selectedTag.isEmpty || viewModel.selectedAge.isEmpty))
+                }
+                
+                Spacer()
+                    .frame(maxHeight: proxy.size.height * 0.02)
+                
+                Button {
+                    action()
+                } label: {
+                    Text("생략")
+                        .padding()
+                        .bold()
+                        .foregroundStyle(.basic)
+                        .frame(maxWidth: .infinity)
+                        .background(.white)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 15)
+                                .stroke(.basic, lineWidth: 1)
+                        )
+
                 }
                 .padding(.horizontal, proxy.size.width * 0.07)
             }

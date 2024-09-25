@@ -38,21 +38,21 @@ struct ChatRoomDetailView: View {
                     Spacer()
                     
                     HStack {
-                        TextField("메시지를 입력하세요...", text: $newMessage)
+                        TextField("메시지를 입력해주세요...", text: $newMessage)
                             .padding(10)
                             .background(Color.gray.opacity(0.1))
                             .cornerRadius(10)
-                            .font(.system(size: 18))
+                            .font(.custom("Pretendard-Light", size: 16))
                             .frame(height: 50)
                             .padding(.leading, 30)
                         
                         Button(action: sendMessage) {
-                            Text("전송")
-                                .font(.custom("Pretendard-Light", size: 20))
-                                .frame(width: 65, height: 45)
+                            Image(systemName: "arrow.up")
+                                .font(.custom("Pretendard-Bold", size: 19))
+                                .frame(width: 40, height: 40)
                                 .background(Color.orange)
                                 .foregroundStyle(.white)
-                                .cornerRadius(10)
+                                .clipShape(Circle())
                                 .padding(.trailing, 20)
                         }
                         .disabled(newMessage.isEmpty) // 입력이 없으면 버튼 비활성화
@@ -188,11 +188,11 @@ struct messageView: View {
     
     var body: some View {
         Text(text)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 5)
-            .background(isColor ? Color.gray.opacity(0.2) : Color.green.opacity(0.7))
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(isColor ? Color(.systemGray6) : .basic)
             .foregroundColor(isColor ? .black : .white)
-            .cornerRadius(15)
+            .cornerRadius(18)
     }
 }
 
@@ -210,23 +210,23 @@ struct TripNavigationView: View {
                 
                 HStack {
                     VStack(alignment: .leading, spacing: 10) {
-                        HStack {
+                        HStack(alignment: .bottom) {
                             Text("경상북도")
                                 .font(.custom("Pretendard-Bold", size: 24))
                                 .foregroundColor(.white)
                                 .padding(.leading, 10)
                             
                             Text("부산")
-                                .font(.custom("Pretendard-Bold", size: 19))
+                                .font(.custom("Pretendard-Bold", size: 20))
                                 .foregroundColor(.white)
                         }
-                        Text("부산의 대한 설명")
+                        Text("Busan is Good")
                             .font(.custom("Pretendard-Medium", size: 16))
                             .foregroundColor(.white)
                             .padding(.leading, 10)
                         
                         Text("09.10 ~ 09.27")
-                            .font(.custom("Pretendard-Light", size: 14))
+                            .font(.custom("Pretendard-Medium", size: 14))
                             .foregroundColor(.white)
                             .padding(.leading, 10)
                     }
@@ -240,13 +240,15 @@ struct TripNavigationView: View {
             }
             .overlay(alignment: .trailing) {
                 Image(systemName: "chevron.right")
-                    .font(.system(size: 60))
-                    .foregroundStyle(.white.opacity(0.5))
+                    .font(.custom("Pretendard-regular", size: 40))
+                    .padding(.trailing, 10)
+                    .foregroundStyle(.white.opacity(0.7))
                     .padding()
             }
         }
         .cornerRadius(10)
         .shadow(radius: 5)
+        
     }
 }
 
