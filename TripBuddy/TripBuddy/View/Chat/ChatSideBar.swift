@@ -7,13 +7,13 @@ struct ChatSideBar: View {
 
     var body: some View {
         ZStack {
-            // Main Content
-            VStack {
-                Spacer()
-            }
-            .zIndex(1)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+//
+//            VStack {
+//                Spacer()
+//            }
+//            .zIndex(1)
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         withAnimation {
                             toggleSidebar()
@@ -23,27 +23,20 @@ struct ChatSideBar: View {
                             .foregroundStyle(.tint)
                             .font(.title3)
                     }
-                }
-            }
+//                }
+//            }
 
             // Sidebar
             HStack {
                 Spacer()
                 VStack(alignment: .leading) {
-                    Button("프로필1") {
-                        // Handle option 1 action
-                    }
-                    .padding()
-
-                    Button("프로필2") {
-                        // Handle option 2 action
-                    }
-                    .padding()
-
+                    
+                    chatMemberList()
+                    
                     Spacer()
                 }
                 .frame(width: sidebarWidth)
-                .background(Color.white)
+                .background(Color.gray)
                 .offset(x: sidebarOffset)
                 .gesture(
                     DragGesture()
@@ -88,5 +81,31 @@ struct ChatSideBar: View {
 struct ChatSideBar_Previews: PreviewProvider {
     static var previews: some View {
         ChatSideBar(isSidebarVisible: .constant(true))
+    }
+}
+
+
+struct chatMemberList: View {
+    var body: some View {
+        Spacer()
+        Text("대화상대")
+            .font(.title)
+            .foregroundStyle(Color.white)
+
+        ForEach(chatRooms) { member in
+            HStack {
+                Image(member.imageName)
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                    .clipShape(Circle())
+                    .overlay {
+                        Circle().stroke(.gray, lineWidth: 0.1)
+                    }
+                    .padding()
+                
+                Text("\(member.name)")
+            }
+        }
+        Spacer()
     }
 }
