@@ -41,21 +41,24 @@ struct ChatRoomDetailView: View {
                         TextField("메시지를 입력하세요...", text: $newMessage)
                             .padding(10)
                             .background(Color.gray.opacity(0.1))
-                            .cornerRadius(0)
+                            .cornerRadius(10)
                             .font(.system(size: 18))
                             .frame(height: 50)
+                            .padding(.leading, 30)
                         
                         Button(action: sendMessage) {
                             Text("전송")
-                                .frame(width: 45, height: 45)
+                                .font(.custom("Pretendard-Light", size: 20))
+                                .frame(width: 65, height: 45)
                                 .background(Color.orange)
                                 .foregroundStyle(.white)
                                 .cornerRadius(10)
-                                .padding(.horizontal)
+                                .padding(.trailing, 20)
                         }
                         .disabled(newMessage.isEmpty) // 입력이 없으면 버튼 비활성화
                     }
-                    .padding(.horizontal)
+                    
+                    
                     
                 }
                 .navigationTitle(chatRoom.tripName)
@@ -77,19 +80,20 @@ struct ChatRoomDetailView: View {
             
             // 사이드바 추가
             ChatSideBar(isSidebarVisible: $isSidebarVisible)
-                .animation(.easeInOut, value: isSidebarVisible) // 애니메이션 추가
+                .animation(.easeInOut, value: isSidebarVisible) 
         }
         .gesture(
-            // 사이드바를 여는 제스처 추가
-            DragGesture()
-                .onChanged { value in
-                    if value.translation.width > 100 {
-                        withAnimation {
-                            isSidebarVisible = true
-                        }
-                    }
+            // 화면을 터치했을 때 키보드를 내리는 제스처 추가
+            TapGesture()
+                .onEnded {
+                    hideKeyboard()
                 }
         )
+    }
+    
+    // 키보드 숨기기
+    private func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
     // 메시지 전송
@@ -100,6 +104,7 @@ struct ChatRoomDetailView: View {
         }
     }
 }
+
 
 #Preview {
     ChatRoomDetailView(chatRoom: ChatRoom(name: "농담곰", imageName: "JokeBear", tripName: "부산", memberCount: 5, lastMessage: "저녁 먹었니?", timestamp: "8:15", area: "지구", chatCount: "100+"))
@@ -127,11 +132,11 @@ struct profileView: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 
-                messageView(text: "프로젝트 힘내야해")
+                messageView(text: "프로젝트 힘내야해", isColor: true)
                     .font(.custom("Pretendard-Light", size: 17))
-                messageView(text: "배고프다")
+                messageView(text: "배고프다", isColor: true)
                     .font(.custom("Pretendard-Light", size: 17))
-                messageView(text: messages)
+                messageView(text: messages, isColor: true)
                     .font(.custom("Pretendard-Light", size: 17))
             }
         }
@@ -158,7 +163,7 @@ struct meView: View {
                 ForEach(messages, id: \.self) { message in
                     HStack {
                         Spacer()
-                        messageView(text: message)
+                        messageView(text: message, isColor: false)
                             .font(.custom("Pretendard-Light", size: 17))
                     }
                 }
@@ -179,13 +184,14 @@ struct meView: View {
 // 메세지 모양
 struct messageView: View {
     let text: String
+    let isColor: Bool
     
     var body: some View {
         Text(text)
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
-            .background(Color.gray.opacity(0.2))
-            .foregroundColor(.black)
+            .background(isColor ? Color.gray.opacity(0.2) : Color.green.opacity(0.7))
+            .foregroundColor(isColor ? .black : .white)
             .cornerRadius(15)
     }
 }
@@ -230,7 +236,7 @@ struct TripNavigationView: View {
                     .padding(10)
                     
                 }
-
+                
             }
             .overlay(alignment: .trailing) {
                 Image(systemName: "chevron.right")
