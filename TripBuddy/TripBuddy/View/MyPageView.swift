@@ -22,7 +22,7 @@ struct MyPageView: View {
     @State private var selectedTab = 0
     @State private var showingSettings = false
     @Namespace private var tabAnimation
-    
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         let genderOptions = ["남성", "여성", "기타"]
         
@@ -175,11 +175,11 @@ struct MyPageView: View {
                         
                         // 채팅방리스트
                         let trips = [
-                                Trip(region: "경상남도", destination: "부산", dateRange: "09.10 ~ 09.27", description: "해운대 같이 가요", imageName: "Busan"),
-                                Trip(region: "제주도", destination: "제주시", dateRange: "10.01 ~ 10.07", description: "한라산 트레킹 가요", imageName: "Jeju"),
-                                Trip(region: "강원도", destination: "강릉", dateRange: "09.20 ~ 09.25", description: "경포대 여행할 분?", imageName: "Gangneung"),
-                                Trip(region: "경기도", destination: "수원", dateRange: "09.20 ~ 09.25", description: "행궁동 핫플 카페 같이 ㄱㄱ", imageName: "Suwon")
-                            ]
+                            Trip(region: "경상남도", destination: "부산", dateRange: "09.10 ~ 09.27", description: "해운대 같이 가요", imageName: "Busan"),
+                            Trip(region: "제주도", destination: "제주시", dateRange: "10.01 ~ 10.07", description: "한라산 트레킹 가요", imageName: "Jeju"),
+                            Trip(region: "강원도", destination: "강릉", dateRange: "09.20 ~ 09.25", description: "경포대 여행할 분?", imageName: "Gangneung"),
+                            Trip(region: "경기도", destination: "수원", dateRange: "09.20 ~ 09.25", description: "행궁동 핫플 카페 같이 ㄱㄱ", imageName: "Suwon")
+                        ]
                         
                         VStack(spacing: -10) {
                             ForEach(trips, id: \.destination) { trip in
@@ -195,10 +195,20 @@ struct MyPageView: View {
                 }
                 .padding()
             }
-            .navigationBarHidden(true)
+            
         }
         .sheet(isPresented: $showingSettings) {
             MyPageSettingsView(viewModel: viewModel)
+        }
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                }
+            }
         }
     }
 }
@@ -216,7 +226,7 @@ struct TripNavigationView_mypage: View {
     var trip: Trip
     
     var body: some View {
-        NavigationLink(destination: TripDetailView()) {
+        NavigationLink(destination: DetailView()) {
             ZStack {
                 Image(trip.imageName)
                     .resizable()
@@ -243,7 +253,7 @@ struct TripNavigationView_mypage: View {
                             .foregroundColor(.white)
                         
                         Spacer() // Spacer를 추가하여 텍스트와 화살표 사이 공간을 채워줌
-
+                        
                         Image(systemName: "chevron.right")
                             .foregroundColor(.white)
                             .offset(x: -10, y: 10)
@@ -260,6 +270,7 @@ struct TripNavigationView_mypage: View {
                 .cornerRadius(10)
                 .padding(10)
             }
+           
         }
         .cornerRadius(15)
         .shadow(radius: 5)
