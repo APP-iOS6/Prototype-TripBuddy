@@ -52,13 +52,15 @@ struct OffsetKey: PreferenceKey {
 
 struct DetailView: View {
     
-    @State private var partnerManager: PartnerCheckManager = .init() //일정을 동행자만 볼수있게? 생각중(아직 사용 안함)
+    @State private var toast: Toast?
+    @State private var navigateToChatDetailView: Bool = false
+    @State private var navigaToScheduleView: Bool = false
     @State private var scrollOffsetValue: CGFloat = 0 //스크롤 값
     @State private var isVisibleAlert: Bool = false //신고하기 버튼 액션얼럿
     @State private var isDeclarationAlert: Bool = false
     @State private var isHeart: Bool = false//좋아요
     @Environment(\.dismiss) private var dismiss
-    
+    @EnvironmentObject private var partnerManager: PartnerCheckManager
     var body: some View {
         GeometryReader { proxy in
             ZStack(alignment: .top) {
@@ -67,8 +69,8 @@ struct DetailView: View {
                     .frame(width: proxy.size.width, height: proxy.size.height * 0.35)
                     .allowsHitTesting(false) // 이미지 자체는 터치 이벤트를 받지 않음
                     .ignoresSafeArea()
-                    
- 
+                
+                
                 ScrollView {
                     VStack(alignment: .leading) {
                         //유저 프로필
@@ -89,19 +91,11 @@ struct DetailView: View {
                         //참여중인 동행
                         ParticipantSection()
                         
-                        Spacer()
-                            
                         
-                        NavigationLink {
-                            ChatRoomListView(filteredChatRooms: .constant(chatRooms))
-                        } label: {
-                            Text("동행 참여하기")
-                                .modifier(ButtonModifier(color: .basic, disabled: false))
-                        }
-                        .padding(.top)
+                        
                         
                         Spacer()
-                            .frame(height: proxy.size.height * 0.25)
+                            .frame(height: proxy.size.height * 0.3)
                     }
                     .padding(.horizontal)
                     .background(Color.white)
@@ -115,14 +109,26 @@ struct DetailView: View {
                             scrollOffsetValue = current
                         }
                     }
+                    
                 }//스크롤 끝
                 .coordinateSpace(name: "SCROLL")
-               
+                
                 if scrollOffsetValue > -120 {
                     TopBarIcons()
                         .transition(.opacity)
                 }
                 
+            }
+            .toastView(toast: $toast)
+            .overlay(alignment: .bottom) {
+                Button {
+                    partnerManager.partnerState = .partner
+                    navigateToChatDetailView.toggle()
+                } label: {
+                    Text("동행 참여하기")
+                        .modifier(ButtonModifier(color: .basic, disabled: false))
+                        .padding(.horizontal)
+                }
             }
             .navigationBarBackButtonHidden()
             .alert("이 게시물을 정말 신고 하시겠습니까?", isPresented: $isDeclarationAlert, actions: {
@@ -135,6 +141,14 @@ struct DetailView: View {
                 }
             })
             .frame(maxWidth: proxy.size.width, maxHeight: proxy.size.height)
+            .navigationDestination(isPresented: $navigaToScheduleView) {
+                DetailScheduleView()
+            }
+            .navigationDestination(isPresented: $navigateToChatDetailView) {
+                ChatRoomDetailView(
+                chatRoom: ChatRoom(name: "농담곰", imageName: "JokeBear", tripName: "부산", memberCount: 5, lastMessage: "저녁 먹었니?", timestamp: "8:15", area: "지구", chatCount: "100+"))
+            }
+            
         }
     }
     
@@ -159,7 +173,6 @@ struct DetailView: View {
                     .tint(.white)
             }
         }
-        .bold()
         .padding()
     }
     
@@ -208,8 +221,12 @@ struct DetailView: View {
             .font(.title3)
             .bold()
         
-        NavigationLink {
-            DetailScheduleView()
+        Button {
+            if partnerManager.partnerState == .none {
+                toast = Toast(message: "동행 멤버만 확인 가능합니다.")
+            } else {
+                navigaToScheduleView.toggle()
+            }
         } label: {
             HStack(alignment: .center) {
                 VStack(alignment: .leading) {
@@ -346,5 +363,6 @@ struct DetailView: View {
 #Preview {
     NavigationStack {
         DetailView()
+            .environmentObject(PartnerCheckManager())
     }
 }
