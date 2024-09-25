@@ -6,13 +6,19 @@
 //
 
 import SwiftUI
+import HorizonCalendar
+import UIKit
 
 struct Posting1View: View {
     
     @EnvironmentObject private var viewModel: PostingViewModel
     @State private var isShowCityModal: Bool = false
     
+    
+    
+    
     var body: some View {
+      
         GeometryReader { proxy in
             VStack(alignment: .leading) {
                 Text("여행 일정을 선택해 주세요")
@@ -36,17 +42,17 @@ struct Posting1View: View {
                     Text(viewModel.selectedCity.isEmpty ? "도시를 선택해 주세요" : viewModel.selectedCity)
                         .modifier(ModalButtonModifier(selected: !viewModel.selectedCity.isEmpty))
                         .font(.custom("Pretendard-regular", size: 18))
-                        
+                    
                 }
                 
                 Spacer()
                     .frame(maxHeight: proxy.size.height * 0.08)
                 
                 HStack(alignment: .top) {
-                Text("날짜")
-                    .font(.custom("Pretendard-medium", size: 17))
-                    .padding(.bottom, -12)
-                
+                    Text("날짜")
+                        .font(.custom("Pretendard-medium", size: 17))
+                        .padding(.bottom, -12)
+                    
                     Text("*")
                         .foregroundStyle(.red)
                 }
@@ -66,6 +72,8 @@ struct Posting1View: View {
                 )
                 .tint(.basic)
                 .datePickerStyle(.compact)
+                
+                
                 
                 Spacer()
                     .frame(maxHeight: proxy.size.height * 0.03)
@@ -129,3 +137,6 @@ struct ModalButtonModifier: ViewModifier {
             .environmentObject(PostingViewModel())
     }
 }
+
+
+

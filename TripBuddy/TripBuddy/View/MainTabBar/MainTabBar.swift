@@ -14,6 +14,7 @@ enum MainTabType {
 }
 
 struct MainTabBar: View {
+    @State private var navigateToDetail: Bool = false
     @State private var isVisiblePosting: Bool = false
     @State private var selectedTab: MainTabType = .home
     
@@ -59,8 +60,14 @@ struct MainTabBar: View {
                     .tag(MainTabType.chat)
                 
             }
+            .navigationDestination(isPresented: $navigateToDetail, destination: {
+                DetailView()
+            })
             .fullScreenCover(isPresented: $isVisiblePosting) {
-                PostingContainerView()
+                PostingContainerView() {
+                    isVisiblePosting = false
+                    navigateToDetail.toggle()
+                }
             }
         }
         .environmentObject(partnerManager)
