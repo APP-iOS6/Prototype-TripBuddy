@@ -12,7 +12,7 @@ struct ChatRoomDetailView: View {
     
     @State private var newMessage: String = ""
     @State private var messages: [String] = []
-    @State private var isMenuOpen: Bool = false // 사이드 메뉴 상태
+    @State private var isSidebarVisible: Bool = false // 사이드바 상태 관리
     
     var body: some View {
         ZStack {
@@ -58,9 +58,24 @@ struct ChatRoomDetailView: View {
                 }
                 .navigationTitle(chatRoom.tripName)
                 .navigationBarTitleDisplayMode(.inline)
-               
+                
             }
+            
+            // 사이드바 추가
+            ChatSideBar(isSidebarVisible: $isSidebarVisible)
+                .animation(.easeInOut, value: isSidebarVisible) // 애니메이션 추가
         }
+        .gesture(
+            // 사이드바를 여는 제스처 추가
+            DragGesture()
+                .onChanged { value in
+                    if value.translation.width > 100 {
+                        withAnimation {
+                            isSidebarVisible = true
+                        }
+                    }
+                }
+        )
     }
     
     // 메시지 전송

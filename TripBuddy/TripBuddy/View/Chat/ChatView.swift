@@ -43,14 +43,15 @@ struct ChatView: View {
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
+                .padding()
                 
                 SearchFieldView(query: $searchText)
                 
                 switch selectedSide {
                     case .join:
-                        ChatRoomListView(filteredChatRooms: filteredChatRooms)
+                        ChatRoomListView(filteredChatRooms: .constant(filteredChatRooms))
                     case .recruit:
-                        ChatRoomListView(filteredChatRooms: filteredChatRooms2)
+                        ChatRoomListView(filteredChatRooms: .constant(filteredChatRooms2))
                 }
             }
             .navigationTitle("채팅")
@@ -61,5 +62,3 @@ struct ChatView: View {
 #Preview {
     ChatView()
 }
-
-
