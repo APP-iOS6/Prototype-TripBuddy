@@ -20,25 +20,29 @@ class DetailMyPageViewModel: ObservableObject {
 struct DetailMyPageView: View {
     @ObservedObject var viewModel: DetailMyPageViewModel
     @Environment(\.dismiss) private var dismiss
-    @State private var showingSettings = false
     
     var body: some View {
-        let genderOptions = ["남성", "여성", "기타"]
-        
         VStack(alignment: .leading, spacing: 20) {
-            // 프로필
+            HStack {
+                Spacer()
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "xmark")
+                        .foregroundColor(.gray)
+                        .font(.title)
+                }
+            }
+            .padding(.top)
+
+            // Profile
             HStack {
                 Image("profileImage")
                     .resizable()
-                    .frame(width: 120, height: 120)
+                    .frame(width: 100, height: 100)
                     .clipShape(Circle())
-                    .offset(x: 20, y: 0)
-                    .padding(.leading)
                 
-                Spacer()
-                    .frame(width: 20)
-                
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 10) {
                     HStack {
                         Text("\(viewModel.nickname) 님")
                             .font(.title2)
@@ -46,23 +50,17 @@ struct DetailMyPageView: View {
                         Text("@\(viewModel.instagramId)")
                             .font(.subheadline)
                             .foregroundStyle(.gray)
-                        Spacer()
                     }
                     
-                    VStack(alignment: .leading) {
-                        HStack {
-                            ProfileView(text: "20대")
-                            ProfileView(text: genderOptions[viewModel.gender])
-                        }
-                        HStack {
-                            ProfileView(text: "경기도")
-                            ProfileView(text: "INTP")
-                        }
+                    HStack {
+                        ProfileView(text: "20대")
+                        ProfileView(text: viewModel.gender == 0 ? "남성" : "여성")
+                        ProfileView(text: "경기도")
                     }
                 }
             }
             
-            // 버디온도
+            // Buddy Temperature
             VStack(alignment: .leading) {
                 Text("나의 버디 온도")
                     .font(.subheadline)
@@ -72,17 +70,15 @@ struct DetailMyPageView: View {
                     .font(.caption)
             }
             
-            // 자기소개
+            // Introduction
             Text(viewModel.introduction.isEmpty ? "자기소개를 입력하고 나만의 동행자를 찾아보세요!" : viewModel.introduction)
                 .font(.subheadline)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .padding(.horizontal, 16)
-                .frame(minHeight: 60)
                 .background(Color.gray.opacity(0.1))
                 .cornerRadius(10)
             
-            // 좋아요/싫어요
+            // Likes and Dislikes
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
                     Text("좋아요")
@@ -101,17 +97,9 @@ struct DetailMyPageView: View {
                 
                 Spacer()
                 
-                Rectangle()
-                    .frame(width: 1, height: 60)
-                    .foregroundColor(.gray)
-                    .offset(x: -26)
-                
-                Spacer()
-                
                 VStack(alignment: .leading) {
                     Text("싫어요")
                         .font(.subheadline)
-                        .offset(x: -73)
                     HStack {
                         ForEach(["공연", "휴양"], id: \.self) { tag in
                             Text(tag)
@@ -122,25 +110,15 @@ struct DetailMyPageView: View {
                                 .cornerRadius(12)
                         }
                     }
-                    .offset(x: -73)
                 }
             }
-            .padding(15)
+            .padding()
             .background(Color.gray.opacity(0.1))
             .cornerRadius(12)
+            
+            Spacer()
         }
         .padding()
-        .frame(maxHeight: .infinity, alignment: .top) // 최대 높이를 설정하여 상단 정렬
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
-                }
-            }
-        }
     }
 }
 
