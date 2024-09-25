@@ -16,6 +16,7 @@ enum MainTabType {
 struct MainTabBar: View {
     @State private var isVisiblePosting: Bool = false
     @State private var selectedTab: MainTabType = .home
+    
     var body: some View {
         NavigationStack {
             TabView(selection: $selectedTab) {
