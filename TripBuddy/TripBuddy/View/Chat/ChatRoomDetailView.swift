@@ -14,6 +14,8 @@ struct ChatRoomDetailView: View {
     @State private var messages: [String] = []
     @State private var isSidebarVisible: Bool = false // 사이드바 상태 관리
     
+    @Environment(\.presentationMode) var presentationMode // 뒤로 가기 버튼을 위해 추가
+    
     var body: some View {
         ZStack {
             NavigationStack {
@@ -58,6 +60,18 @@ struct ChatRoomDetailView: View {
                 }
                 .navigationTitle(chatRoom.tripName)
                 .navigationBarTitleDisplayMode(.inline)
+                .navigationBarBackButtonHidden(true)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Image(systemName: "chevron.left")
+                                .foregroundStyle(.tint)
+                                .font(.title3)
+                        }
+                    }
+                }
                 
             }
             
@@ -175,7 +189,7 @@ struct messageView: View {
 // 상단바 여행지 상세 정보 이동
 struct TripNavigationView: View {
     var body: some View {
-        NavigationLink(destination: TripDetailView()) {
+        NavigationLink(destination: DetailScheduleView()) {
             ZStack {
                 Image("Busan") // 배경 이미지
                     .resizable()
@@ -184,33 +198,43 @@ struct TripNavigationView: View {
                     .cornerRadius(10)
                     .padding(10)
                 
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack {
-                        Text("경상북도")
-                            .font(.title)
-                            .fontWeight(.bold)
+                HStack {
+                    VStack(alignment: .leading, spacing: 10) {
+                        HStack {
+                            Text("경상북도")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding(.leading, 10)
+                            
+                            Text("부산")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                        }
+                        Text("부산의 대한 설명")
+                            .font(.subheadline)
                             .foregroundColor(.white)
                             .padding(.leading, 10)
                         
-                        Text("부산")
-                            .font(.title3)
-                            .fontWeight(.bold)
+                        Text("09.10 ~ 09.27")
+                            .font(.subheadline)
                             .foregroundColor(.white)
+                            .padding(.leading, 10)
                     }
-                    Text("부산의 대한 설명")
-                        .font(.subheadline)
-                        .foregroundColor(.white)
-                        .padding(.leading, 10)
+                    .frame(width: 380, height: 120, alignment: .leading)
+                    .background(Color.black.opacity(0.4))
+                    .cornerRadius(10)
+                    .padding(10)
                     
-                    Text("09.10 ~ 09.27")
-                        .font(.subheadline)
-                        .foregroundColor(.white)
-                        .padding(.leading, 10)
                 }
-                .frame(width: 380, height: 120, alignment: .leading)
-                .background(Color.black.opacity(0.4))
-                .cornerRadius(10)
-                .padding(10)
+
+            }
+            .overlay(alignment: .trailing) {
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 60))
+                    .foregroundStyle(.white.opacity(0.5))
+                    .padding()
             }
         }
         .cornerRadius(10)
@@ -218,10 +242,4 @@ struct TripNavigationView: View {
     }
 }
 
-// 여행지 임시 뷰
-struct TripDetailView: View {
-    var body: some View {
-        Text("여행지 상세 정보")
-            .font(.largeTitle)
-    }
-}
+

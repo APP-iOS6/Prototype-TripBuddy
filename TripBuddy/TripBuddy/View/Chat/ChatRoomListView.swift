@@ -27,7 +27,7 @@ struct ChatRoomListView: View {
                         VStack(alignment: .leading) {
                             HStack {
                                 TagsView(text: chatRoom.area, isBool: true)
-                                    .font(.system(size: 10))
+                                    .font(.system(size: 12))
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
                                 
@@ -36,9 +36,8 @@ struct ChatRoomListView: View {
                                     .padding(.vertical, 5)
                                 
                                 Text("\(chatRoom.memberCount)")
-                                    .font(.system(size: 12))
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
+                                    .font(.system(size: 15))
+                                    .foregroundColor(.white)
                                 
                                 Spacer()
                                 
@@ -52,7 +51,7 @@ struct ChatRoomListView: View {
                                     .foregroundColor(.gray)
                                 Spacer()
                                 
-                                TagsView(text: chatRoom.timestamp, isBool: false)
+                                TagsView(text: chatRoom.chatCount, isBool: false)
                                     .font(.system(size: 10))
                             }
                         }
