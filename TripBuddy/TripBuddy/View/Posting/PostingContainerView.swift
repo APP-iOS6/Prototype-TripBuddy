@@ -70,9 +70,9 @@ struct PostingContainerView: View {
                 }
             }.environmentObject(viewModel)
         }
-        .alert("동행 모집을 취소하시겟습니까?", isPresented: $viewModel.isVisibleAlert) {
-            Button("아니요", role: .cancel) {}
-            Button("예", role: .destructive) {
+        .alert("작성 중인 내용은 모두 사라집니다", isPresented: $viewModel.isVisibleAlert) {
+            Button("취소", role: .cancel) {}
+            Button("삭제", role: .destructive) {
                 dismiss()
             }
         }
