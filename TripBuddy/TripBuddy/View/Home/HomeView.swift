@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var navigateToDetail: Bool = false
     @State private var isShowingFilterView: Bool = false // 필터뷰 띄우기
     
     var body: some View {
@@ -211,7 +212,7 @@ struct HomeView: View {
                             dateRange: "9. 24 ~ 09. 27",
                             tags: ["30대", "여성"]
                         ) {
-                            // 디테일 뷰 이동
+                            navigateToDetail.toggle()
                         }
                         
                         travelPostButton(
@@ -224,7 +225,7 @@ struct HomeView: View {
                             dateRange: "9. 30 ~ 10. 02",
                             tags: ["30대", "성별 무관"]
                         ) {
-                            // 디테일 뷰 이동
+                            navigateToDetail.toggle()
                         }
                         
                         travelPostButton(
@@ -237,7 +238,7 @@ struct HomeView: View {
                             dateRange: "10. 10 ~ 10. 11",
                             tags: ["30대", "남성"]
                         ) {
-                            // 디테일 뷰 이동
+                            navigateToDetail.toggle()
                         }
                     }
                     
@@ -256,6 +257,9 @@ struct HomeView: View {
                         }
                     }
                 }
+                .navigationDestination(isPresented: $navigateToDetail, destination: {
+                    DetailView()
+                })
                 .tint(.gray) // 네비게이션 아이템 색상 회색 설정
             }
         }

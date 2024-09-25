@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeFeaturedListView: View {
     @Environment(\.dismiss) private var dismiss
-    
+    @State private var navigaToDetail: Bool = false
     var body: some View {
         ZStack {
             // 상단 이미지가 상단바까지 확장되도록 설정
@@ -47,7 +47,7 @@ struct HomeFeaturedListView: View {
                                 dateRange: "9. 24 ~ 09. 27",
                                 tags: ["20대", "남성"]
                             ) {
-                                // 디테일 뷰 이동
+                                navigaToDetail.toggle()
                             }
                             
                             travelPostButton(
@@ -60,7 +60,7 @@ struct HomeFeaturedListView: View {
                                 dateRange: "10. 01",
                                 tags: ["30대", "여성"]
                             ) {
-                                // 디테일 뷰 이동
+                                navigaToDetail.toggle()
                             }
                             
                             travelPostButton(
@@ -73,7 +73,7 @@ struct HomeFeaturedListView: View {
                                 dateRange: "10. 01",
                                 tags: ["30대", "여성"]
                             ) {
-                                // 디테일 뷰 이동
+                                navigaToDetail.toggle()
                             }
                             
                             travelPostButton(
@@ -86,7 +86,7 @@ struct HomeFeaturedListView: View {
                                 dateRange: "10. 02 ~ 10. 05",
                                 tags: ["20대", "여성"]
                             ) {
-                                // 디테일 뷰 이동
+                                navigaToDetail.toggle()
                             }
                             
                             travelPostButton(
@@ -99,12 +99,15 @@ struct HomeFeaturedListView: View {
                                 dateRange: "10. 02 ~ 10. 05",
                                 tags: ["20대", "여성"]
                             ) {
-                                // 디테일 뷰 이동
+                                navigaToDetail.toggle()
                             }
                         }
                         .padding(.horizontal, 16) // 좌우 여백 추가
                     }
                 }
+                .navigationDestination(isPresented: $navigaToDetail, destination: {
+                    DetailView()
+                })
                 .navigationBarBackButtonHidden(true)
             }
         }

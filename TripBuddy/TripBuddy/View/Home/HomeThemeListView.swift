@@ -11,6 +11,7 @@ struct HomeThemeListView: View {
     @EnvironmentObject private var viewModel: PostingViewModel
     @Environment(\.dismiss) private var dismiss
     
+    @State private var navigaToDetail: Bool = false
     @State private var cities: [String] = ["안동", "경주", "서울"]
     @State private var selectedCities: [String] = []
     
@@ -75,7 +76,7 @@ struct HomeThemeListView: View {
                                     dateRange: "9. 24 ~ 09. 27",
                                     tags: ["20대", "남성"]
                                 ) {
-                                    // 디테일 뷰 이동
+                                    navigaToDetail.toggle()
                                 }
                             }
                             
@@ -90,7 +91,7 @@ struct HomeThemeListView: View {
                                     dateRange: "10. 01 ~ 10. 05",
                                     tags: ["20대", "여성"]
                                 ) {
-                                    // 디테일 뷰 이동
+                                    navigaToDetail.toggle()
                                 }
                             }
                             
@@ -105,7 +106,7 @@ struct HomeThemeListView: View {
                                     dateRange: "10. 01 ~ 10. 05",
                                     tags: ["20대", "여성"]
                                 ) {
-                                    // 디테일 뷰 이동
+                                    navigaToDetail.toggle()
                                 }
                             }
                             
@@ -120,7 +121,7 @@ struct HomeThemeListView: View {
                                     dateRange: "10. 20",
                                     tags: ["20대", "성별 무관"]
                                 ) {
-                                    // 디테일 뷰 이동
+                                    navigaToDetail.toggle()
                                 }
                             }
                             
@@ -135,7 +136,7 @@ struct HomeThemeListView: View {
                                     dateRange: "10. 20",
                                     tags: ["20대", "성별 무관"]
                                 ) {
-                                    // 디테일 뷰 이동
+                                    navigaToDetail.toggle()
                                 }
                             }
                         }
@@ -143,6 +144,9 @@ struct HomeThemeListView: View {
                     }
                 }
                 .navigationBarBackButtonHidden(true)
+                .navigationDestination(isPresented: $navigaToDetail) {
+                    DetailView()
+                }
                 
             }
         }

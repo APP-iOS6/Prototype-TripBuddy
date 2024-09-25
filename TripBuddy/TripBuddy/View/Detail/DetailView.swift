@@ -92,8 +92,8 @@ struct DetailView: View {
                         Spacer()
                             
                         
-                        Button {
-                            
+                        NavigationLink {
+                            ChatRoomListView(filteredChatRooms: .constant(chatRooms))
                         } label: {
                             Text("동행 참여하기")
                                 .modifier(ButtonModifier(color: .basic, disabled: false))
@@ -124,6 +124,7 @@ struct DetailView: View {
                 }
                 
             }
+            .navigationBarBackButtonHidden()
             .alert("이 게시물을 정말 신고 하시겠습니까?", isPresented: $isDeclarationAlert, actions: {
                 Button("취소", role: .cancel){}
                 Button("신고", role: .destructive){}
@@ -141,9 +142,10 @@ struct DetailView: View {
     func TopBarIcons() -> some View {
         HStack {
             Button {
-                print("뒤로가기")
+                dismiss()
             } label: {
                 Image(systemName: "chevron.left")
+                    .font(.title)
                     .tint(.white)
             }
             
@@ -153,6 +155,7 @@ struct DetailView: View {
                 isVisibleAlert.toggle()
             } label: {
                 Image(systemName: "info.circle")
+                    .font(.title)
                     .tint(.white)
             }
         }
