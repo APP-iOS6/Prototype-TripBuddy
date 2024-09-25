@@ -58,12 +58,12 @@ struct MyPageView: View {
                         
                         VStack(alignment: .leading) {
                             HStack {
-                                TagView(text: "20대")
-                                TagView(text: genderOptions[viewModel.gender])
+                                TagView2(text: "20대")
+                                TagView2(text: genderOptions[viewModel.gender])
                             }
                             HStack {
-                                TagView(text: "경기도")
-                                TagView(text: "INTP")
+                                TagView2(text: "경기도")
+                                TagView2(text: "INTP")
                             }
                         }
                     }
@@ -191,7 +191,7 @@ struct MyPageView: View {
     }
 }
 
-struct TagView: View {
+struct TagView2: View {
     let text: String
     
     var body: some View {
