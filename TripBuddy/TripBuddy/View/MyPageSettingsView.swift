@@ -42,7 +42,7 @@ struct MyPageSettingsView: View {
                 // 닉네임 필드
                 VStack(alignment: .leading, spacing: 5) {
                     Text("닉네임")
-                        .font(.caption)
+                        .font(.custom("Pretendard-regular", size: 12))
                         .foregroundColor(.gray)
                     TextField("닉네임을 입력해주세요", text: $viewModel.nickname)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -52,27 +52,29 @@ struct MyPageSettingsView: View {
                 // 소개글 필드
                 VStack(alignment: .leading, spacing: 5) {
                     Text("소개글")
-                        .font(.caption)
+                        .font(.custom("Pretendard-regular", size: 12))
                         .foregroundColor(.gray)
                     TextField("소개글을 입력해주세요", text: $viewModel.introduction)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .font(.custom("Pretendard-regular", size: 15))
                 }
                 .padding(.horizontal)
                 
                 // 인스타그램 아이디 필드
                 VStack(alignment: .leading, spacing: 5) {
                     Text("@ Instagram")
-                        .font(.caption)
+                        .font(.custom("Pretendard-regular", size: 12))
                         .foregroundColor(.gray)
                     TextField("@id", text: $viewModel.instagramId)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .font(.custom("Pretendard-regular", size: 15))
                 }
                 .padding(.horizontal)
                 
                 // 생년월일 입력 필드
                 HStack(alignment: .center, spacing: 10) {
                     Text("생년월일")
-                        .font(.caption)
+                        .font(.custom("Pretendard-regular", size: 12))
                         .foregroundColor(.gray)
                     DatePicker("", selection: $viewModel.birthdate, displayedComponents: .date)
                 }
@@ -84,6 +86,7 @@ struct MyPageSettingsView: View {
                         Text(genderOptions[index]).tag(index)
                     }
                 }
+                .font(.custom("Pretendard-regular", size: 12))
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.horizontal)
                 
@@ -91,7 +94,7 @@ struct MyPageSettingsView: View {
                 
                 // 태그 선택
                 Text("나와 맞는 태그를 골라보세요! (다중 선택 가능)")
-                    .font(.headline)
+                    .font(.custom("Pretendard-regular", size: 17))
                     .padding(.horizontal)
                 
                 ScrollView {
@@ -106,13 +109,12 @@ struct MyPageSettingsView: View {
                             }
                         }
                     }
-                    .padding(.horizontal)
                 }
                 .frame(height: 200)
-                .padding(20)
+                .padding(10)
                 .background(Color.gray.opacity(0.05))
                 .cornerRadius(15)
-//                .padding(.horizontal)
+                .padding(.horizontal)
             }
             .padding()
             .navigationBarItems(trailing: Button("저장") {
@@ -120,7 +122,7 @@ struct MyPageSettingsView: View {
             })
         }
         .onAppear {
-            //            viewModel.loadExistingData()
+            
         }
     }
 }
@@ -132,7 +134,8 @@ struct TagToggle: View {
     
     var body: some View {
         Text(tag)
-            .padding(.horizontal, 16)
+            .font(.custom("Pretendard-regular", size: 16))
+            .padding(.horizontal, 15)
             .padding(.vertical, 5)
             .background(isSelected ? Color.green : Color.gray.opacity(0.1))
             .foregroundColor(.black)

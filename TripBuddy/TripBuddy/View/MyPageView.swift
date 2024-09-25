@@ -48,10 +48,10 @@ struct MyPageView: View {
                     VStack(alignment: .leading, spacing: 20) {
                         HStack {
                             Text("\(viewModel.nickname) 님")
-                                .font(.title2)
+                                .font(.custom("Pretendard-Bold", size: 23))
                                 .bold()
                             Text("@\(viewModel.instagramId)")
-                                .font(.subheadline)
+                                .font(.custom("Pretendard-regular", size: 13))
                                 .foregroundStyle(.gray)
                             Spacer()
                         }
@@ -72,16 +72,16 @@ struct MyPageView: View {
                 // 버디온도
                 VStack(alignment: .leading) {
                     Text("나의 버디 온도")
-                        .font(.subheadline)
+                        .font(.custom("Pretendard-regular", size: 15))
                     ProgressView(value: viewModel.buddyTemperature, total: 100)
                         .accentColor(.green)
                     Text("\(viewModel.buddyTemperature, specifier: "%.1f")")
-                        .font(.caption)
+                        .font(.custom("Pretendard-regular", size: 12))
                 }
                 
                 // 자기소개
                 Text(viewModel.introduction.isEmpty ? "자기소개를 입력하고 나만의 동행자를 찾아보세요!" : viewModel.introduction)
-                    .font(.subheadline)
+                    .font(.custom("Pretendard-regular", size: 15))
                     .padding()
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 16)
@@ -93,11 +93,11 @@ struct MyPageView: View {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading) {
                         Text("좋아요")
-                            .font(.subheadline)
+                            .font(.custom("Pretendard-regular", size: 15))
                         HStack {
                             ForEach(["술", "도시", "대중교통"], id: \.self) { tag in
                                 Text(tag)
-                                    .font(.caption)
+                                    .font(.custom("Pretendard-regular", size: 12))
                                     .padding(.horizontal, 8)
                                     .padding(.vertical, 4)
                                     .background(Color.green.opacity(0.2))
@@ -117,12 +117,12 @@ struct MyPageView: View {
                     
                     VStack(alignment: .leading) {
                         Text("싫어요")
-                            .font(.subheadline)
+                            .font(.custom("Pretendard-regular", size: 15))
                             .offset(x: -73)
                         HStack {
                             ForEach(["공연", "휴양"], id: \.self) { tag in
                                 Text(tag)
-                                    .font(.caption)
+                                    .font(.custom("Pretendard-regular", size: 12))
                                     .padding(.horizontal, 8)
                                     .padding(.vertical, 4)
                                     .background(Color.red.opacity(0.2))
@@ -158,18 +158,18 @@ struct MyPageView: View {
                 Button("히스토리") { }
                     .foregroundColor(.gray)
                 Spacer()
-            }
+            }.font(.custom("Pretendard-bold", size: 17))
             
             // 채팅방리스트
             ScrollView {
                 VStack(spacing: 15) {
                     ForEach(["부산 여행 갈사람~", "수원 행궁동 갈래요", "인천 여행 갈사람~"], id: \.self) { chat in
                         HStack {
-                            VStack(alignment: .leading) {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Text(chat)
-                                    .font(.headline)
+                                    .font(.custom("Pretendard-regular", size: 17))
                                 Text("9. 24 ~ 09. 27")
-                                    .font(.caption)
+                                    .font(.custom("Pretendard-regular", size: 12))
                                     .foregroundColor(.gray)
                             }
                             Spacer()
@@ -196,6 +196,7 @@ struct TagView2: View {
     
     var body: some View {
         Text(text)
+            .font(.custom("Pretendard-regular", size: 13))
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
             .background(Color.gray.opacity(0.1))
