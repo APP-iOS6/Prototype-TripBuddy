@@ -57,21 +57,29 @@ struct Posting1View: View {
                         .foregroundStyle(.red)
                 }
                 
-                DatePicker(
-                    "시작",
-                    selection: $viewModel.startDate,
-                    displayedComponents: [.date]
-                )
-                .tint(.basic)
-                .datePickerStyle(.compact)
-                
-                DatePicker(
-                    "끝",
-                    selection: $viewModel.endDate,
-                    displayedComponents: [.date]
-                )
-                .tint(.basic)
-                .datePickerStyle(.compact)
+                HStack {
+                    DatePicker(
+                        "",
+                        selection: $viewModel.startDate,
+                        displayedComponents: [.date]
+                    )
+                    .tint(.basic)
+                    .datePickerStyle(.compact)
+                    
+                    Text("   ~")
+                        .font(.custom("Pretendard-medium", size: 20))
+                    
+                    DatePicker(
+                        "",
+                        selection: $viewModel.endDate,
+                        displayedComponents: [.date]
+                    )
+                    .tint(.basic)
+                    .datePickerStyle(.compact)
+                    
+                    Spacer()
+                        .frame(maxWidth: proxy.size.width * 0.05)
+                }
                 
                 
                 

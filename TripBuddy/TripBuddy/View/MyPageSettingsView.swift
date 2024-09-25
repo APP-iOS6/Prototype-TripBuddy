@@ -31,7 +31,7 @@ struct MyPageSettingsView: View {
                                 Image(systemName: "photo")
                                     .foregroundColor(.white)
                                     .padding(8)
-                                    .background(Color.gray)
+                                    .background(Color(.systemGray2))
                                     .clipShape(Circle())
                             }
                             .offset(x: 40, y: -40)
@@ -85,13 +85,19 @@ struct MyPageSettingsView: View {
                         .padding(.horizontal)
                         
                         // 성별 선택 Picker
-                        Picker("성별", selection: $viewModel.gender) {
-                            ForEach(genderOptions.indices, id: \.self) { index in
-                                Text(genderOptions[index]).tag(index)
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("성별")
+                                .font(.custom("Pretendard-regular", size: 12))
+                                .foregroundColor(.gray)
+                            
+                            Picker("성별", selection: $viewModel.gender) {
+                                ForEach(genderOptions.indices, id: \.self) { index in
+                                    Text(genderOptions[index]).tag(index)
+                                }
                             }
+                            .font(.custom("Pretendard-regular", size: 12))
+                            .pickerStyle(SegmentedPickerStyle())
                         }
-                        .font(.custom("Pretendard-regular", size: 12))
-                        .pickerStyle(SegmentedPickerStyle())
                         .padding(.horizontal)
                         
                         Spacer().frame(height: 0)
@@ -99,10 +105,13 @@ struct MyPageSettingsView: View {
                         // 태그 선택
                         HStack {
                             Text("나와 맞는 태그를 골라보세요!")
-                                .font(.custom("Pretendard-regular", size: 17))
+                                .font(.custom("Pretendard-regular", size: 16))
                             Text("( 다중 선택 가능 )")
                                 .font(.custom("Pretendard-small", size: 11))
-                        }.padding(.horizontal)
+                                .foregroundStyle(.secondary)
+                        }
+                        .padding(.horizontal)
+                        .padding(.bottom, -10)
                         
                         FlowLayout_dy/*(spacing: 10)*/ {
                             ForEach(tagOptions, id: \.self) { tag in
@@ -115,8 +124,8 @@ struct MyPageSettingsView: View {
                                 }
                             }
                         }
-                        .padding(30)
-                        .background(Color.gray.opacity(0.05))
+//                        .padding(30)
+//                        .background(Color.gray.opacity(0.05))
                         .cornerRadius(15)
                         .padding(.horizontal)
                     }
@@ -148,11 +157,11 @@ struct TagToggle: View {
     
     var body: some View {
         Text(tag)
-            .font(.custom("Pretendard-regular", size: 16))
+            .font(.custom("Pretendard-regular", size: 15))
             .padding(.horizontal, 15)
             .padding(.vertical, 5)
-            .background(isSelected ? Color.green : Color.gray.opacity(0.1))
-            .foregroundColor(.black)
+            .background(isSelected ? .basic : Color.gray.opacity(0.1))
+            .foregroundStyle(isSelected ? .white : Color(.darkGray))
             .cornerRadius(15)
             .onTapGesture {
                 toggleAction()

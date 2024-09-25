@@ -43,18 +43,18 @@ struct MyPageView: View {
                             Image(systemName: "gearshape")
                                 .foregroundColor(.white)
                                 .padding(8)
-                                .background(Color.gray)
+                                .background(Color(.systemGray2))
                                 .clipShape(Circle())
                         }
                         .offset(x: -20, y: 50)
                         
                         VStack(alignment: .leading, spacing: 20) {
-                            HStack {
+                            HStack(alignment: .bottom) {
                                 Text("\(viewModel.nickname) 님")
                                     .font(.custom("Pretendard-Bold", size: 23))
-                                    .bold()
+                                
                                 Text("@\(viewModel.instagramId)")
-                                    .font(.custom("Pretendard-regular", size: 13))
+                                    .font(.custom("Pretendard-regular", size: 15))
                                     .foregroundStyle(.gray)
                                 Spacer()
                             }
@@ -74,22 +74,30 @@ struct MyPageView: View {
                     
                     // 버디온도
                     VStack(alignment: .leading) {
-                        Text("나의 버디 온도")
-                            .font(.custom("Pretendard-regular", size: 15))
+                        HStack(alignment: .bottom) {
+                            Text("나의 버디 온도")
+                                .font(.custom("Pretendard-regular", size: 15))
+                            
+                            Spacer()
+                            
+                            Text("\(viewModel.buddyTemperature, specifier: "%.1f")°C")
+                                .font(.custom("Pretendard-regular", size: 13))
+                                .foregroundStyle(.basic)
+                        }
+                        
                         ProgressView(value: viewModel.buddyTemperature, total: 100)
-                            .accentColor(.green)
-                        Text("\(viewModel.buddyTemperature, specifier: "%.1f")")
-                            .font(.custom("Pretendard-regular", size: 12))
+                            .accentColor(.basic)
                     }
                     
                     // 자기소개
                     Text(viewModel.introduction.isEmpty ? "자기소개를 입력하고 나만의 동행자를 찾아보세요!" : viewModel.introduction)
                         .font(.custom("Pretendard-regular", size: 15))
+                        .foregroundStyle(viewModel.introduction.isEmpty ? .gray : .primary)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, 16)
                         .frame(minHeight: 60)
-                        .background(Color.gray.opacity(0.1))
+                        .background(Color(.systemGray6))
                         .cornerRadius(10)
                         .offset(y:-10)
                     
@@ -97,7 +105,7 @@ struct MyPageView: View {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading) {
                             Text("좋아요")
-                                .font(.custom("Pretendard-regular", size: 15))
+                                .font(.custom("Pretendard-Medium", size: 15))
                             HStack {
                                 ForEach(["술", "도시", "대중교통"], id: \.self) { tag in
                                     Text(tag)
@@ -121,7 +129,7 @@ struct MyPageView: View {
                         
                         VStack(alignment: .leading) {
                             Text("싫어요")
-                                .font(.custom("Pretendard-regular", size: 15))
+                                .font(.custom("Pretendard-Medium", size: 15))
                                 .offset(x: -73)
                             HStack {
                                 ForEach(["공연", "휴양"], id: \.self) { tag in
@@ -137,7 +145,7 @@ struct MyPageView: View {
                         }
                     }
                     .padding(15)
-                    .background(Color.gray.opacity(0.1))
+                    .background(Color(.systemGray6))
                     .cornerRadius(12)
                     .offset(y:-20)
                     
@@ -147,7 +155,7 @@ struct MyPageView: View {
                         // 탭 버튼
                         HStack {
                             ForEach(Array(tabs.enumerated()), id: \.element) { index, tab in
-                                Spacer()
+//                                Spacer()
                                 Button(action: {
                                     selectedTab = index
                                 }) {
@@ -168,10 +176,10 @@ struct MyPageView: View {
                                         }
                                     }
                                 }
-                                Spacer()
+//                                Spacer()
                             }
                         }
-                        .font(.custom("Pretendard-bold", size: 17))
+                        .font(.custom("Pretendard-SemiBold", size: 17))
                         
                         // 채팅방리스트
                         let trips = [
@@ -185,17 +193,17 @@ struct MyPageView: View {
                             ForEach(trips, id: \.destination) { trip in
                                 TripNavigationView_mypage(trip: trip)
                             }
-                        }.offset(y: -20)
+                        }
+                        .offset(y: -20)
                     }
                     .padding(20)
                     .padding(.bottom, 20)
-                    .background(Color.gray.opacity(0.1))
+                    .background(Color(.systemGray6))
                     .cornerRadius(12)
                     .offset(y:-30)
                 }
                 .padding()
             }
-            
         }
         .sheet(isPresented: $showingSettings) {
             MyPageSettingsView(viewModel: viewModel)
@@ -285,8 +293,8 @@ struct TagView2: View {
             .font(.custom("Pretendard-regular", size: 13))
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
-            .background(Color.gray.opacity(0.1))
-            .foregroundColor(.black)
+            .background(Color(.systemGray6))
+            .foregroundStyle(Color(UIColor.darkGray))
             .cornerRadius(15)
     }
 }
