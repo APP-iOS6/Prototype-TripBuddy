@@ -57,9 +57,8 @@ struct ChatRoomDetailView: View {
                         }
                         .disabled(newMessage.isEmpty) // 입력이 없으면 버튼 비활성화
                     }
-                    
-                    
-                    
+                    .padding(.bottom, 20)
+                
                 }
                 .navigationTitle(chatRoom.tripName)
                 .navigationBarTitleDisplayMode(.inline)
