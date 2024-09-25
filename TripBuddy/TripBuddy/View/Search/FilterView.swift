@@ -15,7 +15,8 @@ enum SwipeDirection {
 
 struct FilterView: View {
     
-    @State private var date: Date = Date()
+    @State private var startDate: Date = Date()
+    @State private var endDate: Date = Date()
     @State private var query: String = ""
     @State private var cities: [String] = ["서울", "가평/양평", "강릉", "속초", "양양", "대전", "대구", "부산", "경주", "전주", "통영", "여수", "제주", "기타"]
     @State private var ages: [String] = ["10대", "20대", "30대", "40대", "50대 이상"]
@@ -74,16 +75,25 @@ struct FilterView: View {
                     
                     Text("날짜")
                         .font(.custom("Pretendard-SemiBold", size: 20))
-                        .padding(.bottom, -25)
                         .padding(.horizontal, 8)
                     
                     DatePicker(
-                        "날짜",
-                        selection: $date,
+                        "시작",
+                        selection: $startDate,
                         displayedComponents: [.date]
                     )
                     .tint(.basic)
-                    .datePickerStyle(.graphical)
+                    .datePickerStyle(.compact)
+                    .padding(.horizontal, 8)
+                    
+                    DatePicker(
+                        "끝",
+                        selection: $endDate,
+                        displayedComponents: [.date]
+                    )
+                    .tint(.basic)
+                    .datePickerStyle(.compact)
+                    .padding(.horizontal, 8)
                     .padding(.bottom, 15)
                     
                     Text("연령")
@@ -128,9 +138,7 @@ struct FilterView: View {
                 
             }//스크롤뷰 끝
             
-            Button {
-                
-            } label: {
+            NavigationLink(destination: FilterSearchView()) {
                 Text("적용하기")
                     .modifier(ButtonModifier(color: .basic, disabled: false))
             }

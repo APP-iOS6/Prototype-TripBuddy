@@ -11,6 +11,7 @@ struct Posting1View: View {
     
     @EnvironmentObject private var viewModel: PostingViewModel
     @State private var isShowCityModal: Bool = false
+    
     var body: some View {
         GeometryReader { proxy in
             VStack(alignment: .leading) {
@@ -51,12 +52,20 @@ struct Posting1View: View {
                 }
                 
                 DatePicker(
-                    "날짜",
-                    selection: $viewModel.date,
+                    "시작",
+                    selection: $viewModel.startDate,
                     displayedComponents: [.date]
                 )
                 .tint(.basic)
-                .datePickerStyle(.graphical)
+                .datePickerStyle(.compact)
+                
+                DatePicker(
+                    "끝",
+                    selection: $viewModel.endDate,
+                    displayedComponents: [.date]
+                )
+                .tint(.basic)
+                .datePickerStyle(.compact)
                 
                 Spacer()
                     .frame(maxHeight: proxy.size.height * 0.03)
@@ -69,7 +78,6 @@ struct Posting1View: View {
                         .font(.custom("Pretendard-regular", size: 18))
                 }
                 .disabled(viewModel.selectedCity.isEmpty)
-                
             }
             .sheet(isPresented: $isShowCityModal, content: {
                 CityModalView() { city in
