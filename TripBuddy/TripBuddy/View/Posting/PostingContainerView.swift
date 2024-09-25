@@ -27,7 +27,7 @@ struct PostingContainerView: View {
                     Button {
                         handleback()
                     } label: {
-                        Image(systemName: "arrow.backward")
+                        Image(systemName: "chevron.left")
                             .tint(.primary)
                     }
                 } else {
