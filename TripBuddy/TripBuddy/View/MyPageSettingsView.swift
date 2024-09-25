@@ -82,7 +82,7 @@ struct MyPageSettingsView: View {
                 
                 // 성별 선택 Picker
                 Picker("성별", selection: $viewModel.gender) {
-                    ForEach(0..<genderOptions.count) { index in
+                    ForEach(genderOptions.indices, id: \.self) { index in
                         Text(genderOptions[index]).tag(index)
                     }
                 }
