@@ -52,6 +52,8 @@ struct OffsetKey: PreferenceKey {
 
 struct DetailView: View {
     
+    @State private var isNavigationActive = false // 동행자 프로필 누를시 마이페이지뷰 이동
+    @StateObject private var userProfileViewModel = UserProfileViewModel()
     @State private var partnerManager: PartnerCheckManager = .init() //일정을 동행자만 볼수있게? 생각중(아직 사용 안함)
     @State private var scrollOffsetValue: CGFloat = 0 //스크롤 값
     @State private var isVisibleAlert: Bool = false //신고하기 버튼 액션얼럿
@@ -295,27 +297,34 @@ struct DetailView: View {
         
         HStack(alignment: .center) {
             VStack(alignment: .center) {
-                Button {
-                    
-                } label: {
+                Button(action: {
+                    isNavigationActive = true
+                }) {
                     Image(.guri)
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: 40)
+                }
+                .navigationDestination(isPresented: $isNavigationActive) {
+                    MyPageView(viewModel: userProfileViewModel)
                 }
                 Text("달달구리")
             }
             .padding(.vertical)
             .padding(.horizontal, 8)
             
+            
             VStack(alignment: .center) {
-                Button {
-                    
-                } label: {
+                Button(action: {
+                    isNavigationActive = true
+                }) {
                     Image(.bear)
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: 40)
+                }
+                .navigationDestination(isPresented: $isNavigationActive) {
+                    MyPageView(viewModel: userProfileViewModel)
                 }
                 Text("빼꼼")
             }
@@ -323,13 +332,16 @@ struct DetailView: View {
             .padding(.horizontal, 8)
             
             VStack(alignment: .center) {
-                Button {
-                    
+                NavigationLink {
+                    MyPageView(viewModel: .init())
                 } label: {
                     Image(.pepe)
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: 40)
+                }
+                .navigationDestination(isPresented: $isNavigationActive) {
+                    MyPageView(viewModel: userProfileViewModel)
                 }
                 Text("페페")
             }
@@ -340,6 +352,8 @@ struct DetailView: View {
         }
         .background(.detailcontainer)
         .clipShape(RoundedRectangle(cornerRadius: 18))
+        
+      
     }
 }
 
