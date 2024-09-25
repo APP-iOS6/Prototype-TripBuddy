@@ -117,7 +117,7 @@ struct Posting3View: View {
                 
                 // 더보기/접기 버튼
                 Button {
-                    withAnimation(nil) { // 애니메이션 없이 상태 변경
+                    withAnimation() { // 애니메이션 없이 상태 변경
                         showAllTags.toggle()
                     }
                 } label: {
