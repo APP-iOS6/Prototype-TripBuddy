@@ -7,6 +7,7 @@ struct ChatSideBar: View {
 
     var body: some View {
         ZStack {
+
             VStack {
                 Spacer()
             }
