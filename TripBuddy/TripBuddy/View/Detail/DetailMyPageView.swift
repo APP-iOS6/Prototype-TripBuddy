@@ -30,7 +30,7 @@ struct DetailMyPageView: View {
                 }) {
                     Image(systemName: "xmark")
                         .foregroundColor(.gray)
-                        .font(.title)
+                        .font(.title2)
                 }
             }
             .padding(.top)
@@ -43,12 +43,12 @@ struct DetailMyPageView: View {
                     .clipShape(Circle())
                 
                 VStack(alignment: .leading, spacing: 10) {
-                    HStack {
+                    HStack(alignment: .bottom) {
                         Text("\(viewModel.nickname) 님")
-                            .font(.title2)
-                            .bold()
+                            .font(.custom("Pretendard-Bold", size: 23))
+
                         Text("@\(viewModel.instagramId)")
-                            .font(.subheadline)
+                            .font(.custom("Pretendard-regular", size: 15))
                             .foregroundStyle(.gray)
                     }
                     
@@ -62,31 +62,39 @@ struct DetailMyPageView: View {
             
             // Buddy Temperature
             VStack(alignment: .leading) {
-                Text("나의 버디 온도")
-                    .font(.subheadline)
+                HStack {
+                    Text("나의 버디 온도")
+                        .font(.custom("Pretendard-regular", size: 15))
+                    
+                    Spacer()
+                    
+                    Text("\(viewModel.buddyTemperature, specifier: "%.1f")")
+                        .font(.custom("Pretendard-regular", size: 13))
+                        .foregroundStyle(.basic)
+                }
                 ProgressView(value: viewModel.buddyTemperature, total: 100)
-                    .accentColor(.green)
-                Text("\(viewModel.buddyTemperature, specifier: "%.1f")")
-                    .font(.caption)
+                    .accentColor(.basic)
+                
             }
             
             // Introduction
             Text(viewModel.introduction.isEmpty ? "자기소개를 입력하고 나만의 동행자를 찾아보세요!" : viewModel.introduction)
-                .font(.subheadline)
+                .font(.custom("Pretendard-regular", size: 15))
+                .foregroundStyle(viewModel.introduction.isEmpty ? .gray : .primary)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(Color.gray.opacity(0.1))
+                .background(Color(.systemGray6))
                 .cornerRadius(10)
             
             // Likes and Dislikes
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
                     Text("좋아요")
-                        .font(.subheadline)
+                        .font(.custom("Pretendard-Medium", size: 16))
                     HStack {
                         ForEach(["술", "도시", "대중교통"], id: \.self) { tag in
                             Text(tag)
-                                .font(.caption)
+                                .font(.custom("Pretendard-regular", size: 14))
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 4)
                                 .background(Color.green.opacity(0.2))
@@ -99,11 +107,11 @@ struct DetailMyPageView: View {
                 
                 VStack(alignment: .leading) {
                     Text("싫어요")
-                        .font(.subheadline)
+                        .font(.custom("Pretendard-Medium", size: 16))
                     HStack {
                         ForEach(["공연", "휴양"], id: \.self) { tag in
                             Text(tag)
-                                .font(.caption)
+                                .font(.custom("Pretendard-regular", size: 14))
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 4)
                                 .background(Color.red.opacity(0.2))
@@ -113,7 +121,7 @@ struct DetailMyPageView: View {
                 }
             }
             .padding()
-            .background(Color.gray.opacity(0.1))
+            .background(Color(.systemGray6))
             .cornerRadius(12)
             
             Spacer()
@@ -127,10 +135,11 @@ struct ProfileView: View {
     
     var body: some View {
         Text(text)
+            .font(.custom("Pretendard-regular", size: 14))
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
-            .background(Color.gray.opacity(0.1))
-            .foregroundColor(.black)
+            .background(Color(.systemGray6))
+            .foregroundStyle(Color(.darkGray))
             .cornerRadius(15)
     }
 }

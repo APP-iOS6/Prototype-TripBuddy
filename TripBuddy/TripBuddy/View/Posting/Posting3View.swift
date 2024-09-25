@@ -158,7 +158,15 @@ struct Posting3View: View {
                     action()
                 } label: {
                     Text("생략")
-                        .modifier(ButtonModifier(color: .basic, disabled: false))
+                        .padding()
+                        .bold()
+                        .foregroundStyle(.basic)
+                        .frame(maxWidth: .infinity)
+                        .background(.white)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 15)
+                                .stroke(.basic, lineWidth: 1)
+                        )
                 }
             }
             .padding(.horizontal, proxy.size.width * 0.07)
