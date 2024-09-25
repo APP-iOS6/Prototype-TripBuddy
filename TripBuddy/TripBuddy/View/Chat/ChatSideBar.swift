@@ -7,6 +7,7 @@ struct ChatSideBar: View {
 
     var body: some View {
         ZStack {
+
             VStack {
                 Spacer()
             }
@@ -92,7 +93,7 @@ struct ChatMemberList: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("대화상대")
-                .font(.title)
+                .font(.custom("Pretendard-Bold", size: 25))
                 .foregroundColor(.black)
                 .padding(.top, 70)
                 .padding(.leading, 20)
@@ -108,6 +109,7 @@ struct ChatMemberList: View {
                         }
                     
                     Text(member.name)
+                        .font(.custom("Pretendard-Medium", size: 18))
                         .foregroundColor(.black)
                 }
                 .padding()
