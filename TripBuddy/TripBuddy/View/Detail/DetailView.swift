@@ -169,7 +169,7 @@ struct DetailView: View {
                 dismiss()
             } label: {
                 Image(systemName: "chevron.left")
-                    .font(.title2)
+                    .font(.title)
                     .tint(.white)
             }
             

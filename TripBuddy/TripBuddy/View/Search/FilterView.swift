@@ -77,24 +77,30 @@ struct FilterView: View {
                         .font(.custom("Pretendard-SemiBold", size: 20))
                         .padding(.horizontal, 8)
                     
-                    DatePicker(
-                        "시작",
-                        selection: $startDate,
-                        displayedComponents: [.date]
-                    )
-                    .tint(.basic)
-                    .datePickerStyle(.compact)
-                    .padding(.horizontal, 8)
-                    
-                    DatePicker(
-                        "끝",
-                        selection: $endDate,
-                        displayedComponents: [.date]
-                    )
-                    .tint(.basic)
-                    .datePickerStyle(.compact)
-                    .padding(.horizontal, 8)
-                    .padding(.bottom, 15)
+                    HStack {
+                         DatePicker(
+                             "",
+                             selection: $startDate,
+                             displayedComponents: [.date]
+                         )
+                         .tint(.basic)
+                         .datePickerStyle(.compact)
+                         
+                         Text("   ~")
+                             .font(.custom("Pretendard-medium", size: 20))
+                         
+                         DatePicker(
+                             "",
+                             selection: $endDate,
+                             displayedComponents: [.date]
+                         )
+                         .tint(.basic)
+                         .datePickerStyle(.compact)
+                         
+                         Spacer()
+                             .frame(maxWidth: .infinity)
+                     }
+                     .padding(.bottom, 30)
                     
                     Text("연령")
                         .font(.custom("Pretendard-SemiBold", size: 20))
