@@ -25,7 +25,7 @@ struct HomeFeaturedListView: View {
                         .overlay {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("제주")
-                                    .font(.custom("Pretendard-Bold", size: 40))
+                                    .font(.custom("Pretendard-Bold", size: 30))
                                     .foregroundStyle(.white)
                                 
                                 Spacer()
@@ -105,9 +105,9 @@ struct HomeFeaturedListView: View {
                         .padding(.horizontal, 16) // 좌우 여백 추가
                     }
                 }
-                .navigationDestination(isPresented: $navigaToDetail, destination: {
+                .navigationDestination(isPresented: $navigaToDetail)  {
                     DetailView()
-                })
+                }
                 .navigationBarBackButtonHidden(true)
             }
         }

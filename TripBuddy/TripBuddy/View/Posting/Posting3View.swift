@@ -75,7 +75,7 @@ struct Posting3View: View {
                             viewModel.ageTapped(age)
                         } label : {
                             Text(age)
-                                .font(.custom("Pretendard-regular", size: 17))
+                                .font(.custom("Pretendard-regular", size: 16))
                                 .padding(.horizontal, 15)
                                 .padding(.vertical, 6)
                                 .background(selected ? .customgreen : Color(.systemGray6))
@@ -95,14 +95,14 @@ struct Posting3View: View {
                 
                 // 성향 태그 (더보기/접기 로직 포함)
                 FlowLayout {
-                    let visibleTags = showAllTags ? tag : Array(tag.prefix(7)) // 시골까지 보이도록 제한
+                    let visibleTags = showAllTags ? tag : Array(tag.prefix(8)) // 시골까지 보이도록 제한
                     ForEach(visibleTags, id: \.self) { tag in
                         let selected = viewModel.selectedTag.contains(where: { $0 == tag })
                         Button {
                             viewModel.tagTapped(tag)
                         } label : {
                             Text(tag)
-                                .font(.custom("Pretendard-regular", size: 17))
+                                .font(.custom("Pretendard-regular", size: 16))
                                 .padding(.horizontal, 15)
                                 .padding(.vertical, 6)
                                 .background(selected ? .customgreen : Color(.systemGray6))
