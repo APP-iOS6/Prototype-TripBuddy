@@ -20,7 +20,7 @@ struct HomeView: View {
                     }
                     .padding(.top, 5)
                     
-                    Text("가르마 님, 이런 여행지는 어때요?")
+                    Text("요시 님, 마음 맞는 동행과 \n여행의 첫걸음을 내딛어 보세요.")
                         .font(.custom("Pretendard-Bold", size: 20))
                         .padding(.top, 16)
                     
