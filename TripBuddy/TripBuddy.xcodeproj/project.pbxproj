@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		FB953AB02CA39577003927B6 /* Exceptions for "TripBuddy" folder in "TripBuddy" target */ = {
+		97F097182CA251250096EEA3 /* Exceptions for "TripBuddy" folder in "TripBuddy" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -24,7 +24,7 @@
 		FB712C4A2CA23E0400880AF5 /* TripBuddy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				FB953AB02CA39577003927B6 /* Exceptions for "TripBuddy" folder in "TripBuddy" target */,
+				97F097182CA251250096EEA3 /* Exceptions for "TripBuddy" folder in "TripBuddy" target */,
 			);
 			path = TripBuddy;
 			sourceTree = "<group>";
@@ -265,6 +265,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TripBuddy/Preview Content\"";
+				DEVELOPMENT_TEAM = 92U58L5CU9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TripBuddy/Info.plist;
@@ -294,6 +295,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TripBuddy/Preview Content\"";
+				DEVELOPMENT_TEAM = 92U58L5CU9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TripBuddy/Info.plist;
