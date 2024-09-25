@@ -9,40 +9,58 @@ import SwiftUI
 struct DetailView: View {
     
     @State private var isTripScheduleActive = false
+    @State private var isHeartFilled = false
 
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .top) {
-                Image("Busan1")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 300)
-                    .ignoresSafeArea(edges: .top)
+            ScrollView {
+                VStack(spacing :10) {
                 
-                    ScrollView {
-                        VStack {
-
-                            RoundedRectangle(cornerRadius: 30)
-                                .fill(Color.white)
-                                .frame(height: 0)
-                                .id("contentStart")
-                            
-                            // 스크롤 뷰 내용 시작
-                            VStack(alignment: .leading, spacing: 15) {
-                                HStack {
-                                    Image(systemName: "person.circle") // 프로필 이미지
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
-                                    
-                                    VStack(alignment: .leading ) {
-                                        Text("달달구리") // 프로필 네임
-                                            .font(.headline)
-                                        Text("24세 | 여성") // 성별
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
-                                    }
-                                    Spacer()
+                GeometryReader { geometry in
+                    let offset = geometry.frame(in: .global).minY
+                    
+                    Image("Busan1")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 300)
+                        .offset(y: offset > 0 ? -offset : 0)
+                        .frame(height: 300 + (offset > 0 ? offset : 0))
+                        .ignoresSafeArea(edges: .top)
+                    
+                    RoundedRectangle(cornerRadius: 30)
+                        .fill(Color.white)
+                        .frame(height: 30)
+                        .offset(y: 15)
+                }
+                .frame(height: 300)
+                .zIndex(1)
+                
+                
+                    VStack {
+                        VStack(alignment: .leading, spacing: 15) {
+                            HStack {
+                                Image(systemName: "person.circle") // 프로필 이미지, 추후변경
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                
+                                VStack(alignment: .leading ) {
+                                    Text("달달구리") // 프로필 네임
+                                        .font(.headline)
+                                    Text("24세 | 여성") // 성별
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
                                 }
+                                Spacer()
+                                
+                                Button(action: {
+                                    isHeartFilled.toggle()
+                                }) {
+                                    Image(systemName: isHeartFilled ? "heart.fill" : "heart")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                        .foregroundColor(.black)
+                                }
+                            }
                                 .padding(.horizontal)
                                 
                                 Text("부산 여행 같이 가실 분 ~")
@@ -56,8 +74,8 @@ struct DetailView: View {
                                 현재 여성 1분, 남성 1분 있습니다.
                                 편하게 연락 주세요~
                                 """)
-                                    .font(.body)
-                                    .padding(.top, 5)
+                                .font(.body)
+                                .padding(.top, 5)
                                 
                                 // 여행일정
                                 HStack {
@@ -167,18 +185,18 @@ struct DetailView: View {
                                     .frame(width: 360, height: 40)
                                     .background(Color(red: 25/255, green: 191/255, blue: 132/255))
                                     .cornerRadius(10)
-                                }
                             }
-                            .padding(.bottom, 30)
                         }
-                        .navigationTitle("") // 제목을 없앰
-                        .navigationBarTitleDisplayMode(.inline)
-                        .background(Color.white.cornerRadius(30))
-                        .padding(.horizontal)
+                        .padding(.bottom, 30)
                     }
-                    }
+                    .navigationTitle("") // 제목을 없앰
+                    .navigationBarTitleDisplayMode(.inline)
+                    .background(Color.white.cornerRadius(30))
+                    .padding(.horizontal)
                 }
             }
+        }
+    }
 
 
 #Preview {
