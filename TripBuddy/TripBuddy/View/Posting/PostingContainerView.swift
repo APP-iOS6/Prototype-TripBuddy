@@ -80,7 +80,7 @@ struct PostingContainerView: View {
         .alert("작성 중인 내용은 모두 사라집니다", isPresented: $viewModel.isVisibleAlert) {
             Button("취소", role: .cancel) {}
             Button("삭제", role: .destructive) {
-                
+                dismiss()
             }
         }
         .animation(.smooth, value: viewModel.step)
