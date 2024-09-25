@@ -19,7 +19,6 @@ struct PostingContainerView: View {
     @StateObject private var viewModel: PostingViewModel = .init()
     @Environment(\.dismiss) private var dismiss
     
-    @State private var navigateToDetail: Bool = false
     private var action: () -> Void
     
     init(action: @escaping () -> Void) {
@@ -78,9 +77,6 @@ struct PostingContainerView: View {
                 }
             }.environmentObject(viewModel)
         }
-        .navigationDestination(isPresented: $navigateToDetail, destination: {
-            DetailView()
-        })
         .alert("작성 중인 내용은 모두 사라집니다", isPresented: $viewModel.isVisibleAlert) {
             Button("취소", role: .cancel) {}
             Button("삭제", role: .destructive) {
