@@ -17,6 +17,8 @@ struct MainTabBar: View {
     @State private var isVisiblePosting: Bool = false
     @State private var selectedTab: MainTabType = .home
     
+    @State private var partnerManager: PartnerCheckManager = .init() //일정을 동행자만 볼수있게? 생각중(아직 사용 안함)
+
     var body: some View {
         NavigationStack {
             TabView(selection: $selectedTab) {
@@ -61,6 +63,7 @@ struct MainTabBar: View {
                 PostingContainerView()
             }
         }
+        .environmentObject(partnerManager)
     }
 }
 
