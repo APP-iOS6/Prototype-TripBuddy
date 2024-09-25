@@ -25,6 +25,7 @@ struct DetailScheduleView: View {
                         } label: {
                             Label("일정 추가", systemImage: "plus")
                         }
+                        .padding(.trailing)
                        
                     }
                     
