@@ -64,7 +64,6 @@ struct DetailView: View {
     @State private var isDeclarationAlert: Bool = false
     @State private var isHeart: Bool = false//좋아요
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var partnerManager: PartnerCheckManager
     var body: some View {
         GeometryReader { proxy in
             ZStack(alignment: .top) {

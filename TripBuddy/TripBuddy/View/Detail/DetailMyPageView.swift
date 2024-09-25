@@ -19,6 +19,7 @@ class DetailMyPageViewModel: ObservableObject {
 
 struct DetailMyPageView: View {
     @ObservedObject var viewModel: DetailMyPageViewModel
+    @Environment(\.dismiss) private var dismiss
     @State private var showingSettings = false
     
     var body: some View {
@@ -32,17 +33,10 @@ struct DetailMyPageView: View {
                     .frame(width: 120, height: 120)
                     .clipShape(Circle())
                     .offset(x: 20, y: 0)
+                    .padding(.leading)
                 
-                Button(action: {
-                    showingSettings = true
-                }) {
-                    Image(systemName: "gearshape")
-                        .foregroundColor(.white)
-                        .padding(8)
-                        .background(Color.gray)
-                        .clipShape(Circle())
-                }
-                .offset(x: -20, y: 50)
+                Spacer()
+                    .frame(width: 20)
                 
                 VStack(alignment: .leading, spacing: 20) {
                     HStack {
@@ -137,6 +131,16 @@ struct DetailMyPageView: View {
         }
         .padding()
         .frame(maxHeight: .infinity, alignment: .top) // 최대 높이를 설정하여 상단 정렬
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                }
+            }
+        }
     }
 }
 
