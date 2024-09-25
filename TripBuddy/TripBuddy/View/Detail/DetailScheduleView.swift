@@ -73,9 +73,8 @@ struct DetailScheduleView: View {
                         .padding(.trailing)
 
                 }
-                .padding(.vertical)
+                .padding()
             }
-            .padding(.horizontal)
             .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {

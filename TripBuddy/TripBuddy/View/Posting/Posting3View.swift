@@ -43,6 +43,14 @@ struct Posting3View: View {
                                 viewModel.moneyText = filtered
                             }
                         }
+                        .toolbar {
+                            ToolbarItemGroup(placement: .keyboard) {
+                                Spacer() // 오른쪽 정렬을 위해 Spacer 사용
+                                Button("완료") {
+                                    hideKeyboard()
+                                }
+                            }
+                        }
                         .modifier(TextFieldModifier(width: proxy.size.width * 0.4, height: proxy.size.height * 0.05))
                     
                     Text("원")
@@ -149,6 +157,10 @@ struct Posting3View: View {
             }
             .padding(.horizontal, proxy.size.width * 0.07)
         }
+    }
+    
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 
