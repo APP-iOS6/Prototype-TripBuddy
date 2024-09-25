@@ -144,6 +144,9 @@ struct CustomTextField: View {
                 .padding(.leading, 10)
         }
     }
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
 }
 
 struct CustomTextEditor: View {
@@ -174,7 +177,6 @@ struct CustomTextEditor: View {
             
             ZStack(alignment: .topLeading) {
                 TextEditor(text: $text)
-                //                    .frame(height: 150) // 텍스트 에디터의 높이 지정
                     .padding(4)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
