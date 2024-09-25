@@ -21,10 +21,12 @@ struct MyPageView: View {
     @ObservedObject var viewModel: UserProfileViewModel
     @State private var selectedTab = 0
     @State private var showingSettings = false
+    @Namespace private var tabAnimation
     
     var body: some View {
         let genderOptions = ["남성", "여성", "기타"]
         
+        ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 // 프로필
                 HStack {
@@ -130,7 +132,6 @@ struct MyPageView: View {
                             }
                         }
                         .offset(x: -73)
-                        
                     }
                 }
                 .padding(15)
@@ -138,56 +139,70 @@ struct MyPageView: View {
                 .cornerRadius(12)
                 
                 // 채팅룸
+                let tabs = ["참여 중", "대기 중", "히스토리"]
+                VStack(alignment: .leading, spacing: 30) {
+                    // 탭 버튼
+                    HStack {
+                        ForEach(Array(tabs.enumerated()), id: \.element) { index, tab in
+                            Spacer()
+                            Button(action: {
+                                selectedTab = index
+                            }) {
+                                VStack {
+                                    Text(tabs[index])
+                                        .foregroundColor(selectedTab == index ? .black : .gray)
+                                        .frame(maxWidth: .infinity)
+                                    
+                                    if selectedTab == index {
+                                        Rectangle()
+                                            .fill(Color.black)
+                                            .frame(width: 60, height: 2)
+                                            .matchedGeometryEffect(id: "underline", in: tabAnimation)
+                                    } else {
+                                        Rectangle()
+                                            .fill(Color.clear)
+                                            .frame(width: 60, height: 2)
+                                    }
+                                }
+                            }
+                            Spacer()
+                        }
+                    }
+                    .font(.custom("Pretendard-bold", size: 17))
+                    
+                    // 채팅방리스트
+                    VStack(spacing: 15) {
+                        ForEach(["부산 여행 갈사람~", "수원 행궁동 갈래요", "인천 여행 갈사람~"], id: \.self) { chat in
+                            HStack {
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(chat)
+                                        .font(.custom("Pretendard-regular", size: 17))
+                                    Text("9. 24 ~ 09. 27")
+                                        .font(.custom("Pretendard-regular", size: 12))
+                                        .foregroundColor(.gray)
+                                }
+                                Spacer()
+                                Circle()
+                                    .fill(Color.red)
+                                    .frame(width: 10, height: 10)
+                            }
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 2)
+                        }
+                    }
+                }
+                .padding(20)
+                .padding(.bottom, 20)
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(12)
             }
             .padding()
+        }
         .sheet(isPresented: $showingSettings) {
             MyPageSettingsView(viewModel: viewModel)
         }
-        
-        
-        VStack(alignment: .leading, spacing: 30) {
-            // 탭 버튼
-            HStack {
-                Spacer()
-                Button("참여 중") { }
-                    .foregroundColor(.black)
-                Spacer()
-                Button("대기 중") { }
-                    .foregroundColor(.gray)
-                Spacer()
-                Button("히스토리") { }
-                    .foregroundColor(.gray)
-                Spacer()
-            }.font(.custom("Pretendard-bold", size: 17))
-            
-            // 채팅방리스트
-            ScrollView {
-                VStack(spacing: 15) {
-                    ForEach(["부산 여행 갈사람~", "수원 행궁동 갈래요", "인천 여행 갈사람~"], id: \.self) { chat in
-                        HStack {
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(chat)
-                                    .font(.custom("Pretendard-regular", size: 17))
-                                Text("9. 24 ~ 09. 27")
-                                    .font(.custom("Pretendard-regular", size: 12))
-                                    .foregroundColor(.gray)
-                            }
-                            Spacer()
-                            Circle()
-                                .fill(Color.red)
-                                .frame(width: 10, height: 10)
-                        }
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 2)
-                    }
-                }
-            }
-        }
-        .padding()
-        .background(Color.gray.opacity(0.1))
-        .cornerRadius(12)
     }
 }
 
@@ -204,7 +219,6 @@ struct TagView2: View {
             .cornerRadius(15)
     }
 }
-
 
 #Preview {
     MyPageView(viewModel: UserProfileViewModel())

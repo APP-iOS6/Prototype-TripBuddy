@@ -12,7 +12,7 @@ struct MyPageSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     
     let genderOptions = ["여성", "남성", "그 외", "비공개"]
-    let tagOptions = ["술", "휴양", "파티", "웨이팅", "맛집", "음주", "도전", "관광", "경치", "자동차", "대중교통", "시골", "바다", "산", "새로운 시도 좋아요", "새로운 사람은 싫어요", "FLEX", "절약"]
+    let tagOptions = ["술", "휴양", "파티", "웨이팅", "맛집", "음주", "도전", "관광", "경치", "자동차", "대중교통", "시골", "바다", "산", "새로운 시도 좋아요", "새로운 사람은 싫어요", "FLEX", "절약", "한적한", "빨리"]
     
     var body: some View {
             NavigationView {
@@ -91,17 +91,15 @@ struct MyPageSettingsView: View {
                         .pickerStyle(SegmentedPickerStyle())
                         .padding(.horizontal)
                         
-                        Spacer().frame(height: 20)
+                        Spacer().frame(height: 0)
                         
                         // 태그 선택
-                        VStack {
-                            Text("나와 맞는 태그를 골라보세요! (다중 선택 가능)")
+                        HStack {
+                            Text("나와 맞는 태그를 골라보세요!")
                                 .font(.custom("Pretendard-regular", size: 17))
-                                .padding(.horizontal)
-                            Text("나와 맞는 태그를 골라보세요! (다중 선택 가능)")
-                                .font(.custom("Pretendard-regular", size: 17))
-                                .padding(.horizontal)
-                        }
+                            Text("( 다중 선택 가능 )")
+                                .font(.custom("Pretendard-small", size: 11))
+                        }.padding(.horizontal)
                         
                         FlowLayout_dy/*(spacing: 10)*/ {
                             ForEach(tagOptions, id: \.self) { tag in
@@ -121,13 +119,23 @@ struct MyPageSettingsView: View {
                     }
                     .padding()
                 }
-                .navigationBarItems(trailing: Button("저장") {
-                    presentationMode.wrappedValue.dismiss()
-                })
+                .navigationBarItems(
+//                    leading: Button(action: {
+//                        // 뒤로가기 버튼 액션
+//                        presentationMode.wrappedValue.dismiss()
+//                    }) {
+//                        Image(systemName: "chevron.left")
+//                            .foregroundColor(.black)
+//                            .font(.title2)
+//                    },
+                    trailing: Button("저장") {
+                        // 저장 버튼 액션
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                )
             }
         }
     }
-
 
 struct TagToggle: View {
     let tag: String
