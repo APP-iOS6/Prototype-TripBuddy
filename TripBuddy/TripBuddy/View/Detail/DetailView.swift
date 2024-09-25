@@ -52,6 +52,10 @@ struct OffsetKey: PreferenceKey {
 
 struct DetailView: View {
     
+
+    @State private var isNavigationActive = false // 동행자 프로필 누를시 마이페이지뷰 이동
+    @StateObject private var detailMyPageViewModel = DetailMyPageViewModel()
+    @State private var partnerManager: PartnerCheckManager = .init() //일정을 동행자만 볼수있게? 생각중(아직 사용 안함)
     @State private var toast: Toast?
     @State private var navigateToChatDetailView: Bool = false
     @State private var navigaToScheduleView: Bool = false
@@ -60,7 +64,6 @@ struct DetailView: View {
     @State private var isDeclarationAlert: Bool = false
     @State private var isHeart: Bool = false//좋아요
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var partnerManager: PartnerCheckManager
     var body: some View {
         GeometryReader { proxy in
             ZStack(alignment: .top) {
@@ -312,8 +315,8 @@ struct DetailView: View {
         
         HStack(alignment: .center) {
             VStack(alignment: .center) {
-                Button {
-                    
+                NavigationLink {
+                    DetailMyPageView(viewModel: .init())
                 } label: {
                     Image(.guri)
                         .resizable()
@@ -325,9 +328,10 @@ struct DetailView: View {
             .padding(.vertical)
             .padding(.horizontal, 8)
             
+            
             VStack(alignment: .center) {
-                Button {
-                    
+                NavigationLink {
+                    DetailMyPageView(viewModel: .init())
                 } label: {
                     Image(.bear)
                         .resizable()
@@ -340,8 +344,8 @@ struct DetailView: View {
             .padding(.horizontal, 8)
             
             VStack(alignment: .center) {
-                Button {
-                    
+                NavigationLink {
+                    DetailMyPageView(viewModel: .init())
                 } label: {
                     Image(.pepe)
                         .resizable()
@@ -357,6 +361,8 @@ struct DetailView: View {
         }
         .background(.detailcontainer)
         .clipShape(RoundedRectangle(cornerRadius: 18))
+        
+      
     }
 }
 
