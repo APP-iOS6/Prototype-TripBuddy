@@ -208,3 +208,4 @@ struct TagView2: View {
 #Preview {
     MyPageView(viewModel: UserProfileViewModel())
 }
+
