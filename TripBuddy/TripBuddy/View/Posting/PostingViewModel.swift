@@ -18,7 +18,8 @@ class PostingViewModel: ObservableObject {
     @Published var selectedAge: [String] = []
     @Published var selectedPerson: Person = .man
     @Published var selectedCity: String = ""
-    @Published var date: Date = Date()
+    @Published var startDate: Date = Date()
+    @Published var endDate: Date = Date()
     @Published var moneyText: String = ""
     @Published var isVisibleAlert: Bool = false
 
