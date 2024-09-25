@@ -16,49 +16,51 @@ enum MainTabType {
 struct MainTabBar: View {
     @State private var isVisiblePosting: Bool = false
     @State private var selectedTab: MainTabType = .home
+    
     var body: some View {
-        TabView(selection: $selectedTab) {
-            HomeView()
-                .tabItem {
-                    Label {
-                        Text("Home")
-                    } icon: {
-                        Image(systemName: "house")
+        NavigationStack {
+            TabView(selection: $selectedTab) {
+                HomeView()
+                    .tabItem {
+                        Label {
+                            Text("Home")
+                        } icon: {
+                            Image(systemName: "house")
+                        }
                     }
-                }
-                .tag(MainTabType.home)
-            
-            Text("post")
-                .tabItem {
-                    Label {
-                        Text("Post")
-                    } icon: {
-                        Image(systemName: "plus.app")
+                    .tag(MainTabType.home)
+                
+                Text("post")
+                    .tabItem {
+                        Label {
+                            Text("Post")
+                        } icon: {
+                            Image(systemName: "plus.app")
+                        }
                     }
-                }
-                .onChange(of: selectedTab, { oldValue, newValue in
-                    if newValue == .post {
-                        isVisiblePosting.toggle()
-                        selectedTab = .home
+                    .onChange(of: selectedTab, { oldValue, newValue in
+                        if newValue == .post {
+                            isVisiblePosting.toggle()
+                            selectedTab = .home
+                        }
+                    })
+                    .tag(MainTabType.post)
+                
+                ChatView()
+                    .tabItem {
+                        Label {
+                            Text("Chat")
+                        } icon: {
+                            Image(systemName: "bubble.fill")
+                        }
                     }
-                })
-                .tag(MainTabType.post)
-            
-            ChatView()
-                .tabItem {
-                    Label {
-                        Text("Chat")
-                    } icon: {
-                        Image(systemName: "bubble.fill")
-                    }
-                }
-                .tag(MainTabType.chat)
-            
+                    .tag(MainTabType.chat)
+                
+            }
+            .fullScreenCover(isPresented: $isVisiblePosting) {
+                PostingContainerView()
+            }
         }
-        .fullScreenCover(isPresented: $isVisiblePosting) {
-            PostingContainerView()
-        }
-        
     }
 }
 

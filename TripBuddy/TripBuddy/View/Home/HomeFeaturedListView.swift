@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeFeaturedListView: View {
     @Environment(\.dismiss) private var dismiss
-    
+    @State private var navigaToDetail: Bool = false
     var body: some View {
         ZStack {
             // 상단 이미지가 상단바까지 확장되도록 설정
@@ -25,32 +25,17 @@ struct HomeFeaturedListView: View {
                         .overlay {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("제주")
-                                    .font(.custom("Pretendard-Bold", size: 32))
+                                    .font(.custom("Pretendard-Bold", size: 40))
                                     .foregroundStyle(.white)
                                 
                                 Spacer()
                             }
                             .padding(.leading, -170) // 글자들 왼쪽으로 붙게
-                            .padding(.top, 30)
+                            .padding(.top, 40)
                         }
                                             
                     ScrollView {
                         VStack(spacing: 16) {
-                            HStack() {
-                                TagButton(text: "안동", size: 15) {
-                                    
-                                }
-                                
-                                TagButton(text: "경주", size: 15) {
-                                    
-                                }
-                                
-                                TagButton(text: "서울", size: 15) {
-                                    
-                                }
-                                
-                                Spacer()
-                            }
                             
                             travelPostButton(
                                 title: "스노클링 명소 다 찍어보실 분",
@@ -62,7 +47,7 @@ struct HomeFeaturedListView: View {
                                 dateRange: "9. 24 ~ 09. 27",
                                 tags: ["20대", "남성"]
                             ) {
-                                // 디테일 뷰 이동
+                                navigaToDetail.toggle()
                             }
                             
                             travelPostButton(
@@ -75,7 +60,7 @@ struct HomeFeaturedListView: View {
                                 dateRange: "10. 01",
                                 tags: ["30대", "여성"]
                             ) {
-                                // 디테일 뷰 이동
+                                navigaToDetail.toggle()
                             }
                             
                             travelPostButton(
@@ -88,7 +73,7 @@ struct HomeFeaturedListView: View {
                                 dateRange: "10. 01",
                                 tags: ["30대", "여성"]
                             ) {
-                                // 디테일 뷰 이동
+                                navigaToDetail.toggle()
                             }
                             
                             travelPostButton(
@@ -101,7 +86,7 @@ struct HomeFeaturedListView: View {
                                 dateRange: "10. 02 ~ 10. 05",
                                 tags: ["20대", "여성"]
                             ) {
-                                // 디테일 뷰 이동
+                                navigaToDetail.toggle()
                             }
                             
                             travelPostButton(
@@ -114,12 +99,15 @@ struct HomeFeaturedListView: View {
                                 dateRange: "10. 02 ~ 10. 05",
                                 tags: ["20대", "여성"]
                             ) {
-                                // 디테일 뷰 이동
+                                navigaToDetail.toggle()
                             }
                         }
                         .padding(.horizontal, 16) // 좌우 여백 추가
                     }
                 }
+                .navigationDestination(isPresented: $navigaToDetail, destination: {
+                    DetailView()
+                })
                 .navigationBarBackButtonHidden(true)
             }
         }
@@ -134,9 +122,7 @@ struct HomeFeaturedListView: View {
             }
             
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    // 마이페이지뷰 이동
-                } label: {
+                NavigationLink(destination: MyPageView(viewModel: UserProfileViewModel())) {
                     Image(systemName: "person.circle")
                         .font(.title2)
                 }

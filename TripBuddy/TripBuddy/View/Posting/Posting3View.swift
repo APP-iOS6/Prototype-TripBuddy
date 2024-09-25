@@ -18,10 +18,11 @@ struct Posting3View: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    @State private var tag: [String] = ["액티비티", "계획", "무계획", "관광","핫플", "자연", "FLEX", "도시", "시골", "바다", "산", "조용", "휴양", "힐링", "운전가능", "술", "수다"]
-    @State private var age: [String] = ["무관", "10대"," 20대", "30대", "40대", "50대", "60대", "70대"]
+    @State private var tag: [String] = ["액티비티", "계획", "무계획", "관광", "핫플", "도시", "시골", "바다", "산", "조용", "휴양", "힐링", "운전 가능", "술", "수다"]
+    @State private var age: [String] = ["무관", "10대","20대", "30대", "40대", "50대", "60대", "70대"]
     @EnvironmentObject private var viewModel: PostingViewModel
     
+    @State private var showAllTags = false  // 더보기/접기 상태 관리
     
     var body: some View {
         GeometryReader { proxy in
@@ -29,7 +30,7 @@ struct Posting3View: View {
                 
                 HStack(alignment: .center) {
                     Text("인당 경비")
-                        .font(.title2)
+                        .font(.custom("Pretendard-medium", size: 17))
                     
                     Spacer()
                     
@@ -42,16 +43,17 @@ struct Posting3View: View {
                                 viewModel.moneyText = filtered
                             }
                         }
-                        .modifier(TextFieldModifier(width: proxy.size.width * 0.3))
+                        .modifier(TextFieldModifier(width: proxy.size.width * 0.4, height: proxy.size.height * 0.05))
                     
                     Text("원")
+                        .font(.custom("Pretendard-regular", size: 17))
                 }
                 
                 Spacer()
                     .frame(maxHeight: proxy.size.height * 0.06)
                 
-                Text("함께하고 싶은 성별")
-                    .font(.title2)
+                Text("동행자 성별")
+                    .font(.custom("Pretendard-medium", size: 17))
                 
                 Picker("성별", selection: $viewModel.selectedPerson) {
                     ForEach(Person.allCases, id: \.self) { person in
@@ -63,33 +65,8 @@ struct Posting3View: View {
                 Spacer()
                     .frame(maxHeight: proxy.size.height * 0.06)
                 
-                Text("성향")
-                    .font(.title2)
-                
-                FlowLayout {
-                    ForEach(tag, id: \.self) { tag in
-                        let selected = viewModel.selectedTag.contains(where: { $0 == tag })
-                        Button {
-                            viewModel.tagTapped(tag)
-                        } label : {
-                            Text(tag)
-                                .padding(.horizontal, 10)
-                                .padding(.vertical, 5)
-                                .background(selected ? .customgreen : .customgray)
-                                .foregroundColor(selected ? .white : .black)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .padding(.horizontal, 6)
-                                .padding(.vertical, 6)
-                        }
-                    }
-                }
-                
-                
-                Spacer()
-                    .frame(maxHeight: proxy.size.height * 0.06)
-                
-                Text("함께하고 싶은 나이대")
-                    .font(.title2)
+                Text("동행자 나이대")
+                    .font(.custom("Pretendard-medium", size: 17))
                 
                 FlowLayout {
                     ForEach(age, id: \.self) { age in
@@ -98,19 +75,60 @@ struct Posting3View: View {
                             viewModel.ageTapped(age)
                         } label : {
                             Text(age)
-                                .padding(.horizontal, 10)
-                                .padding(.vertical, 5)
-                                .background(selected ? .customgreen : .customgray)
-                                .foregroundColor(selected ? .white : .black)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .padding(.horizontal, 6)
+                                .font(.custom("Pretendard-regular", size: 17))
+                                .padding(.horizontal, 15)
                                 .padding(.vertical, 6)
+                                .background(selected ? .customgreen : Color(.systemGray6))
+                                .foregroundColor(selected ? .white : Color(UIColor.darkGray))
+                                .clipShape(RoundedRectangle(cornerRadius: 18))
+                                .padding(.trailing, 10)
+                                .padding(.bottom, 10)
                         }
                     }
                 }
                 
                 Spacer()
-                    .frame(maxHeight: proxy.size.height * 0.05)
+                    .frame(maxHeight: proxy.size.height * 0.06)
+                
+                Text("여행 성향")
+                    .font(.custom("Pretendard-medium", size: 17))
+                
+                // 성향 태그 (더보기/접기 로직 포함)
+                FlowLayout {
+                    let visibleTags = showAllTags ? tag : Array(tag.prefix(7)) // 시골까지 보이도록 제한
+                    ForEach(visibleTags, id: \.self) { tag in
+                        let selected = viewModel.selectedTag.contains(where: { $0 == tag })
+                        Button {
+                            viewModel.tagTapped(tag)
+                        } label : {
+                            Text(tag)
+                                .font(.custom("Pretendard-regular", size: 17))
+                                .padding(.horizontal, 15)
+                                .padding(.vertical, 6)
+                                .background(selected ? .customgreen : Color(.systemGray6))
+                                .foregroundColor(selected ? .white : Color(UIColor.darkGray))
+                                .clipShape(RoundedRectangle(cornerRadius: 18))
+                                .padding(.trailing, 10)
+                                .padding(.bottom, 10)
+                        }
+                    }
+                    
+                }
+                
+                // 더보기/접기 버튼
+                Button {
+                    withAnimation(nil) { // 애니메이션 없이 상태 변경
+                        showAllTags.toggle()
+                    }
+                } label: {
+                    Label(showAllTags ? "접기" : "더보기", systemImage: showAllTags ? "chevron.up" : "chevron.down")
+                        .font(.custom("Pretendard-regular", size: 14))
+                        .foregroundStyle(.basic)
+                }
+                .padding(.leading, 1)
+                
+                Spacer()
+                    .frame(maxHeight: proxy.size.height * 0.06)
                 
                 Button {
                     dismiss()
@@ -132,9 +150,6 @@ struct Posting3View: View {
             .padding(.horizontal, proxy.size.width * 0.07)
         }
     }
-    
-    
-    
 }
 
 

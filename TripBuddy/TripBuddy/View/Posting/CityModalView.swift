@@ -11,7 +11,7 @@ struct CityModalView: View {
     
     @Environment(\.dismiss) private var dismiss
     @State private var query: String = ""
-    @State private var cities: [String] = ["서울", "대구", "부산", "대전", "이천", "울산", "광주", "용인", "고양", "김포", "의정부", "파주", "세종", "김해", "서산", "군포", "의왕", "안양"]
+    @State private var cities: [String] = ["서울", "대구", "부산", "대전", "이천", "울산", "광주", "용인", "고양", "김포", "의정부", "파주", "세종", "김해", "서산", "군포", "의왕", "안양", "기타"]
     
     var queryList: [String] {
         if query.isEmpty {
@@ -29,10 +29,21 @@ struct CityModalView: View {
     
     var body: some View {
         VStack {
-            //TODO: 검색바 넣어야 됨
-            SearchBar(text: $query)
-                .animation(.easeInOut, value: query) 
-                .padding()
+            HStack {
+                Button {
+                    dismiss() // 뒤로 가기 동작
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .font(.title2)
+                        .tint(.gray)
+                }
+                
+                //TODO: 검색바 넣어야 됨
+                SearchBar(text: $query)
+                    .animation(.easeInOut, value: query)
+            }
+            .padding(.horizontal, 18)
+            .padding(.top, 20)
             
             List {
                 ForEach(queryList, id: \.self) { city in
@@ -41,7 +52,7 @@ struct CityModalView: View {
                         dismiss()
                     } label: {
                         Text(city)
-                            .padding()
+                            .font(.custom("Pretendard-regular", size: 17))
                     }
                 }
             }
@@ -79,6 +90,7 @@ struct SearchBar: View {
                         }
                     } label: {
                         Text("Cancel")
+                            .font(.custom("Pretendard-Regular", size: 17))
                     }
                 }
             }

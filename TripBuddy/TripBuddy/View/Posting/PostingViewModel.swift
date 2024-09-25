@@ -20,6 +20,8 @@ class PostingViewModel: ObservableObject {
     @Published var selectedCity: String = ""
     @Published var date: Date = Date()
     @Published var moneyText: String = ""
+    @Published var isVisibleAlert: Bool = false
+
     
     var progress: Double {
         Double(step.rawValue) * 0.33
