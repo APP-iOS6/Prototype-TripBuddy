@@ -20,7 +20,8 @@ struct ChatSideBar: View {
                         }
                     }) {
                         Image(systemName: "line.3.horizontal")
-                            .imageScale(.large)
+                            .foregroundStyle(.tint)
+                            .font(.title3)
                     }
                 }
             }
