@@ -36,21 +36,6 @@ struct HomeFeaturedListView: View {
                                             
                     ScrollView {
                         VStack(spacing: 16) {
-                            HStack() {
-                                TagButton(text: "안동", size: 14) {
-                                    
-                                }
-                                
-                                TagButton(text: "경주", size: 14) {
-                                    
-                                }
-                                
-                                TagButton(text: "서울", size: 14) {
-                                    
-                                }
-                                
-                                Spacer()
-                            }
                             
                             travelPostButton(
                                 title: "스노클링 명소 다 찍어보실 분",
@@ -134,9 +119,7 @@ struct HomeFeaturedListView: View {
             }
             
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    // 마이페이지뷰 이동
-                } label: {
+                NavigationLink(destination: MyPageView(viewModel: UserProfileViewModel())) {
                     Image(systemName: "person.circle")
                         .font(.title2)
                 }

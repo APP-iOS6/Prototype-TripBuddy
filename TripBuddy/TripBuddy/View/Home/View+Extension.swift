@@ -18,7 +18,7 @@ struct TravelPostModifier: ViewModifier {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text(title)
-                    .font(.custom("Pretendard-Bold", size: 15))
+                    .font(.custom("Pretendard-Bold", size: 16))
                 
                 Spacer()
                 
@@ -28,13 +28,13 @@ struct TravelPostModifier: ViewModifier {
             }
             
             Text(self.content)
-                .font(.custom("Pretendard-Regular", size: 13))
+                .font(.custom("Pretendard-Regular", size: 14))
                 .lineLimit(2) // 2줄로 제한
                 .truncationMode(.tail) // 넘칠 때 '...' 처리
             
             HStack {
                 ForEach(tags, id: \.self) { tag in
-                    TagView(text: tag, size: 11)
+                    TagView(text: tag, size: 12)
                 }
             }
         }
