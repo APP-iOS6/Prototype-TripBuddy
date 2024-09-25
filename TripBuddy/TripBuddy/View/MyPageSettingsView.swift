@@ -39,6 +39,8 @@ struct MyPageSettingsView: View {
                         .frame(maxWidth: .infinity)
                         .padding(.top, 30)
                         .multilineTextAlignment(.center)
+                        .offset(y: 30)
+                        
                         
                         // 닉네임 필드
                         VStack(alignment: .leading, spacing: 5) {
@@ -49,6 +51,7 @@ struct MyPageSettingsView: View {
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                         }
                         .padding(.horizontal)
+                        
                         
                         // 소개글 필드
                         VStack(alignment: .leading, spacing: 5) {
@@ -118,6 +121,7 @@ struct MyPageSettingsView: View {
                         .padding(.horizontal)
                     }
                     .padding()
+                    .offset(y: -60)
                 }
                 .navigationBarItems(
 //                    leading: Button(action: {
@@ -128,7 +132,7 @@ struct MyPageSettingsView: View {
 //                            .foregroundColor(.black)
 //                            .font(.title2)
 //                    },
-                    trailing: Button("저장") {
+                    trailing: Button("Save") {
                         // 저장 버튼 액션
                         presentationMode.wrappedValue.dismiss()
                     }
