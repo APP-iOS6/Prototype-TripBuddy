@@ -87,7 +87,7 @@ struct MyPageView: View {
                         
                         ProgressView(value: viewModel.buddyTemperature, total: 100)
                             .accentColor(.basic)
-                    }
+                    }.padding(.bottom, 10)
                     
                     // 자기소개
                     Text(viewModel.introduction.isEmpty ? "자기소개를 입력하고 나만의 동행자를 찾아보세요!" : viewModel.introduction)
@@ -99,7 +99,7 @@ struct MyPageView: View {
                         .frame(minHeight: 60)
                         .background(Color(.systemGray6))
                         .cornerRadius(10)
-                        .offset(y:-10)
+                        .offset(y:-20)
                     
                     // 좋아요/싫어요
                     HStack(alignment: .top) {
@@ -121,9 +121,9 @@ struct MyPageView: View {
                         Spacer()
                         
                         Rectangle()
-                            .frame(width: 1, height: 60)
+                            .frame(width: 1, height: 50)
                             .foregroundColor(.gray)
-                            .offset(x: -26)
+                            .offset(x: -33)
                         
                         Spacer()
                         
@@ -147,7 +147,7 @@ struct MyPageView: View {
                     .padding(15)
                     .background(Color(.systemGray6))
                     .cornerRadius(12)
-                    .offset(y:-20)
+                    .offset(y:-30)
                     
                     // 채팅룸
                     let tabs = ["참여 중", "대기 중", "히스토리"]
@@ -200,7 +200,7 @@ struct MyPageView: View {
                     .padding(.bottom, 20)
                     .background(Color(.systemGray6))
                     .cornerRadius(12)
-                    .offset(y:-30)
+                    .offset(y:-40)
                 }
                 .padding()
             }
