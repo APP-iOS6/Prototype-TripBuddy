@@ -33,7 +33,7 @@ struct PostingContainerView: View {
                     }
                 } else {
                     Button {
-                        dismiss()
+                        handleback()
                     } label: {
                         Image(systemName: "xmark")
                             .tint(.primary)
@@ -70,13 +70,23 @@ struct PostingContainerView: View {
                 }
             }.environmentObject(viewModel)
         }
+        .alert("동행 모집을 취소하시겟습니까?", isPresented: $viewModel.isVisibleAlert) {
+            Button("아니요", role: .cancel) {}
+            Button("예", role: .destructive) {
+                dismiss()
+            }
+        }
         .animation(.smooth, value: viewModel.step)
     }
     
     func handleback() {
         switch viewModel.step {
         case .date:
-            return
+            if viewModel.selectedCity.isEmpty {
+                dismiss()
+            } else {
+                viewModel.isVisibleAlert.toggle()
+            }
         case .text:
             viewModel.step = .date
         case .option:
