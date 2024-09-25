@@ -63,6 +63,7 @@ struct DetailView: View {
     @State private var isVisibleAlert: Bool = false //신고하기 버튼 액션얼럿
     @State private var isDeclarationAlert: Bool = false
     @State private var isHeart: Bool = false//좋아요
+    @State private var showingDetailMyPage: Bool = false
     @Environment(\.dismiss) private var dismiss
     var body: some View {
         GeometryReader { proxy in
@@ -121,6 +122,10 @@ struct DetailView: View {
                         .transition(.opacity)
                 }
                 
+            }
+            .sheet(isPresented: $showingDetailMyPage) {
+                DetailMyPageView(viewModel: detailMyPageViewModel)
+                    .presentationDetents([.medium, .large])
             }
             .toastView(toast: $toast)
             .overlay(alignment: .bottom) {
@@ -315,8 +320,8 @@ struct DetailView: View {
         
         HStack(alignment: .center) {
             VStack(alignment: .center) {
-                NavigationLink {
-                    DetailMyPageView(viewModel: .init())
+                Button {
+                    showingDetailMyPage.toggle()
                 } label: {
                     Image(.guri)
                         .resizable()
@@ -330,8 +335,8 @@ struct DetailView: View {
             
             
             VStack(alignment: .center) {
-                NavigationLink {
-                    DetailMyPageView(viewModel: .init())
+                Button {
+                    showingDetailMyPage.toggle()
                 } label: {
                     Image(.bear)
                         .resizable()
@@ -344,8 +349,8 @@ struct DetailView: View {
             .padding(.horizontal, 8)
             
             VStack(alignment: .center) {
-                NavigationLink {
-                    DetailMyPageView(viewModel: .init())
+                Button {
+                    showingDetailMyPage.toggle()
                 } label: {
                     Image(.pepe)
                         .resizable()
