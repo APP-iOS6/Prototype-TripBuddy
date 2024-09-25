@@ -27,13 +27,13 @@ struct ChatRoomListView: View {
                         VStack(alignment: .leading) {
                             HStack {
                                 TagsView(text: chatRoom.area, isBool: true)
-                                    .font(.system(size: 12))
+                                    .font(.custom("Pretendard-Light", size: 12))
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
                                 
                                 Text(chatRoom.tripName)
-                                    .font(.headline)
                                     .padding(.vertical, 5)
+                                    .font(.custom("Pretendard-Bold", size: 16))
                                 
                                 Text("\(chatRoom.memberCount)")
                                     .font(.system(size: 15))
@@ -47,7 +47,7 @@ struct ChatRoomListView: View {
                             }
                             HStack {
                                 Text(chatRoom.lastMessage)
-                                    .font(.subheadline)
+                                    .font(.custom("Pretendard-Light", size: 16))
                                     .foregroundColor(.gray)
                                 Spacer()
                                 

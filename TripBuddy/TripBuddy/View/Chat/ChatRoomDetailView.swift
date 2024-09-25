@@ -128,8 +128,11 @@ struct profileView: View {
                     .foregroundColor(.gray)
                 
                 messageView(text: "프로젝트 힘내야해")
+                    .font(.custom("Pretendard-Light", size: 17))
                 messageView(text: "배고프다")
+                    .font(.custom("Pretendard-Light", size: 17))
                 messageView(text: messages)
+                    .font(.custom("Pretendard-Light", size: 17))
             }
         }
         .padding(.vertical, 10) // 전체 프로필 뷰에 수직 패딩 추가
@@ -156,6 +159,7 @@ struct meView: View {
                     HStack {
                         Spacer()
                         messageView(text: message)
+                            .font(.custom("Pretendard-Light", size: 17))
                     }
                 }
             }
@@ -202,23 +206,21 @@ struct TripNavigationView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         HStack {
                             Text("경상북도")
-                                .font(.title)
-                                .fontWeight(.bold)
+                                .font(.custom("Pretendard-Bold", size: 24))
                                 .foregroundColor(.white)
                                 .padding(.leading, 10)
                             
                             Text("부산")
-                                .font(.title3)
-                                .fontWeight(.bold)
+                                .font(.custom("Pretendard-Bold", size: 19))
                                 .foregroundColor(.white)
                         }
                         Text("부산의 대한 설명")
-                            .font(.subheadline)
+                            .font(.custom("Pretendard-Medium", size: 16))
                             .foregroundColor(.white)
                             .padding(.leading, 10)
                         
                         Text("09.10 ~ 09.27")
-                            .font(.subheadline)
+                            .font(.custom("Pretendard-Light", size: 14))
                             .foregroundColor(.white)
                             .padding(.leading, 10)
                     }
