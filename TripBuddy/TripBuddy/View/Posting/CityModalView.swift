@@ -71,6 +71,19 @@ struct SearchBar: View {
     var body: some View {
         HStack {
             TextField("Search ...", text: $text)
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer() // 오른쪽 정렬을 위해 Spacer 사용
+                        Button {
+                            hideKeyboard()
+                        } label: {
+                            Image(systemName: "keyboard.chevron.compact.down")
+                        }
+                    }
+                }
+                .onSubmit {
+                    hideKeyboard()
+                }
                 .padding(7)
                 .padding(.horizontal, 25)
                 .background(Color(.systemGray6))
@@ -96,6 +109,9 @@ struct SearchBar: View {
             }
             
         }
+    }
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

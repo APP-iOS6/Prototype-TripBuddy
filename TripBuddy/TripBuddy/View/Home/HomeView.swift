@@ -18,7 +18,8 @@ struct HomeView: View {
                 VStack(alignment: .leading) {
                     
                     HStack {
-                        SearchBar(text: $query)
+                        //홈뷰 서치바
+                       SearchBar(text: $query)
                             .animation(.easeInOut, value: query) // SearchBar의 애니메이션 적용
                         
                         NavigationLink(destination: FilterView()) {
@@ -261,6 +262,9 @@ struct HomeView: View {
                 }
             }
         }
+    }
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 
