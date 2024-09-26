@@ -7,6 +7,14 @@ struct ChatSideBar: View {
 
     var body: some View {
         ZStack {
+            // 배경 뷰
+            if isSidebarVisible {
+                Color.black.opacity(0.1)
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        closeSidebar() // 배경을 터치했을 때 사이드바 닫기
+                    }
+            }
 
             VStack {
                 Spacer()
@@ -26,14 +34,14 @@ struct ChatSideBar: View {
                 }
             }
 
-            // Sidebar
+            // 사이드바
             HStack {
                 Spacer()
                 VStack(alignment: .leading) {
                     ChatMemberList()
                 }
                 .frame(width: sidebarWidth)
-                .background(Color(UIColor.systemGray5)) // 연한 회색 배경
+                .background(Color(UIColor.white)) // 연한 회색 배경
                 .offset(x: sidebarOffset)
                 .gesture(
                     DragGesture()
@@ -92,8 +100,8 @@ struct ChatMemberList: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("대화상대")
-                .font(.custom("Pretendard-Bold", size: 25))
+            Text("대화 상대")
+                .font(.custom("Pretendard-midium", size: 25))
                 .foregroundColor(.black)
                 .padding(.top, 70)
                 .padding(.leading, 20)
@@ -102,17 +110,29 @@ struct ChatMemberList: View {
                 HStack {
                     Image(member.imageName)
                         .resizable()
-                        .frame(width: 50, height: 50)
+                        .frame(width: 60, height: 60)
                         .clipShape(Circle())
                         .overlay {
                             Circle().stroke(Color.gray, lineWidth: 0.1)
                         }
                     
-                    Text(member.name)
-                        .font(.custom("Pretendard-Medium", size: 18))
-                        .foregroundColor(.black)
+                    if member.name == "요시" {
+                        Image(systemName: "crown.fill")
+                            .foregroundStyle(.yellow)
+                            .font(.system(size: 22))
+                            .padding(.leading, 4)
+                        Text(member.name)
+                            .font(.custom("Pretendard-midium", size: 18))
+                            .foregroundColor(.black)
+                    } else {
+                        Text(member.name)
+                            .font(.custom("Pretendard-light", size: 18))
+                            .foregroundColor(.black)
+                            .padding(.leading, 10)
+                    }
                 }
-                .padding()
+                .padding(.leading, 20)
+                .padding(.top, 10)
             }
             Spacer()
             
@@ -122,6 +142,7 @@ struct ChatMemberList: View {
                     showAlert = true
                 }) {
                     Image(systemName: "rectangle.portrait.and.arrow.right")
+                        .foregroundColor(.gray)
                 }
                 .padding()
                 .alert(isPresented: $showAlert) {
@@ -142,8 +163,11 @@ struct ChatMemberList: View {
                 }) {
                     if isBellBool {
                         Image(systemName: "bell.fill")
+                            .foregroundColor(.gray)
+                            
                     } else {
                         Image(systemName: "bell.slash")
+                            .foregroundColor(.gray)
                     }
                 }
                 
@@ -151,6 +175,7 @@ struct ChatMemberList: View {
                     // 설정 버튼 동작 추가
                 }) {
                     Image(systemName: "gearshape.fill")
+                        .foregroundColor(.gray)
                 }
                 .padding()
             }
