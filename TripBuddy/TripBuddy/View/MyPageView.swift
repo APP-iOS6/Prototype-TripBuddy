@@ -151,7 +151,7 @@ struct MyPageView: View {
                     
                     // 채팅룸
                     let tabs = ["참여 중", "대기 중", "히스토리"]
-                    VStack(alignment: .leading, spacing: 30) {
+                    VStack(alignment: .leading, spacing: 13) {
                         // 탭 버튼
                         HStack {
                             ForEach(Array(tabs.enumerated()), id: \.element) { index, tab in
@@ -167,7 +167,7 @@ struct MyPageView: View {
                                         if selectedTab == index {
                                             Rectangle()
                                                 .fill(Color.black)
-                                                .frame(width: 60, height: 2)
+                                                .frame(width: .infinity, height: 2)
                                                 .matchedGeometryEffect(id: "underline", in: tabAnimation)
                                         } else {
                                             Rectangle()
@@ -189,12 +189,11 @@ struct MyPageView: View {
                             Trip(region: "경기도", destination: "수원", dateRange: "09.20 ~ 09.25", description: "행궁동 핫플 카페 같이 ㄱㄱ", imageName: "Suwon")
                         ]
                         
-                        VStack(spacing: 7) {
+                        VStack(spacing: 13) {
                             ForEach(trips, id: \.destination) { trip in
                                 TripNavigationView_mypage(trip: trip)
                             }
                         }
-                        .offset(y: -12)
                     }
                     .padding(20)
                     .padding(.bottom, 20)
@@ -278,7 +277,7 @@ struct TripNavigationView_mypage: View {
         }
         .cornerRadius(15)
         .shadow(radius: 5)
-        .padding(.horizontal, -7)  // 좌우 패딩 추가
+        .padding(.horizontal, -1)  // 좌우 패딩 추가
     }
 }
 
