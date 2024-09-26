@@ -64,6 +64,7 @@ struct CityModalView: View {
 struct SearchBar: View {
     
     @Binding var text: String
+    
     private var isEditing: Bool {
         text.isEmpty
     }
@@ -82,6 +83,19 @@ struct SearchBar: View {
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 16)
                 }
+                .keyboardType(.default)
+                .toolbar {
+                    // 키보드 위에 닫기 버튼 추가
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()  // 오른쪽 정렬
+                        Button {
+                            hideKeyboard()
+                        } label: {
+                            Image(systemName: "keyboard.chevron.compact.down")
+                        }
+                    }
+                }
+            
             if !text.isEmpty {
                 if !text.isEmpty {
                     Button {
@@ -94,8 +108,11 @@ struct SearchBar: View {
                     }
                 }
             }
-            
         }
+    }
+    
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

@@ -35,23 +35,6 @@ struct FilterView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Button {
-                    dismiss() // 뒤로 가기 동작
-                } label: {
-                    Image(systemName: "chevron.backward")
-                        .font(.title2)
-                        .tint(.gray)
-                }
-                
-                SearchBar(text: $query)
-                    .animation(.easeInOut, value: query) // SearchBar의 애니메이션 적용
-            }
-            .padding(.leading, 8)
-            
-            Spacer()
-                .frame(height: 10)
-            
             ScrollView() {
                 VStack(alignment: .leading) {
                     Text("도시")
@@ -143,11 +126,22 @@ struct FilterView: View {
                 }//VStack 끝
                 
             }//스크롤뷰 끝
-            
+
             NavigationLink(destination: FilterSearchView()) {
                 Text("적용하기")
                     .modifier(ButtonModifier(color: .basic, disabled: false))
             }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss() // 버튼을 누르면 이전 화면으로 이동
+                    } label: {
+                        Image(systemName: "chevron.left") // 화살표 모양 아이콘
+                            .font(.title2)
+                    }
+                }
+            }
+            .tint(.gray)
         }
         .padding(.horizontal)
         .navigationBarBackButtonHidden(true)
