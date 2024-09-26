@@ -19,11 +19,14 @@ struct PostingContainerView: View {
     @StateObject private var viewModel: PostingViewModel = .init()
     @Environment(\.dismiss) private var dismiss
     
-    private var action: () -> Void
+    private var cancel: () -> Void
+    private var posting: () -> Void
     
-    init(action: @escaping () -> Void) {
-        self.action = action
+    init(cancel: @escaping () -> Void, posting: @escaping () -> Void) {
+        self.cancel = cancel
+        self.posting = posting
     }
+    
     var body: some View {
         VStack {
             HStack(alignment: .center) {
@@ -71,8 +74,8 @@ struct PostingContainerView: View {
                         .transition(.opacity)
                 case .option:
                     Posting3View() {
-                        
-                        action()
+                        viewModel.reset()
+                        posting()
                     }
                 }
             }.environmentObject(viewModel)
@@ -80,7 +83,8 @@ struct PostingContainerView: View {
         .alert("작성 중인 내용은 모두 사라집니다", isPresented: $viewModel.isVisibleAlert) {
             Button("취소", role: .cancel) {}
             Button("삭제", role: .destructive) {
-                
+                viewModel.reset()
+                cancel()
             }
         }
         .animation(.smooth, value: viewModel.step)
@@ -90,7 +94,7 @@ struct PostingContainerView: View {
         switch viewModel.step {
         case .date:
             if viewModel.selectedCity.isEmpty {
-                dismiss()
+                cancel()
             } else {
                 viewModel.isVisibleAlert.toggle()
             }
@@ -101,12 +105,14 @@ struct PostingContainerView: View {
         }
     }
 }
-        
+
 #Preview {
     NavigationStack {
         PostingContainerView() {
+        } posting: {
+            
         }
-            .environmentObject(PostingViewModel())
+        .environmentObject(PostingViewModel())
         
     }
 }

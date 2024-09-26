@@ -45,6 +45,21 @@ class PostingViewModel: ObservableObject {
         } else {
             selectedAge.append(age)
         }
-        
+    }
+    
+    
+    func reset() {
+        self.step = .date
+        self.title = ""
+        self.text = ""
+        self.count = 1.0
+        self.selectedTag = []
+        self.selectedAge = []
+        self.selectedPerson = .man
+        self.selectedCity = ""
+        self.startDate = .init()
+        self.endDate = .init()
+        self.moneyText = ""
+        self.isVisibleAlert = false
     }
 }

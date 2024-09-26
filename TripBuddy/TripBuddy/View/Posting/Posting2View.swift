@@ -15,61 +15,65 @@ struct Posting2View: View {
     
     var body: some View {
         GeometryReader { proxy in
-            VStack(alignment: .leading) {
-                
-                CustomTextField(
-                    placeholder: "ex. 12월 제주 바다 보러갈 동행 3인 구해요.",
-                    text: $title,
-                    characterLimit: 40,
-                    subtitle: "(최소 5자 이상 / 최대 40자 이내)",
-                    subtitleColor: .green,
-                    isRequired: true
-                )
-                
-                Spacer()
-                    .frame(maxHeight: proxy.size.height * 0.06)
-                
-                CustomTextEditor(
-                    placeholder: "ex. 맛집 탐방을 좋아하는 20대 여성 동행을 찾아요! 걸어서 맛집 탐방을 하려고 합니다 :)",
-                    text: $content,
-                    characterLimit: 1000,
-                    subtitle: "(최소 20자 이상 / 최대 1000자 이내)",
-                    subtitleColor: .green,
-                    isRequired: true
-                )
-                
-                Spacer()
-                    .frame(maxHeight: proxy.size.height * 0.06)
-                
-                HStack {
-                    Text("모집 인원")
-                        .font(.custom("Pretendard-medium", size: 17))
+         
+                VStack(alignment: .leading) {
+                    
+                    CustomTextField(
+                        placeholder: "ex. 12월 제주 바다 보러갈 동행 3인 구해요.",
+                        text: $viewModel.title,
+                        characterLimit: 40,
+                        subtitle: "(최소 5자 이상 / 최대 40자 이내)",
+                        subtitleColor: .green,
+                        isRequired: true
+                    )
+                    
                     Spacer()
-                    Text("\(Int(viewModel.count))")
-                        .font(.custom("Pretendard-regular", size: 17))
+                        .frame(maxHeight: proxy.size.height * 0.06)
+                    
+                    CustomTextEditor(
+                        placeholder: "ex. 맛집 탐방을 좋아하는 20대 여성 동행을 찾아요! 걸어서 맛집 탐방을 하려고 합니다 :)",
+                        text: $viewModel.text,
+                        characterLimit: 1000,
+                        subtitle: "(최소 20자 이상 / 최대 1000자 이내)",
+                        subtitleColor: .green,
+                        isRequired: true
+                    )
+                    //.frame(minHeight: 160)
+                    
+                    Spacer()
+                        .frame(maxHeight: proxy.size.height * 0.06)
+                    
+                    HStack {
+                        Text("모집 인원")
+                            .font(.custom("Pretendard-medium", size: 17))
+                        Spacer()
+                        Text("\(Int(viewModel.count))")
+                            .font(.custom("Pretendard-regular", size: 17))
+                    }
+                    
+                    Slider(value: $viewModel.count, in: 1...10, step: 1.0)
+                        .tint(.basic)
+                    
+                    Spacer()
+                        .frame(maxHeight: proxy.size.height * 0.06)
+                    
+                    Button {
+                        viewModel.step = .option
+                    } label: {
+                        Text("다음")
+                            .modifier(ButtonModifier(color: .basic,
+                                                     disabled: viewModel.title.count < 5 || viewModel.text.count < 20))
+                            .font(.custom("Pretendard-regular", size: 18))
+                    }
+                    .disabled(viewModel.title.count < 5 || viewModel.text.count < 20)
+                    
+                    Spacer()
+                        .frame(maxHeight: proxy.size.height * 0.06)
+                    
                 }
-                
-                Slider(value: $viewModel.count, in: 1...10, step: 1.0)
-                    .tint(.basic)
-                
-                Spacer()
-                    .frame(maxHeight: proxy.size.height * 0.06)
-                
-                Button {
-                    viewModel.step = .option
-                } label: {
-                    Text("다음")
-                        .modifier(ButtonModifier(color: .basic,
-                                                 disabled: title.count < 5 || content.count < 20))
-                        .font(.custom("Pretendard-regular", size: 18))
-                }
-                
-                Spacer()
-                    .frame(maxHeight: proxy.size.height * 0.06)
-                
+                .padding(.horizontal, proxy.size.width * 0.07)
             }
-            .padding(.horizontal, proxy.size.width * 0.07)
-        }
+        
     }
 }
 
@@ -80,7 +84,7 @@ struct TextFieldModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding()
-            .frame(maxWidth: width, maxHeight: height)
+            .frame(maxWidth: width, minHeight: height)
             .overlay {
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color(.systemGray3), lineWidth: 0.5)
@@ -124,7 +128,17 @@ struct CustomTextField: View {
                 }
                 
                 TextField("", text: $text)
-                // 입력된 글자 수가 제한을 넘지 않도록
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer() // 오른쪽 정렬을 위해 Spacer 사용
+                            Button("완료") {
+                                hideKeyboard()
+                            }
+                        }
+                    }
+                    .onSubmit {
+                        hideKeyboard()
+                    }
                     .onChange(of: text) { _, newValue in
                         if newValue.count > characterLimit {
                             text = String(newValue.prefix(characterLimit))
@@ -177,6 +191,10 @@ struct CustomTextEditor: View {
             
             ZStack(alignment: .topLeading) {
                 TextEditor(text: $text)
+                    .onSubmit {
+                        hideKeyboard()
+                    }
+                    .frame(height: 100)
                     .padding(4)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
@@ -202,6 +220,9 @@ struct CustomTextEditor: View {
                 .foregroundStyle(.basic)
                 .padding(.leading, 10)
         }
+    }
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

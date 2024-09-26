@@ -43,7 +43,7 @@ struct ChatView: View {
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .padding()
+                .padding(.horizontal, 20)
                 
                 SearchFieldView(query: $searchText)
                 
