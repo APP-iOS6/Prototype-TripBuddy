@@ -148,6 +148,7 @@ struct FilterView: View {
                 Text("적용하기")
                     .modifier(ButtonModifier(color: .basic, disabled: false))
             }
+            .padding(.bottom)
         }
         .padding(.horizontal)
         .navigationBarBackButtonHidden(true)

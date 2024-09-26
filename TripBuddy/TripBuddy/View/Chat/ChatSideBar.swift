@@ -102,7 +102,7 @@ struct ChatMemberList: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("대화 상대")
-                .font(.custom("Pretendard-midium", size: 25))
+                .font(.custom("Pretendard-medium", size: 25))
                 .foregroundColor(.black)
                 .padding(.top, 70)
                 .padding(.leading, 20)
@@ -123,7 +123,7 @@ struct ChatMemberList: View {
                             .font(.system(size: 22))
                             .padding(.leading, 4)
                         Text(member.name)
-                            .font(.custom("Pretendard-midium", size: 18))
+                            .font(.custom("Pretendard-medium", size: 18))
                             .foregroundColor(.black)
                     } else {
                         Text(member.name)
