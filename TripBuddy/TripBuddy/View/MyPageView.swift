@@ -189,12 +189,12 @@ struct MyPageView: View {
                             Trip(region: "경기도", destination: "수원", dateRange: "09.20 ~ 09.25", description: "행궁동 핫플 카페 같이 ㄱㄱ", imageName: "Suwon")
                         ]
                         
-                        VStack(spacing: 10) {
+                        VStack(spacing: 7) {
                             ForEach(trips, id: \.destination) { trip in
                                 TripNavigationView_mypage(trip: trip)
                             }
                         }
-                        .offset(y: -10)
+                        .offset(y: -12)
                     }
                     .padding(20)
                     .padding(.bottom, 20)
