@@ -69,6 +69,7 @@ struct ChatSideBar: View {
             }
         }
         .navigationBarHidden(isSidebarVisible) // 슬라이드가 열렸을 때만 네비게이션 바 숨기기
+        .toolbar(.hidden, for: .tabBar)
     }
 
     private func toggleSidebar() {
