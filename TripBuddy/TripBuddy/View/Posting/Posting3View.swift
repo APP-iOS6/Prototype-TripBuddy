@@ -35,6 +35,7 @@ struct Posting3View: View {
         GeometryReader { proxy in
             ScrollView {
                 VStack(alignment: .leading) {
+                    
                     HStack(alignment: .center) {
                         Text("인당 경비")
                             .font(.custom("Pretendard-medium", size: 17))
@@ -42,6 +43,14 @@ struct Posting3View: View {
                         Spacer()
                         
                         TextField("인당 경비", text: $viewModel.moneyText)
+                            .padding()
+                            .frame(height: proxy.size.width * 0.08)
+                            .frame(maxWidth: proxy.size.width * 0.4)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color(.systemGray3), lineWidth: 0.5)
+                                    .foregroundStyle(.clear)
+                            }
                             .keyboardType(.numberPad) // 숫자 키패드 표시
                             .multilineTextAlignment(.trailing) // 텍스트 오른쪽 정렬
                             .onChange(of: viewModel.moneyText) { _, newValue in
@@ -67,13 +76,14 @@ struct Posting3View: View {
                                     }
                                 }
                             }
-                            .modifier(TextFieldModifier(width: proxy.size.width * 0.4, height: proxy.size.height * 0.05))
+                            
                         
                         Text("원")
                             .font(.custom("Pretendard-regular", size: 17))
                     }
-                    .padding(.bottom, 30)
-                    .padding(.top, 10)
+                    
+                    Spacer()
+                        .frame(height: proxy.size.height * 0.05)
                     
                     Text("동행자 성별")
                         .font(.custom("Pretendard-medium", size: 17))
@@ -84,7 +94,6 @@ struct Posting3View: View {
                         }
                     }
                     .pickerStyle(.segmented)
-    
                     
                     Spacer()
                         .frame(height: proxy.size.height * 0.06)
@@ -162,7 +171,7 @@ struct Posting3View: View {
                     }
                     
                     Spacer()
-                        .frame(height: proxy.size.height * 0.06)
+                        .frame(height: proxy.size.height * 0.02)
                     
                     Button {
                         action()
@@ -180,12 +189,20 @@ struct Posting3View: View {
                         
                     }
                     
+                    if showAllTags {
+                        Spacer()
+                            .frame(height: proxy.size.height * 0.2)
+                    }
+                   
+                    
                 }
                 .padding(.horizontal)
                 .padding(.bottom, proxy.safeAreaInsets.bottom)
             }
         }
         .ignoresSafeArea(edges: .bottom)
+        
+        
     }
     func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
