@@ -84,8 +84,7 @@ struct TextFieldModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding()
-            .frame(height: height)
-            .frame(maxWidth: width)
+            .frame(maxWidth: width, minHeight: height)
             .overlay {
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color(.systemGray3), lineWidth: 0.5)
@@ -129,7 +128,14 @@ struct CustomTextField: View {
                 }
                 
                 TextField("", text: $text)
-                // 입력된 글자 수가 제한을 넘지 않도록
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer() // 오른쪽 정렬을 위해 Spacer 사용
+                            Button("완료") {
+                                hideKeyboard()
+                            }
+                        }
+                    }
                     .onSubmit {
                         hideKeyboard()
                     }
