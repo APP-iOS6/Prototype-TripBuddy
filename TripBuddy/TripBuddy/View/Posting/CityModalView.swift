@@ -95,7 +95,7 @@ struct SearchBar: View {
                         }
                     }
                 }
-            
+             
             if !text.isEmpty {
                 if !text.isEmpty {
                     Button {
