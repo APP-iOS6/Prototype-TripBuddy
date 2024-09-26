@@ -151,7 +151,7 @@ struct MyPageView: View {
                     
                     // 채팅룸
                     let tabs = ["참여 중", "대기 중", "히스토리"]
-                    VStack(alignment: .leading, spacing: 30) {
+                    VStack(alignment: .leading, spacing: 13) {
                         // 탭 버튼
                         HStack {
                             ForEach(Array(tabs.enumerated()), id: \.element) { index, tab in
@@ -167,7 +167,7 @@ struct MyPageView: View {
                                         if selectedTab == index {
                                             Rectangle()
                                                 .fill(Color.black)
-                                                .frame(width: 60, height: 2)
+                                                .frame(width: .infinity, height: 2)
                                                 .matchedGeometryEffect(id: "underline", in: tabAnimation)
                                         } else {
                                             Rectangle()
@@ -189,12 +189,11 @@ struct MyPageView: View {
                             Trip(region: "경기도", destination: "수원", dateRange: "09.20 ~ 09.25", description: "행궁동 핫플 카페 같이 ㄱㄱ", imageName: "Suwon")
                         ]
                         
-                        VStack(spacing: -10) {
+                        VStack(spacing: 13) {
                             ForEach(trips, id: \.destination) { trip in
                                 TripNavigationView_mypage(trip: trip)
                             }
                         }
-                        .offset(y: -20)
                     }
                     .padding(20)
                     .padding(.bottom, 20)
@@ -241,7 +240,6 @@ struct TripNavigationView_mypage: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(height: 70)
                     .cornerRadius(10)
-                    .padding(10)
                 
                 VStack(alignment: .leading, spacing: 10) {
                     HStack {
@@ -249,7 +247,6 @@ struct TripNavigationView_mypage: View {
                             .font(.custom("Pretendard-Bold", size: 17))
                             .fontWeight(.bold)
                             .foregroundColor(.white)
-                            .padding(.leading, 10)
                         
                         Text("- \(trip.destination)")
                             .font(.custom("Pretendard-regular", size: 13))
@@ -260,28 +257,27 @@ struct TripNavigationView_mypage: View {
                             .font(.custom("Pretendard-small", size: 7))
                             .foregroundColor(.white)
                         
-                        Spacer() // Spacer를 추가하여 텍스트와 화살표 사이 공간을 채워줌
+                        Spacer()
                         
                         Image(systemName: "chevron.right")
                             .foregroundColor(.white)
-                            .offset(x: -10, y: 10)
+                            .offset(y: 5)
                     }
+                    .padding(.horizontal, 15)
                     
                     Text(trip.description)
                         .font(.custom("Pretendard-regular", size: 10))
                         .foregroundColor(.white)
-                        .padding(.leading, 10)
-                    
+                        .padding(.horizontal, 15)
                 }
-                .frame(width: 310, height: 70, alignment: .leading)
+                .frame(maxWidth: .infinity, maxHeight: 70)
                 .background(Color.black.opacity(0.4))
                 .cornerRadius(10)
-                .padding(10)
             }
-           
         }
         .cornerRadius(15)
         .shadow(radius: 5)
+        .padding(.horizontal, -1)  // 좌우 패딩 추가
     }
 }
 

@@ -39,10 +39,13 @@ struct DetailMyPageView: View {
             HStack {
                 Image("profileImage")
                     .resizable()
-                    .frame(width: 100, height: 100)
+                    .frame(width: 120, height: 120)
                     .clipShape(Circle())
+                    .offset(x: 10, y: 0)
+                    .padding(30)
                 
-                VStack(alignment: .leading, spacing: 10) {
+
+                VStack(alignment: .leading, spacing: 20) {
                     HStack(alignment: .bottom) {
                         Text("\(viewModel.nickname) 님")
                             .font(.custom("Pretendard-Bold", size: 23))
@@ -50,32 +53,44 @@ struct DetailMyPageView: View {
                         Text("@\(viewModel.instagramId)")
                             .font(.custom("Pretendard-regular", size: 15))
                             .foregroundStyle(.gray)
+                        Spacer()
                     }
                     
-                    HStack {
-                        ProfileView(text: "20대")
-                        ProfileView(text: viewModel.gender == 0 ? "남성" : "여성")
-                        ProfileView(text: "경기도")
+                    VStack(alignment: .leading) {
+                        HStack {
+                            TagView2(text: "20대")
+                            TagView2(text: viewModel.gender == 0 ? "남성" : "여성")
+                        }
+                        HStack {
+                            TagView2(text: "경기도")
+                            TagView2(text: "INTP")
+                        }
                     }
                 }
             }
             
-            // Buddy Temperature
+            // 버디온도
             VStack(alignment: .leading) {
-                HStack {
+
+                HStack(alignment: .bottom) {
+
                     Text("나의 버디 온도")
                         .font(.custom("Pretendard-regular", size: 15))
                     
                     Spacer()
                     
-                    Text("\(viewModel.buddyTemperature, specifier: "%.1f")")
+
+                    Text("\(viewModel.buddyTemperature, specifier: "%.1f")°C")
                         .font(.custom("Pretendard-regular", size: 13))
                         .foregroundStyle(.basic)
                 }
-                ProgressView(value: viewModel.buddyTemperature, total: 100)
-                    .accentColor(.basic)
                 
+                ProgressView(value: viewModel.buddyTemperature, total: 140)
+                    .accentColor(.basic)
+
             }
+            .padding(.top, -10)
+                
             
             // Introduction
             Text(viewModel.introduction.isEmpty ? "자기소개를 입력하고 나만의 동행자를 찾아보세요!" : viewModel.introduction)
@@ -85,6 +100,7 @@ struct DetailMyPageView: View {
                 .frame(maxWidth: .infinity)
                 .background(Color(.systemGray6))
                 .cornerRadius(10)
+                .padding(.top, -10)
             
             // Likes and Dislikes
             HStack(alignment: .top) {
@@ -105,6 +121,13 @@ struct DetailMyPageView: View {
                 
                 Spacer()
                 
+                Rectangle()
+                    .frame(width: 1, height: 50)
+                    .foregroundColor(.gray)
+                    .offset(x: -33)
+                
+                Spacer()
+                
                 VStack(alignment: .leading) {
                     Text("싫어요")
                         .font(.custom("Pretendard-Medium", size: 16))
@@ -119,16 +142,19 @@ struct DetailMyPageView: View {
                         }
                     }
                 }
+                .offset(x: -73)
             }
             .padding()
             .background(Color(.systemGray6))
             .cornerRadius(12)
+            .padding(.top, -10)
             
             Spacer()
         }
         .padding()
     }
 }
+
 
 struct ProfileView: View {
     let text: String
@@ -143,6 +169,7 @@ struct ProfileView: View {
             .cornerRadius(15)
     }
 }
+
 
 #Preview {
     DetailMyPageView(viewModel: DetailMyPageViewModel())
