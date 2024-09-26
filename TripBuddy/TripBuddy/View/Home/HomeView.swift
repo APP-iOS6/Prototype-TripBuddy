@@ -16,7 +16,6 @@ struct HomeView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading) {
-                    
                     HStack {
                         //홈뷰 서치바
                        SearchBar(text: $query)
@@ -250,6 +249,17 @@ struct HomeView: View {
                     }
                 }
                 .tint(.gray) // 네비게이션 아이템 색상 회색 설정
+            }
+            //여기로 변경
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer() // 오른쪽 정렬을 위해 Spacer 사용
+                    Button {
+                        hideKeyboard()
+                    } label: {
+                        Image(systemName: "keyboard.chevron.compact.down")
+                    }
+                }
             }
         }
         // 검색어에 맞게 필터링된 포스트 배열
