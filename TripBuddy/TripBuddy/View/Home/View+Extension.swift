@@ -49,16 +49,12 @@ struct TravelPostModifier: ViewModifier {
 
 // ViewModifier를 간편하게 적용하는 함수 추가
 extension View {
-    func travelPostButton(title: String,
-                          content: String,
-                          dateRange: String,
-                          tags: [String],
-                          action: @escaping () -> Void) -> some View {
+    func travelPostButton(post: TravelPost, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            self.modifier(TravelPostModifier(title: title,
-                                             content: content,
-                                             dateRange: dateRange,
-                                             tags: tags))
+            self.modifier(TravelPostModifier(title: post.title,
+                                             content: post.content,
+                                             dateRange: post.dateRange,
+                                             tags: post.tags))
         }
         .buttonStyle(PlainButtonStyle()) // 기본 버튼 스타일 제거
     }

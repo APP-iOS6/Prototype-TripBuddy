@@ -6,12 +6,17 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FB47AB7F2CA4252700699CC5 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = FB47AB7E2CA4252700699CC5 /* JTAppleCalendar */; };
+		FB47AB822CA4272F00699CC5 /* HorizonCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = FB47AB812CA4272F00699CC5 /* HorizonCalendar */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		FB712C482CA23E0400880AF5 /* TripBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		97F097182CA251250096EEA3 /* Exceptions for "TripBuddy" folder in "TripBuddy" target */ = {
+		FB47ACCC2CA43CC400699CC5 /* Exceptions for "TripBuddy" folder in "TripBuddy" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -24,7 +29,7 @@
 		FB712C4A2CA23E0400880AF5 /* TripBuddy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				97F097182CA251250096EEA3 /* Exceptions for "TripBuddy" folder in "TripBuddy" target */,
+				FB47ACCC2CA43CC400699CC5 /* Exceptions for "TripBuddy" folder in "TripBuddy" target */,
 			);
 			path = TripBuddy;
 			sourceTree = "<group>";
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB47AB822CA4272F00699CC5 /* HorizonCalendar in Frameworks */,
+				FB47AB7F2CA4252700699CC5 /* JTAppleCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = TripBuddy;
 			packageProductDependencies = (
+				FB47AB7E2CA4252700699CC5 /* JTAppleCalendar */,
+				FB47AB812CA4272F00699CC5 /* HorizonCalendar */,
 			);
 			productName = TripBuddy;
 			productReference = FB712C482CA23E0400880AF5 /* TripBuddy.app */;
@@ -107,6 +116,10 @@
 			);
 			mainGroup = FB712C3F2CA23E0400880AF5;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FB47AB7D2CA4252700699CC5 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */,
+				FB47AB802CA4272F00699CC5 /* XCRemoteSwiftPackageReference "HorizonCalendar" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FB712C492CA23E0400880AF5 /* Products */;
 			projectDirPath = "";
@@ -265,7 +278,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TripBuddy/Preview Content\"";
-				DEVELOPMENT_TEAM = 92U58L5CU9;
+				DEVELOPMENT_TEAM = 6R3M7VGRP2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TripBuddy/Info.plist;
@@ -279,7 +292,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = techit.tripbuddy.TripBuddy;
+				PRODUCT_BUNDLE_IDENTIFIER = net.techit.tripbuddy.TripBuddy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -295,7 +308,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TripBuddy/Preview Content\"";
-				DEVELOPMENT_TEAM = 92U58L5CU9;
+				DEVELOPMENT_TEAM = 6R3M7VGRP2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TripBuddy/Info.plist;
@@ -309,7 +322,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = techit.tripbuddy.TripBuddy;
+				PRODUCT_BUNDLE_IDENTIFIER = net.techit.tripbuddy.TripBuddy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -339,6 +352,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FB47AB7D2CA4252700699CC5 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/patchthecode/JTAppleCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.5;
+			};
+		};
+		FB47AB802CA4272F00699CC5 /* XCRemoteSwiftPackageReference "HorizonCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/HorizonCalendar";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FB47AB7E2CA4252700699CC5 /* JTAppleCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB47AB7D2CA4252700699CC5 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */;
+			productName = JTAppleCalendar;
+		};
+		FB47AB812CA4272F00699CC5 /* HorizonCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB47AB802CA4272F00699CC5 /* XCRemoteSwiftPackageReference "HorizonCalendar" */;
+			productName = HorizonCalendar;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FB712C402CA23E0400880AF5 /* Project object */;
 }

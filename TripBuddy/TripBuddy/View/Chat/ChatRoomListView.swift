@@ -27,33 +27,33 @@ struct ChatRoomListView: View {
                         VStack(alignment: .leading) {
                             HStack {
                                 TagsView(text: chatRoom.area, isBool: true)
-                                    .font(.system(size: 10))
-                                    .font(.subheadline)
+                                    .font(.custom("Pretendard-Light", size: 12))
                                     .foregroundColor(.gray)
                                 
                                 Text(chatRoom.tripName)
-                                    .font(.headline)
                                     .padding(.vertical, 5)
+                                    .font(.custom("Pretendard-SemiBold", size: 16))
                                 
                                 Text("\(chatRoom.memberCount)")
-                                    .font(.system(size: 12))
-                                    .font(.subheadline)
+                                    .font(.custom("Pretendard-Light", size: 12))
                                     .foregroundColor(.gray)
                                 
                                 Spacer()
                                 
                                 Text(chatRoom.timestamp)
-                                    .font(.subheadline)
+                                    .font(.custom("Pretendard-Light", size: 11))
                                     .foregroundColor(.gray)
                             }
+                            
                             HStack {
                                 Text(chatRoom.lastMessage)
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
+                                    .font(.custom("Pretendard-Light", size: 16))
+                                    .foregroundColor(Color(.darkGray))
+                                
                                 Spacer()
                                 
-                                TagsView(text: chatRoom.timestamp, isBool: false)
-                                    .font(.system(size: 10))
+                                TagsView(text: chatRoom.chatCount, isBool: false)
+                                    .font(.system(size: 11))
                             }
                         }
                     }
@@ -83,8 +83,8 @@ struct TagsView: View {
         Text(text)
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
-            .background(isBool ? Color.gray.opacity(0.1) : Color.red)
-            .foregroundColor(isBool ? .black : .white)
+            .background(isBool ? Color(.systemGray6) : .chatAlarm)
+            .foregroundColor(isBool ? Color(.darkGray) : .white)
             .cornerRadius(15)
     }
 }

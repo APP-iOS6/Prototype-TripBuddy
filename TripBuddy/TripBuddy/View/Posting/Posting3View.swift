@@ -22,139 +22,207 @@ struct Posting3View: View {
     @State private var age: [String] = ["무관", "10대","20대", "30대", "40대", "50대", "60대", "70대"]
     @EnvironmentObject private var viewModel: PostingViewModel
     
+    @FocusState var isFocus: Bool
     @State private var showAllTags = false  // 더보기/접기 상태 관리
+    @State private var isKeyboardVisible: Bool = false // 키보드 표시 상태 추적    private var action: () -> Void
+    
+    private var action: () -> Void
+    init(action: @escaping () -> Void ) {
+        self.action = action
+    }
     
     var body: some View {
         GeometryReader { proxy in
-            VStack(alignment: .leading) {
-                
-                HStack(alignment: .center) {
-                    Text("인당 경비")
-                        .font(.custom("Pretendard-medium", size: 17))
+            ScrollView {
+                VStack(alignment: .leading) {
+                    
+                    HStack(alignment: .center) {
+                        Text("인당 경비")
+                            .font(.custom("Pretendard-medium", size: 17))
+                        
+                        Spacer()
+                        
+                        TextField("인당 경비", text: $viewModel.moneyText)
+                            .padding()
+                            .frame(height: proxy.size.width * 0.08)
+                            .frame(maxWidth: proxy.size.width * 0.4)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color(.systemGray3), lineWidth: 0.5)
+                                    .foregroundStyle(.clear)
+                            }
+                            .keyboardType(.numberPad) // 숫자 키패드 표시
+                            .multilineTextAlignment(.trailing) // 텍스트 오른쪽 정렬
+                            .onChange(of: viewModel.moneyText) { _, newValue in
+                                let filtered = newValue.filter { "0123456789".contains($0) }
+                                
+                                // 필터링된 값이 기존 값과 다를 경우 업데이트
+                                if filtered != newValue {
+                                    viewModel.moneyText = filtered
+                                }
+                                
+                                // 숫자 형식으로 포맷팅
+                                if let number = Int(filtered) {
+                                    viewModel.moneyText = formatNumber(number)
+                                } else {
+                                    viewModel.moneyText = ""
+                                }
+                            }
+                            .toolbar {
+                                ToolbarItemGroup(placement: .keyboard) {
+                                    Spacer() // 오른쪽 정렬을 위해 Spacer 사용
+                                    Button {
+                                        hideKeyboard()
+                                    } label: {
+                                        Image(systemName: "keyboard.chevron.compact.down")
+
+                                    }
+                                }
+                            }
+                            
+                        
+                        Text("원")
+                            .font(.custom("Pretendard-regular", size: 17))
+                    }
                     
                     Spacer()
+                        .frame(height: proxy.size.height * 0.05)
                     
-                    TextField("인당 경비", text: $viewModel.moneyText)
-                        .keyboardType(.numberPad) // 숫자 키패드 표시
-                        .onChange(of: viewModel.moneyText) { _, newValue in
-                            // 숫자가 아닌 문자를 제거
-                            let filtered = newValue.filter { "0123456789".contains($0) }
-                            if filtered != newValue {
-                                viewModel.moneyText = filtered
+                    Text("동행자 성별")
+                        .font(.custom("Pretendard-medium", size: 17))
+                    
+                    Picker("성별", selection: $viewModel.selectedPerson) {
+                        ForEach(Person.allCases, id: \.self) { person in
+                            Text(person.rawValue).tag(person)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    
+                    Spacer()
+                        .frame(height: proxy.size.height * 0.06)
+                    
+                    Text("동행자 나이대")
+                        .font(.custom("Pretendard-medium", size: 17))
+                    
+                    FlowLayout {
+                        ForEach(age, id: \.self) { age in
+                            let selected = viewModel.selectedAge.contains(where: { $0 == age })
+                            Button {
+                                viewModel.ageTapped(age)
+                            } label : {
+                                Text(age)
+                                    .font(.custom("Pretendard-regular", size: 16))
+                                    .padding(.horizontal, 15)
+                                    .padding(.vertical, 6)
+                                    .background(selected ? .customgreen : Color(.systemGray6))
+                                    .foregroundColor(selected ? .white : Color(UIColor.darkGray))
+                                    .clipShape(RoundedRectangle(cornerRadius: 18))
+                                    .padding(.trailing, 10)
+                                    .padding(.bottom, 10)
                             }
                         }
-                        .modifier(TextFieldModifier(width: proxy.size.width * 0.4, height: proxy.size.height * 0.05))
-                    
-                    Text("원")
-                        .font(.custom("Pretendard-regular", size: 17))
-                }
-                
-                Spacer()
-                    .frame(maxHeight: proxy.size.height * 0.06)
-                
-                Text("동행자 성별")
-                    .font(.custom("Pretendard-medium", size: 17))
-                
-                Picker("성별", selection: $viewModel.selectedPerson) {
-                    ForEach(Person.allCases, id: \.self) { person in
-                        Text(person.rawValue).tag(person)
-                    }
-                }
-                .pickerStyle(.segmented)
-                
-                Spacer()
-                    .frame(maxHeight: proxy.size.height * 0.06)
-                
-                Text("동행자 나이대")
-                    .font(.custom("Pretendard-medium", size: 17))
-                
-                FlowLayout {
-                    ForEach(age, id: \.self) { age in
-                        let selected = viewModel.selectedAge.contains(where: { $0 == age })
-                        Button {
-                            viewModel.ageTapped(age)
-                        } label : {
-                            Text(age)
-                                .font(.custom("Pretendard-regular", size: 17))
-                                .padding(.horizontal, 15)
-                                .padding(.vertical, 6)
-                                .background(selected ? .customgreen : Color(.systemGray6))
-                                .foregroundColor(selected ? .white : Color(UIColor.darkGray))
-                                .clipShape(RoundedRectangle(cornerRadius: 18))
-                                .padding(.trailing, 10)
-                                .padding(.bottom, 10)
-                        }
-                    }
-                }
-                
-                Spacer()
-                    .frame(maxHeight: proxy.size.height * 0.06)
-                
-                Text("여행 성향")
-                    .font(.custom("Pretendard-medium", size: 17))
-                
-                // 성향 태그 (더보기/접기 로직 포함)
-                FlowLayout {
-                    let visibleTags = showAllTags ? tag : Array(tag.prefix(7)) // 시골까지 보이도록 제한
-                    ForEach(visibleTags, id: \.self) { tag in
-                        let selected = viewModel.selectedTag.contains(where: { $0 == tag })
-                        Button {
-                            viewModel.tagTapped(tag)
-                        } label : {
-                            Text(tag)
-                                .font(.custom("Pretendard-regular", size: 17))
-                                .padding(.horizontal, 15)
-                                .padding(.vertical, 6)
-                                .background(selected ? .customgreen : Color(.systemGray6))
-                                .foregroundColor(selected ? .white : Color(UIColor.darkGray))
-                                .clipShape(RoundedRectangle(cornerRadius: 18))
-                                .padding(.trailing, 10)
-                                .padding(.bottom, 10)
-                        }
                     }
                     
-                }
-                
-                // 더보기/접기 버튼
-                Button {
-                    withAnimation(nil) { // 애니메이션 없이 상태 변경
-                        showAllTags.toggle()
+                    Spacer()
+                        .frame(height: proxy.size.height * 0.06)
+                    
+                    Text("여행 성향")
+                        .font(.custom("Pretendard-medium", size: 17))
+                    
+                    // 성향 태그 (더보기/접기 로직 포함)
+                    FlowLayout {
+                        let visibleTags = showAllTags ? tag : Array(tag.prefix(8)) // 시골까지 보이도록 제한
+                        ForEach(visibleTags, id: \.self) { tag in
+                            let selected = viewModel.selectedTag.contains(where: { $0 == tag })
+                            Button {
+                                viewModel.tagTapped(tag)
+                            } label : {
+                                Text(tag)
+                                    .font(.custom("Pretendard-regular", size: 16))
+                                    .padding(.horizontal, 15)
+                                    .padding(.vertical, 6)
+                                    .background(selected ? .customgreen : Color(.systemGray6))
+                                    .foregroundColor(selected ? .white : Color(UIColor.darkGray))
+                                    .clipShape(RoundedRectangle(cornerRadius: 18))
+                                    .padding(.trailing, 10)
+                                    .padding(.bottom, 10)
+                            }
+                        }
+                        
                     }
-                } label: {
-                    Label(showAllTags ? "접기" : "더보기", systemImage: showAllTags ? "chevron.up" : "chevron.down")
-                        .font(.custom("Pretendard-regular", size: 14))
-                        .foregroundStyle(.basic)
+                    
+                    // 더보기/접기 버튼
+                    Button {
+                        withAnimation() { // 애니메이션 없이 상태 변경
+                            showAllTags.toggle()
+                        }
+                    } label: {
+                        Label(showAllTags ? "접기" : "더보기", systemImage: showAllTags ? "chevron.up" : "chevron.down")
+                            .font(.custom("Pretendard-regular", size: 14))
+                            .foregroundStyle(.basic)
+                    }
+                    .padding(.leading, 1)
+                    
+                    Spacer()
+                        .frame(height: proxy.size.height * 0.06)
+                    
+                    Button {
+                        action()
+                    } label: {
+                        Text("다음")
+                            .modifier(ButtonModifier(color: .basic, disabled: viewModel.moneyText.isEmpty || viewModel.selectedTag.isEmpty || viewModel.selectedAge.isEmpty))
+                    }
+                    
+                    Spacer()
+                        .frame(height: proxy.size.height * 0.02)
+                    
+                    Button {
+                        action()
+                    } label: {
+                        Text("생략")
+                            .padding()
+                            .bold()
+                            .foregroundStyle(.basic)
+                            .frame(maxWidth: .infinity)
+                            .background(.white)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .stroke(.basic, lineWidth: 1)
+                            )
+                        
+                    }
+                    
+                    if showAllTags {
+                        Spacer()
+                            .frame(height: proxy.size.height * 0.2)
+                    }
+                   
+                    
                 }
-                .padding(.leading, 1)
-                
-                Spacer()
-                    .frame(maxHeight: proxy.size.height * 0.06)
-                
-                Button {
-                    dismiss()
-                } label: {
-                    Text("다음")
-                        .modifier(ButtonModifier(color: .basic, disabled: viewModel.moneyText.isEmpty || viewModel.selectedTag.isEmpty || viewModel.selectedAge.isEmpty))
-                }
-                
-                Spacer()
-                    .frame(maxHeight: proxy.size.height * 0.02)
-                
-                Button {
-                    dismiss()
-                } label: {
-                    Text("생략")
-                        .modifier(ButtonModifier(color: .basic, disabled: false))
-                }
+                .padding(.horizontal)
+                .padding(.bottom, proxy.safeAreaInsets.bottom)
             }
-            .padding(.horizontal, proxy.size.width * 0.07)
         }
+        .ignoresSafeArea(edges: .bottom)
+        
+        
+    }
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    func formatNumber(_ number: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.locale = Locale(identifier: "ko_KR") // 한국어 로케일 설정
+        return formatter.string(from: NSNumber(value: number)) ?? ""
     }
 }
 
 
 #Preview {
-    Posting3View()
-        .environmentObject(PostingViewModel())
+    Posting3View() {
+        
+    }
+    .environmentObject(PostingViewModel())
     
 }

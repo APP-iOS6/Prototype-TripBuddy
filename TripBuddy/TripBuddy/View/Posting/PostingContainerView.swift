@@ -19,6 +19,13 @@ struct PostingContainerView: View {
     @StateObject private var viewModel: PostingViewModel = .init()
     @Environment(\.dismiss) private var dismiss
     
+    private var cancel: () -> Void
+    private var posting: () -> Void
+    
+    init(cancel: @escaping () -> Void, posting: @escaping () -> Void) {
+        self.cancel = cancel
+        self.posting = posting
+    }
     
     var body: some View {
         VStack {
@@ -27,7 +34,7 @@ struct PostingContainerView: View {
                     Button {
                         handleback()
                     } label: {
-                        Image(systemName: "arrow.backward")
+                        Image(systemName: "chevron.left")
                             .tint(.primary)
                     }
                 } else {
@@ -66,14 +73,18 @@ struct PostingContainerView: View {
                     Posting2View()
                         .transition(.opacity)
                 case .option:
-                    Posting3View()
+                    Posting3View() {
+                        viewModel.reset()
+                        posting()
+                    }
                 }
             }.environmentObject(viewModel)
         }
-        .alert("동행 모집을 취소하시겟습니까?", isPresented: $viewModel.isVisibleAlert) {
-            Button("아니요", role: .cancel) {}
-            Button("예", role: .destructive) {
-                dismiss()
+        .alert("작성 중인 내용은 모두 사라집니다", isPresented: $viewModel.isVisibleAlert) {
+            Button("취소", role: .cancel) {}
+            Button("삭제", role: .destructive) {
+                viewModel.reset()
+                cancel()
             }
         }
         .animation(.smooth, value: viewModel.step)
@@ -83,7 +94,7 @@ struct PostingContainerView: View {
         switch viewModel.step {
         case .date:
             if viewModel.selectedCity.isEmpty {
-                dismiss()
+                cancel()
             } else {
                 viewModel.isVisibleAlert.toggle()
             }
@@ -94,8 +105,14 @@ struct PostingContainerView: View {
         }
     }
 }
-        
+
 #Preview {
-    PostingContainerView()
+    NavigationStack {
+        PostingContainerView() {
+        } posting: {
+            
+        }
         .environmentObject(PostingViewModel())
+        
+    }
 }

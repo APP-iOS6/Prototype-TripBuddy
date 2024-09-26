@@ -14,6 +14,8 @@ struct ChatRoomDetailView: View {
     @State private var messages: [String] = []
     @State private var isSidebarVisible: Bool = false // 사이드바 상태 관리
     
+    @Environment(\.presentationMode) var presentationMode // 뒤로 가기 버튼을 위해 추가
+    
     var body: some View {
         ZStack {
             NavigationStack {
@@ -36,46 +38,61 @@ struct ChatRoomDetailView: View {
                     Spacer()
                     
                     HStack {
-                        TextField("메시지를 입력하세요...", text: $newMessage)
+                        TextField("메시지를 입력해주세요...", text: $newMessage)
                             .padding(10)
                             .background(Color.gray.opacity(0.1))
-                            .cornerRadius(0)
-                            .font(.system(size: 18))
+                            .cornerRadius(10)
+                            .font(.custom("Pretendard-Light", size: 16))
                             .frame(height: 50)
+                            .padding(.leading, 30)
                         
                         Button(action: sendMessage) {
-                            Text("전송")
-                                .frame(width: 45, height: 45)
+                            Image(systemName: "arrow.up")
+                                .font(.custom("Pretendard-Bold", size: 19))
+                                .frame(width: 40, height: 40)
                                 .background(Color.orange)
                                 .foregroundStyle(.white)
-                                .cornerRadius(10)
-                                .padding(.horizontal)
+                                .clipShape(Circle())
+                                .padding(.trailing, 20)
                         }
                         .disabled(newMessage.isEmpty) // 입력이 없으면 버튼 비활성화
                     }
-                    .padding(.horizontal)
-                    
+                    .padding(.bottom, 20)
+                
                 }
                 .navigationTitle(chatRoom.tripName)
                 .navigationBarTitleDisplayMode(.inline)
+                .navigationBarBackButtonHidden(true)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Image(systemName: "chevron.left")
+                                .foregroundStyle(.tint)
+                                .font(.title3)
+                        }
+                    }
+                }
                 
             }
             
             // 사이드바 추가
             ChatSideBar(isSidebarVisible: $isSidebarVisible)
-                .animation(.easeInOut, value: isSidebarVisible) // 애니메이션 추가
+                .animation(.easeInOut, value: isSidebarVisible) 
         }
         .gesture(
-            // 사이드바를 여는 제스처 추가
-            DragGesture()
-                .onChanged { value in
-                    if value.translation.width > 100 {
-                        withAnimation {
-                            isSidebarVisible = true
-                        }
-                    }
+            // 화면을 터치했을 때 키보드를 내리는 제스처 추가
+            TapGesture()
+                .onEnded {
+                    hideKeyboard()
                 }
         )
+    }
+    
+    // 키보드 숨기기
+    private func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
     // 메시지 전송
@@ -86,6 +103,7 @@ struct ChatRoomDetailView: View {
         }
     }
 }
+
 
 #Preview {
     ChatRoomDetailView(chatRoom: ChatRoom(name: "농담곰", imageName: "JokeBear", tripName: "부산", memberCount: 5, lastMessage: "저녁 먹었니?", timestamp: "8:15", area: "지구", chatCount: "100+"))
@@ -113,9 +131,12 @@ struct profileView: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 
-                messageView(text: "프로젝트 힘내야해")
-                messageView(text: "배고프다")
-                messageView(text: messages)
+                messageView(text: "프로젝트 힘내야해", isColor: true)
+                    .font(.custom("Pretendard-Light", size: 17))
+                messageView(text: "배고프다", isColor: true)
+                    .font(.custom("Pretendard-Light", size: 17))
+                messageView(text: messages, isColor: true)
+                    .font(.custom("Pretendard-Light", size: 17))
             }
         }
         .padding(.vertical, 10) // 전체 프로필 뷰에 수직 패딩 추가
@@ -141,7 +162,8 @@ struct meView: View {
                 ForEach(messages, id: \.self) { message in
                     HStack {
                         Spacer()
-                        messageView(text: message)
+                        messageView(text: message, isColor: false)
+                            .font(.custom("Pretendard-Light", size: 17))
                     }
                 }
             }
@@ -161,21 +183,22 @@ struct meView: View {
 // 메세지 모양
 struct messageView: View {
     let text: String
+    let isColor: Bool
     
     var body: some View {
         Text(text)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 5)
-            .background(Color.gray.opacity(0.2))
-            .foregroundColor(.black)
-            .cornerRadius(15)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(isColor ? Color(.systemGray6) : .basic)
+            .foregroundColor(isColor ? .black : .white)
+            .cornerRadius(18)
     }
 }
 
 // 상단바 여행지 상세 정보 이동
 struct TripNavigationView: View {
     var body: some View {
-        NavigationLink(destination: TripDetailView()) {
+        NavigationLink(destination: DetailScheduleView()) {
             ZStack {
                 Image("Busan") // 배경 이미지
                     .resizable()
@@ -184,44 +207,48 @@ struct TripNavigationView: View {
                     .cornerRadius(10)
                     .padding(10)
                 
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack {
-                        Text("경상북도")
-                            .font(.title)
-                            .fontWeight(.bold)
+                HStack {
+                    VStack(alignment: .leading, spacing: 10) {
+                        HStack(alignment: .bottom) {
+                            Text("경상북도")
+                                .font(.custom("Pretendard-Bold", size: 24))
+                                .foregroundColor(.white)
+                                .padding(.leading, 10)
+                            
+                            Text("부산")
+                                .font(.custom("Pretendard-Bold", size: 20))
+                                .foregroundColor(.white)
+                        }
+                        Text("Busan is Good")
+                            .font(.custom("Pretendard-Medium", size: 16))
                             .foregroundColor(.white)
                             .padding(.leading, 10)
                         
-                        Text("부산")
-                            .font(.title3)
-                            .fontWeight(.bold)
+                        Text("09.10 ~ 09.27")
+                            .font(.custom("Pretendard-Medium", size: 14))
                             .foregroundColor(.white)
+                            .padding(.leading, 10)
                     }
-                    Text("부산의 대한 설명")
-                        .font(.subheadline)
-                        .foregroundColor(.white)
-                        .padding(.leading, 10)
+                    .frame(width: 380, height: 120, alignment: .leading)
+                    .background(Color.black.opacity(0.4))
+                    .cornerRadius(10)
+                    .padding(10)
                     
-                    Text("09.10 ~ 09.27")
-                        .font(.subheadline)
-                        .foregroundColor(.white)
-                        .padding(.leading, 10)
                 }
-                .frame(width: 380, height: 120, alignment: .leading)
-                .background(Color.black.opacity(0.4))
-                .cornerRadius(10)
-                .padding(10)
+                
+            }
+            .overlay(alignment: .trailing) {
+                Image(systemName: "chevron.right")
+                    .font(.custom("Pretendard-regular", size: 40))
+                    .padding(.trailing, 10)
+                    .foregroundStyle(.white.opacity(0.7))
+                    .padding()
             }
         }
         .cornerRadius(10)
         .shadow(radius: 5)
+        
     }
 }
 
-// 여행지 임시 뷰
-struct TripDetailView: View {
-    var body: some View {
-        Text("여행지 상세 정보")
-            .font(.largeTitle)
-    }
-}
+

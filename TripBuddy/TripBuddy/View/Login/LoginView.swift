@@ -69,9 +69,6 @@ struct LoginView: View {
                     }
                 }
             }
-            .navigationDestination(isPresented: $navigateToHome, destination: {
-                MainTabBar()
-            })
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         

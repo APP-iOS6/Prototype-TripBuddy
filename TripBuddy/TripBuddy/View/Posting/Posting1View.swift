@@ -6,12 +6,19 @@
 //
 
 import SwiftUI
+import HorizonCalendar
+import UIKit
 
 struct Posting1View: View {
     
     @EnvironmentObject private var viewModel: PostingViewModel
     @State private var isShowCityModal: Bool = false
+    
+    
+    
+    
     var body: some View {
+      
         GeometryReader { proxy in
             VStack(alignment: .leading) {
                 Text("여행 일정을 선택해 주세요")
@@ -35,28 +42,46 @@ struct Posting1View: View {
                     Text(viewModel.selectedCity.isEmpty ? "도시를 선택해 주세요" : viewModel.selectedCity)
                         .modifier(ModalButtonModifier(selected: !viewModel.selectedCity.isEmpty))
                         .font(.custom("Pretendard-regular", size: 18))
-                        
+                    
                 }
                 
                 Spacer()
                     .frame(maxHeight: proxy.size.height * 0.08)
                 
                 HStack(alignment: .top) {
-                Text("날짜")
-                    .font(.custom("Pretendard-medium", size: 17))
-                    .padding(.bottom, -12)
-                
+                    Text("날짜")
+                        .font(.custom("Pretendard-medium", size: 17))
+                        .padding(.bottom, -12)
+                    
                     Text("*")
                         .foregroundStyle(.red)
                 }
                 
-                DatePicker(
-                    "날짜",
-                    selection: $viewModel.date,
-                    displayedComponents: [.date]
-                )
-                .tint(.basic)
-                .datePickerStyle(.graphical)
+                HStack {
+                    DatePicker(
+                        "",
+                        selection: $viewModel.startDate,
+                        displayedComponents: [.date]
+                    )
+                    .tint(.basic)
+                    .datePickerStyle(.compact)
+                    
+                    Text("   ~")
+                        .font(.custom("Pretendard-medium", size: 20))
+                    
+                    DatePicker(
+                        "",
+                        selection: $viewModel.endDate,
+                        displayedComponents: [.date]
+                    )
+                    .tint(.basic)
+                    .datePickerStyle(.compact)
+                    
+                    Spacer()
+                        .frame(maxWidth: proxy.size.width * 0.05)
+                }
+                
+                
                 
                 Spacer()
                     .frame(maxHeight: proxy.size.height * 0.03)
@@ -69,7 +94,6 @@ struct Posting1View: View {
                         .font(.custom("Pretendard-regular", size: 18))
                 }
                 .disabled(viewModel.selectedCity.isEmpty)
-                
             }
             .sheet(isPresented: $isShowCityModal, content: {
                 CityModalView() { city in
@@ -121,3 +145,6 @@ struct ModalButtonModifier: ViewModifier {
             .environmentObject(PostingViewModel())
     }
 }
+
+
+
