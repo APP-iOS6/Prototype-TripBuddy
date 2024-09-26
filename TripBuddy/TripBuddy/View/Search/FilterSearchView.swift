@@ -41,77 +41,32 @@ struct FilterSearchView: View {
                         
                         // 도시 필터에 따라 관련된 버튼만 보여줌
                         if shouldShowPost(for: "안동") {
-                            travelPostButton(
-                                title: "한옥에서 옥캉스 하실 분",
-                                content: """
-                                        요즘 옥캉스가 유행한다고 하던데
-                                        안동 쪽에서 한옥 스테이 같이 하실 분 구합니다.
-                                        어쩌구 저쩌구
-                                        """,
-                                dateRange: "9. 24 ~ 09. 27",
-                                tags: ["20대", "남성"]
-                            ) {
-                                navigaToDetail.toggle()
+                            ForEach(posts.filter { post in
+                                post.title.contains("안동") || post.content.contains("안동")
+                            }) { post in
+                                travelPostButton(post: post) {
+                                    navigaToDetail.toggle()
+                                }
                             }
                         }
                         
                         if shouldShowPost(for: "경주") {
-                            travelPostButton(
-                                title: "경주에서 같이 한복 입고 사진 찍을 사람?",
-                                content: """
-                                        안녕하세용 🙂
-                                        경주 황리단길에서 한복 체험 같이 하실 분 구해봐요!
-                                        어쩌구 저쩌구
-                                        """,
-                                dateRange: "10. 01 ~ 10. 05",
-                                tags: ["20대", "여성"]
-                            ) {
-                                navigaToDetail.toggle()
+                            ForEach(posts.filter { post in
+                                post.title.contains("경주") || post.content.contains("경주")
+                            }) { post in
+                                travelPostButton(post: post) {
+                                    navigaToDetail.toggle()
+                                }
                             }
                         }
-                        
-                        if shouldShowPost(for: "경주") {
-                            travelPostButton(
-                                title: "경주에서 같이 한복 입고 사진 찍을 사람?",
-                                content: """
-                                        안녕하세용 🙂
-                                        경주 황리단길에서 한복 체험 같이 하실 분 구해봐요!
-                                        어쩌구 저쩌구
-                                        """,
-                                dateRange: "10. 01 ~ 10. 05",
-                                tags: ["20대", "여성"]
-                            ) {
-                                navigaToDetail.toggle()
-                            }
-                        }
-                        
+
                         if shouldShowPost(for: "서울") {
-                            travelPostButton(
-                                title: "북촌 한옥마을 가실 분!",
-                                content: """
-                                        북촌 한옥마을에서 같이 노실 분 있나요?
-                                        락고재라고 괜찮은 곳이 있네요
-                                        어쩌구 저쩌꾸
-                                        """,
-                                dateRange: "10. 20",
-                                tags: ["20대", "성별 무관"]
-                            ) {
-                                navigaToDetail.toggle()
-                            }
-                        }
-                        
-                        if shouldShowPost(for: "서울") {
-                            travelPostButton(
-                                title: "북촌 한옥마을 가실 분!",
-                                content: """
-                                        북촌 한옥마을에서 같이 노실 분 있나요?
-                                        락고재라고 괜찮은 곳이 있네요
-                                        어쩌구 저쩌꾸
-                                        """,
-                                dateRange: "10. 20",
-                                tags: ["20대", "성별 무관"]
-                            ) {
-                                navigaToDetail.toggle()
+                            ForEach(posts.filter { post in
+                                post.title.contains("북촌") || post.content.contains("북촌")
+                            }) { post in
+                                travelPostButton(post: post) {
+                                    navigaToDetail.toggle()
+                                }
                             }
                         }
                     }
